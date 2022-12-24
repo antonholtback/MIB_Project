@@ -49,9 +49,10 @@ public class MIB_Project {
     /**
      * @param args the command line arguments
      */
+    //Koden för att logga in till databasen. Körs direkt per auto (riktiga mainen).
     public static void main(String[] args) throws InfException {
         // TODO code application logic here
-        //Koden för att logga in till databasen. Körs direkt per auto.
+        
         try 
         {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
@@ -60,19 +61,27 @@ public class MIB_Project {
         {
             Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Om try-catchen funkar och vi loggas in på oru databasen så öppnar våran riktiga main våran "fake"-main MIB_Project.
         new MIB_Project();
+        
     }
+    
+    //Våran "fake"-main. Det som körs när vi loggats in på oru databas tack vare metodanropet i slutet på riktiga mainen.
     public MIB_Project()
     {
         passwordWindow();
         createFont();
     }
     
+    //Här kan vi skapa en metod vi åkallar när vi vill att ett fönster ska stängas utan att behöva klicka på krysset i programmfönstret.
     public void closeWindow()
     {
         
 
     }
+    
+    //Här har vi en metod för att skapa typsnitt som används i programmet. Dessa deklareras som fält längst upp i MIB_Project-classen.
     public void createFont() 
     {
         fontHeadliner = new Font("Papyrus",Font.LAYOUT_NO_START_CONTEXT, 45);
@@ -176,12 +185,13 @@ public class MIB_Project {
         success.setBounds(10,110,300,25);
         panel.add(success);
         
-
+        //Om inloggningsStatus = false så ska fönstret förbli öppet när man klickar på login.
         if(!inloggningsStatus)
         {
         frame.setVisible(true);
         }
         
+        //Om inloggningsstatus = true ska fönstret stängas när man klickar på login. Inte fått denna att funka än. 
         if(inloggningsStatus)
         {
         WindowEvent windowClosing = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
@@ -203,10 +213,13 @@ public class MIB_Project {
             try {
         String username = userText.getText();
         String currentPassword = cPasswordText.getText();
+        
+        //Hämta lösenord från AgentTabellen. vi skulle kunna göra den här till en getLosen-metod då det är ett återkommande tema.
         String fråga = "Select Losenord from Agent where Namn =" + "'" + username + "'";
-       // String fråga = "Select Losenord from Agent where Namn =" + username;
         String svar = idb.fetchSingle(fråga);
         String resultat = svar;
+        
+        //Hämta namn från AgentTabellen. samma här. skulle kunna skapa en metod. återkommande.
         String fråga2 = "Select namn from agent where namn =" + "'" + username + "'"; 
         String svar2 = idb.fetchSingle(fråga2);
         String user = svar2;
@@ -451,22 +464,24 @@ public class MIB_Project {
     }
 
 
-    
-  //  public void tryLogin(java.awt.event.ActionEvent evt)
-    //{
-      //  try {
-        //String username = userText.getText();
-        //String password = passwordText.getText();
-        //String fråga = "Select Losenord from Agent where Namn =" + userText;
-        //String svar = idb.fetchSingle(fråga);
-        //String resultat = svar;
-        //}
-        //catch (InfException e)
-        //{
-          //  JOptionPane.showMessageDialog(null, "Login failed");
-        //}
-    //}
-//}
+//getNamnAgent-metod    KLART
+//getNamnAlien-metod     KLART
+//createFont-metod             KLART
+//GUI_AGENT-metod       KLART
+//GUI_ALIEN-metod        KLART
+//Lösenordsfönstermetod  KLART
+//ÄndraLösenFönster        KLART
+//skapa meny alien           KLART
+//skapa meny agent          KLART
+//finslipa meny alien
+//finslipa meny agent
+//ÄndraLösenMetod(?)                        Återkommande?  if(samma kod dyker upp för både alien och agent.){do} else{ ignore();}
+//getIdAgent-metod
+//getIdAlien-metod
+//getLosenAgent-metod
+//getLosenAlien-metod
+//getKonAlien-metod
+//closeWindow-metod       
 
 
 
