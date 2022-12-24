@@ -45,7 +45,7 @@ public class MIB_Project {
     boolean inloggningsStatus = false;
     
     private static InfDB idb;
-    private static JLabel userLabel, sessionTimerLabel;
+    private static JLabel userLabel, sessionTimerLabel, perSecLabel;
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
@@ -80,7 +80,7 @@ public class MIB_Project {
     public MIB_Project()
     {
         timerOn = false;
-        perSecond = 0;
+        perSecond = 1;
         sessionTimerCounter = 0;
         
         passwordWindow();
@@ -187,8 +187,8 @@ public class MIB_Project {
         inloggButton = new JButton("Login");
         inloggButton.setBounds(10, 80, 80, 25);
         inloggButton.addActionListener(loginHandeler);
-        inloggButton.addActionListener(timerHandler);
-        inloggButton.setActionCommand("Login");
+        //inloggButton.addActionListener(timerHandler);
+        //inloggButton.setActionCommand("Login");
         panel.add(inloggButton);
         
         changePassButton = new JButton("Ändra lösenord");
@@ -367,6 +367,8 @@ public class MIB_Project {
                 inloggningsStatus = true;
                 
                 GUIMeny();
+                timerUpdate();
+                //sessionTimer();
             }
             else
             {
@@ -380,7 +382,8 @@ public class MIB_Project {
                 success.setText("Login successfull!");
                 inloggningsStatus = true;
                 GUIMeny_alien();
-                
+                timerUpdate();
+                //sessionTimer();
             }
         }
         else
@@ -454,7 +457,7 @@ public class MIB_Project {
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet2);
         
-        buttonSet1 = new JButton ("name function3");
+        buttonSet3 = new JButton ("name function3");
         buttonSet3.setFont(fontBread);
         buttonSet3.setFocusPainted(true);
         //buttonSet1.addActionListener();
@@ -471,13 +474,19 @@ public class MIB_Project {
         JPanel timerPanel = new JPanel();
         timerPanel.setBounds(100,100,200,100);
         timerPanel.setBackground(Color.pink);
-        timerPanel.setLayout(new GridLayout(1,1));
+        timerPanel.setLayout(new GridLayout(2,1));
         frame.add(timerPanel);
         
-        sessionTimerLabel = new JLabel(sessionTimerCounter + "sekunder");
+        sessionTimerLabel = new JLabel(sessionTimerCounter + " sekunder");
         sessionTimerLabel.setForeground(Color.white);
         sessionTimerLabel.setFont(fontBread);
         timerPanel.add(sessionTimerLabel);
+        
+        perSecLabel = new JLabel();
+        perSecLabel.setForeground(Color.white);
+        perSecLabel.setFont(fontBread);
+        timerPanel.add(perSecLabel);
+        
         
         
         frame.setVisible(true);
@@ -527,12 +536,14 @@ public class MIB_Project {
     
 public void sessionTimer()
 {
+    
     timer = new Timer(timerSpeed, new ActionListener()
     {
         @Override
         public void actionPerformed(ActionEvent f)
         {
             sessionTimerCounter++;
+            sessionTimerLabel.setText(sessionTimerCounter + " sekunder");
         }
     });
 }
@@ -549,8 +560,11 @@ public void timerUpdate()
         timer.stop();
     }
     
-    double speed = 1/perSecond*100;
+    double speed = 1/perSecond*1000;
     timerSpeed = (int)Math.round(speed);
+    
+    String s = String.format("%.1f", perSecond);
+    //perSecLabel.setText(s + " sekunder");
     
     sessionTimer();
     timer.start();
@@ -562,7 +576,7 @@ public class TimerHandler implements ActionListener
     
     public void actionPerformed(ActionEvent g)
     {
-        if(inloggningsStatus)
+        
         {
         String action = g.getActionCommand();
         
