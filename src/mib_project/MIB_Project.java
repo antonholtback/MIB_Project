@@ -6,6 +6,7 @@ package mib_project;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -32,15 +34,22 @@ public class MIB_Project {
     ChangePasswordHandeler changePassHandeler = new ChangePasswordHandeler();
     LoginHandeler loginHandeler = new LoginHandeler();
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
+    TimerHandler timerHandler = new TimerHandler();
+    
+    
+    Timer timer;
+    double perSecond;
+    boolean timerOn;
+    int timerSpeed, sessionTimerCounter;
     
     boolean inloggningsStatus = false;
     
     private static InfDB idb;
-    private static JLabel userLabel;
+    private static JLabel userLabel, sessionTimerLabel;
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     
@@ -70,6 +79,10 @@ public class MIB_Project {
     //Våran "fake"-main. Det som körs när vi loggats in på oru databas tack vare metodanropet i slutet på riktiga mainen.
     public MIB_Project()
     {
+        timerOn = false;
+        perSecond = 0;
+        sessionTimerCounter = 0;
+        
         passwordWindow();
         createFont();
     }
@@ -90,7 +103,7 @@ public class MIB_Project {
         fontBread = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 18);
     }
     
-    
+
 //______________________________________________________________________________________________________
 // Koden för GUIn till när man ändrar lösenord
     public void changePasswordWindow()
@@ -174,6 +187,8 @@ public class MIB_Project {
         inloggButton = new JButton("Login");
         inloggButton.setBounds(10, 80, 80, 25);
         inloggButton.addActionListener(loginHandeler);
+        inloggButton.addActionListener(timerHandler);
+        inloggButton.setActionCommand("Login");
         panel.add(inloggButton);
         
         changePassButton = new JButton("Ändra lösenord");
@@ -365,6 +380,7 @@ public class MIB_Project {
                 success.setText("Login successfull!");
                 inloggningsStatus = true;
                 GUIMeny_alien();
+                
             }
         }
         else
@@ -417,7 +433,52 @@ public class MIB_Project {
        // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
         panel.add(logoLabel);
-       
+        
+        JPanel listPanel = new JPanel();
+        listPanel.setBounds(500,170,250,250);
+        listPanel.setBackground(Color.DARK_GRAY);
+        listPanel.setLayout(new GridLayout (4,1));
+        frame.add(listPanel);
+        
+        buttonSet1 = new JButton ("name function1");
+        buttonSet1.setFont(fontBread);
+        buttonSet1.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet1);
+        
+        buttonSet2 = new JButton ("name function2");
+        buttonSet2.setFont(fontBread);
+        buttonSet2.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet2);
+        
+        buttonSet1 = new JButton ("name function3");
+        buttonSet3.setFont(fontBread);
+        buttonSet3.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet3);
+        
+        buttonSet4 = new JButton ("name function4");
+        buttonSet4.setFont(fontBread);
+        buttonSet4.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet4);
+        
+        JPanel timerPanel = new JPanel();
+        timerPanel.setBounds(100,100,200,100);
+        timerPanel.setBackground(Color.pink);
+        timerPanel.setLayout(new GridLayout(1,1));
+        frame.add(timerPanel);
+        
+        sessionTimerLabel = new JLabel(sessionTimerCounter + "sekunder");
+        sessionTimerLabel.setForeground(Color.white);
+        sessionTimerLabel.setFont(fontBread);
+        timerPanel.add(sessionTimerLabel);
+        
         
         frame.setVisible(true);
         
@@ -462,6 +523,58 @@ public class MIB_Project {
         
         frame.setVisible(true);
     }
+    
+    
+public void sessionTimer()
+{
+    timer = new Timer(timerSpeed, new ActionListener()
+    {
+        @Override
+        public void actionPerformed(ActionEvent f)
+        {
+            sessionTimerCounter++;
+        }
+    });
+}
+
+
+public void timerUpdate()
+{
+    if (timerOn== false)
+    {
+        timerOn = true;
+    }
+    else if (timerOn== true)
+    {
+        timer.stop();
+    }
+    
+    double speed = 1/perSecond*100;
+    timerSpeed = (int)Math.round(speed);
+    
+    sessionTimer();
+    timer.start();
+    
+}
+
+public class TimerHandler implements ActionListener
+{
+    
+    public void actionPerformed(ActionEvent g)
+    {
+        if(inloggningsStatus)
+        {
+        String action = g.getActionCommand();
+        
+        switch(action)
+          {
+            case "Login":
+                perSecond = perSecond + 0.1;
+                timerUpdate();
+          }
+        }
+        
+}
 
 
 //getNamnAgent-metod    KLART
@@ -473,6 +586,8 @@ public class MIB_Project {
 //ÄndraLösenFönster        KLART
 //skapa meny alien           KLART
 //skapa meny agent          KLART
+//skapa en menypanelmetod
+//sessiontimer
 //finslipa meny alien
 //finslipa meny agent
 //ÄndraLösenMetod(?)                        Återkommande?  if(samma kod dyker upp för både alien och agent.){do} else{ ignore();}
@@ -486,6 +601,8 @@ public class MIB_Project {
 
 
 }
+}
+
 
 
     
