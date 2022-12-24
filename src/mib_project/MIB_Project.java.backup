@@ -1,0 +1,106 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package mib_project;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+
+/**
+ *
+ * @author anton
+ */
+public class MIB_Project implements ActionListener {
+    
+    private static InfDB idb;
+    private static JLabel userLabel;
+    private static JTextField userText;
+    private static JLabel passwordLabel;
+    private static JPasswordField passwordText;
+    private static JButton button;
+    private static JLabel success;
+    
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws InfException {
+        // TODO code application logic here
+        
+        try 
+        {
+            idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
+        }
+        catch (InfException ex)
+        {
+            Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       JPanel panel = new JPanel();
+      
+       JFrame frame = new JFrame();
+        frame.setSize(100, 100);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        panel.setLayout(null);
+
+        userLabel = new JLabel("User");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+        
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(10,50,80,25);
+        panel.add(passwordLabel);
+        
+        passwordText = new JPasswordField();
+        passwordText.setBounds(100, 50, 165, 25);
+        panel.add(passwordText);
+        
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        panel.add(userText);
+        
+        button = new JButton("Login");
+        button.setBounds(10, 80, 80, 25);
+        button.addActionListener(new MIB_Project());
+        panel.add(button);
+        
+        success = new JLabel("");
+        success.setBounds(10,110,300,25);
+        panel.add(success);
+
+        
+        frame.setVisible(true);
+        
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+        String user = userText.getText();
+        String password = passwordText.getText();
+        System.out.println(user + ", " + password);
+        
+        if (user.equals("Anton") && password.equals("Sesam123")) {
+            success.setText("Login successful");
+            }
+        else {
+                success.setText("Login");
+        }
+        
+    }
+    
+}
+
+
