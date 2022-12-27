@@ -331,11 +331,45 @@ public class MIB_Project {
         return getNamnAlien();
     }
     
-    public String getIDAgent(String namn, String losenord) throws InfException
+    public String getIDAgent(String namn) throws InfException
     {
-        String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "' and Losenord = '" + losenord + "';";
+        String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
         String svar = idb.fetchSingle(fråga);
-        System.out.println(svar);
+        return svar;
+    }
+    
+    public String getIDAlien(String namn) throws InfException
+    {
+        String fråga = "Select Alien_ID from Alien where Namn = '" + namn + "';";
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAgentByID(String id) throws InfException
+    {
+        String fråga = "Select Losenord from Agent where id = " + id;
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAgentByName(String name) throws InfException
+    {
+        String fråga = "Select Losenord from Agent where namn = '" + name + "';";
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAlienByID(String id) throws InfException
+    {
+        String fråga = "Select Losenord from Alien where id = " + id;
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAlienByName(String name) throws InfException
+    {
+        String fråga = "Select Losenord from Alien where Namn = '" + name + "';";
+        String svar = idb.fetchSingle(fråga);
         return svar;
     }
 
@@ -350,8 +384,7 @@ public class MIB_Project {
         try {
         String username = userText.getText();
         String password = passwordText.getText();
-        
-        getIDAgent(username, password);
+
         
         //Hämta lösen agent
         String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
@@ -616,10 +649,10 @@ public class TimerHandler implements ActionListener
 //finslipa meny alien
 //finslipa meny agent
 //ÄndraLösenMetod(?)                        Återkommande?  if(samma kod dyker upp för både alien och agent.){do} else{ ignore();}
-//getIdAgent-metod
-//getIdAlien-metod
-//getLosenAgent-metod
-//getLosenAlien-metod
+//getIdAgent-metod      KLART
+//getIdAlien-metod      KLART
+//getLosenAgent-metod       KLART
+//getLosenAlien-metod       KLART
 //getKonAlien-metod
 //closeWindow-metod       
 
