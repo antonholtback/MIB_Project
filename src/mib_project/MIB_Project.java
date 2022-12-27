@@ -330,6 +330,14 @@ public class MIB_Project {
                 }
         return getNamnAlien();
     }
+    
+    public String getIDAgent(String namn, String losenord) throws InfException
+    {
+        String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "' and Losenord = '" + losenord + "';";
+        String svar = idb.fetchSingle(fråga);
+        System.out.println(svar);
+        return svar;
+    }
 
     
 //______________________________________________________________________________________________________
@@ -342,6 +350,8 @@ public class MIB_Project {
         try {
         String username = userText.getText();
         String password = passwordText.getText();
+        
+        getIDAgent(username, password);
         
         //Hämta lösen agent
         String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
