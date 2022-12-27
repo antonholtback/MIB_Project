@@ -233,6 +233,7 @@ public class MIB_Project {
         String fråga = "Select Losenord from Agent where Namn =" + "'" + username + "'";
         String svar = idb.fetchSingle(fråga);
         String resultat = svar;
+        System.out.println(svar);
         
         //Hämta namn från AgentTabellen. samma här. skulle kunna skapa en metod. återkommande.
         String fråga2 = "Select namn from agent where namn =" + "'" + username + "'"; 
@@ -358,7 +359,7 @@ public class MIB_Project {
         String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
         String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
         String resultatAlienLosen = svarAlienLosen;
-        
+              
         if(resultatAgentNamn!=null)
         {
             if(resultatAgentLosen.equals(password))           
@@ -445,7 +446,7 @@ public class MIB_Project {
         
         buttonSet1 = new JButton ("name function1");
         buttonSet1.setFont(fontBread);
-        buttonSet1.setFocusPainted(true);
+        //buttonSet1.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet1);
