@@ -305,7 +305,7 @@ public class MIB_Project {
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet3);
         
-        buttonSet4 = new JButton ("Ansök om pensionering");
+        buttonSet4 = new JButton ("Visa områdeschef");
         buttonSet4.setFont(fontBread);
         buttonSet4.setFocusPainted(true);
         //buttonSet1.addActionListener();
@@ -313,7 +313,7 @@ public class MIB_Project {
         listPanel.add(buttonSet4);
         listPanel.add(buttonSet4);
         
-        buttonSet5 = new JButton ("Ansök om pensionering");
+        buttonSet5 = new JButton ("Visa Alien på plats");
         buttonSet5.setFont(fontBread);
         buttonSet5.setFocusPainted(true);
         //buttonSet1.addActionListener();
@@ -321,7 +321,7 @@ public class MIB_Project {
         listPanel.add(buttonSet5);
         listPanel.add(buttonSet5);
         
-        buttonSet6 = new JButton ("Ansök om pensionering");
+        buttonSet6 = new JButton ("Visa Alien av art");
         buttonSet6.setFont(fontBread);
         buttonSet6.setFocusPainted(true);
         //buttonSet1.addActionListener();
@@ -329,7 +329,7 @@ public class MIB_Project {
         listPanel.add(buttonSet6);
         listPanel.add(buttonSet6);
         
-        buttonSet7 = new JButton ("Ansök om pensionering");
+        buttonSet7 = new JButton ("Alien Registrerad mellan datum");
         buttonSet7.setFont(fontBread);
         buttonSet7.setFocusPainted(true);
         //buttonSet1.addActionListener();
@@ -337,7 +337,7 @@ public class MIB_Project {
         listPanel.add(buttonSet7);
         listPanel.add(buttonSet7);
         
-        buttonSet8 = new JButton ("Ansök om pensionering");
+        buttonSet8 = new JButton ("Visa Alien info");
         buttonSet8.setFont(fontBread);
         buttonSet8.setFocusPainted(true);
         //buttonSet1.addActionListener();
