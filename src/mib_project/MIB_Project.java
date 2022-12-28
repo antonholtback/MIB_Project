@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
+//import javax.swing.Timer;
 
 /**
  *
@@ -34,13 +34,13 @@ public class MIB_Project {
     ChangePasswordHandeler changePassHandeler = new ChangePasswordHandeler();
     LoginHandeler loginHandeler = new LoginHandeler();
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
-    TimerHandler timerHandler = new TimerHandler();
+    //TimerHandler timerHandler = new TimerHandler();
     
     
-    Timer timer;
-    double perSecond;
-    boolean timerOn;
-    int timerSpeed, sessionTimerCounter;
+    //Timer timer;
+    //double perSecond;
+    //boolean timerOn;
+    //int timerSpeed, sessionTimerCounter;
     
     boolean inloggningsStatus = false;
     
@@ -80,9 +80,9 @@ public class MIB_Project {
     //Våran "fake"-main. Det som körs när vi loggats in på oru databas tack vare metodanropet i slutet på riktiga mainen.
     public MIB_Project()
     {
-        timerOn = false;
-        perSecond = 1;
-        sessionTimerCounter = 0;
+        //timerOn = false;
+        //perSecond = 1;
+        //sessionTimerCounter = 0;
         
         passwordWindow();
         createFont();
@@ -412,7 +412,7 @@ public class MIB_Project {
                 inloggningsStatus = true;
                 
                 GUIMeny();
-                timerUpdate();
+               // timerUpdate();
                 //sessionTimer();
             }
             else
@@ -427,7 +427,7 @@ public class MIB_Project {
                 success.setText("Login successfull!");
                 inloggningsStatus = true;
                 GUIMeny_alien();
-                timerUpdate();
+               // timerUpdate();
                 //sessionTimer();
             }
         }
@@ -516,7 +516,7 @@ public class MIB_Project {
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet4);
         
-        JPanel timerPanel = new JPanel();
+       /** JPanel timerPanel = new JPanel();
         timerPanel.setBounds(100,100,200,100);
         timerPanel.setBackground(Color.pink);
         timerPanel.setLayout(new GridLayout(2,1));
@@ -531,7 +531,7 @@ public class MIB_Project {
         perSecLabel.setForeground(Color.white);
         perSecLabel.setFont(fontBread);
         timerPanel.add(perSecLabel);
-        
+        */
         
         
         frame.setVisible(true);
@@ -579,7 +579,7 @@ public class MIB_Project {
     }
     
     
-public void sessionTimer()
+/** public void sessionTimer()
 {
     
     timer = new Timer(timerSpeed, new ActionListener()
@@ -633,7 +633,7 @@ public class TimerHandler implements ActionListener
           }
         }
         
-}
+}*/
 
 
 //getNamnAgent-metod    KLART
@@ -659,7 +659,7 @@ public class TimerHandler implements ActionListener
 
 
 
-}
+//}
 }
 
 
