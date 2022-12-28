@@ -43,6 +43,8 @@ public class MIB_Project {
     //int timerSpeed, sessionTimerCounter;
     
     boolean inloggningsStatus = false;
+    boolean agentinloggad = false;
+    boolean alieninloggad = false;
     
     private static InfDB idb;
     private static JLabel userLabel, sessionTimerLabel, perSecLabel;
@@ -241,12 +243,21 @@ public class MIB_Project {
         String svar2 = idb.fetchSingle(fråga2);
         String user = svar2;
         
+        String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
+        String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
+        String resultatAlienNamn = svarAlienNamn;
+        //Hämta lösen alien
+        String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
+        String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
+        String resultatAlienLosen = svarAlienLosen;
+        
         
         if(user!=null)
         {
             if(resultat.equals(currentPassword))           
             {
                 inloggningsStatus = true;
+                agentinloggad = true;
             }
             else
             {
@@ -259,7 +270,7 @@ public class MIB_Project {
             success.setText("Username doesn´t exist in database");
             inloggningsStatus = false;
         }
-        if(inloggningsStatus)
+        if(inloggningsStatus || agentinloggad)
             {
                 String newPassword = nPasswordText.getText();
                 String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
@@ -267,7 +278,14 @@ public class MIB_Project {
                 String nyttPassword = svarChange;
                 success.setText("Password updated");
             }
-        
+        else if(inloggningsStatus || alieninloggad)
+            {
+                String newPassword = nPasswordText.getText();
+                String frågaChange = "UPDATE Alien SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                String svarChange = idb.fetchSingle(frågaChange);
+                String nyttPassword = svarChange;
+                success.setText("Password updated");
+            }
         }
             catch (InfException e)
         {
@@ -476,13 +494,13 @@ public class MIB_Project {
         panel.add(welcomeLabel);
         
         JLabel logoLabel = new JLabel();
-        logoLabel.setBounds(1020,580,200,200);
-        ImageIcon logo = new ImageIcon("Images/bildlogga.png");
+        logoLabel.setBounds(1360,720,90,70);
+        ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
        // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
         panel.add(logoLabel);
         
-        JPanel listPanel = new JPanel();
+       /** JPanel listPanel = new JPanel();
         listPanel.setBounds(500,170,250,250);
         listPanel.setBackground(Color.DARK_GRAY);
         listPanel.setLayout(new GridLayout (4,1));
@@ -514,7 +532,7 @@ public class MIB_Project {
         buttonSet4.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
-        listPanel.add(buttonSet4);
+        listPanel.add(buttonSet4);*/
         
        /** JPanel timerPanel = new JPanel();
         timerPanel.setBounds(100,100,200,100);
@@ -568,8 +586,8 @@ public class MIB_Project {
         panel.add(welcomeLabel);
         
         JLabel logoLabel = new JLabel();
-        logoLabel.setBounds(1020,580,200,200);
-        ImageIcon logo = new ImageIcon("Images/bildlogga.png");
+        logoLabel.setBounds(1360,720,90,70);
+        ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
        // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
         panel.add(logoLabel);
