@@ -83,6 +83,7 @@ public class MIB_Project {
     //Våran "fake"-main. Det som körs när vi loggats in på oru databas tack vare metodanropet i slutet på riktiga mainen.
     public MIB_Project()
     {
+        
         //timerOn = false;
         //perSecond = 1;
         //sessionTimerCounter = 0;
@@ -157,172 +158,7 @@ public class MIB_Project {
         frame.setVisible(true);
         
     }
-    
-    
-//______________________________________________________________________________________________________
-// Koden för GUIn till inloggningsfönstret
-    public void passwordWindow()
-    {
-       JPanel panel = new JPanel();
-      
-       JFrame frame = new JFrame();
-        frame.setSize(400, 250);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-        frame.setLocationRelativeTo(null);
-        panel.setLayout(null);
-
-        userLabel = new JLabel("User");
-        userLabel.setBounds(10, 20, 80, 25);
-        panel.add(userLabel);
-        
-        passwordLabel = new JLabel("Password");
-        passwordLabel.setBounds(10,50,80,25);
-        panel.add(passwordLabel);
-        
-        passwordText = new JPasswordField();
-        passwordText.setBounds(100, 50, 165, 25);
-        panel.add(passwordText);
-        
-        userText = new JTextField(20);
-        userText.setBounds(100, 20, 165, 25);
-        panel.add(userText);
-        
-        inloggButton = new JButton("Login");
-        inloggButton.setBounds(10, 80, 80, 25);
-        inloggButton.addActionListener(loginHandeler);
-        //inloggButton.addActionListener(timerHandler);
-        //inloggButton.setActionCommand("Login");
-        panel.add(inloggButton);
-        
-        changePassButton = new JButton("Ändra lösenord");
-        changePassButton.setBounds(100,80,165,25);
-        changePassButton.addActionListener(changePassHandeler);
-        panel.add(changePassButton);
-        
-        success = new JLabel("");
-        success.setBounds(10,110,300,25);
-        panel.add(success);
-        
-        //Om inloggningsStatus = false så ska fönstret förbli öppet när man klickar på login.
-        if(!inloggningsStatus)
-        {
-        frame.setVisible(true);
-        }
-        
-        //Om inloggningsstatus = true ska fönstret stängas när man klickar på login. Inte fått denna att funka än. 
-        if(inloggningsStatus)
-        {
-        WindowEvent windowClosing = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(windowClosing);
-        frame.dispatchEvent(windowClosing);
-        
-        }
-        
-    }
-    
-    
-//______________________________________________________________________________________________________    
-// Koden för knappen som exikverar nytt lösenord
-    public class ExeNewPassword implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent b)
-        {
-            try {
-
-                String username = userText.getText();
-                String currentPassword = passwordText.getText();
-
-        
-        //Hämta lösen agent
-        String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
-        String svarAgentLosen = idb.fetchSingle(frågaAgentLosen);
-        String resultatAgentLosen = svarAgentLosen;
-        //Hämta namn agent
-        String frågaAgentNamn = "Select namn from agent where namn =" + "'" + username + "'";
-        String svarAgentNamn = idb.fetchSingle(frågaAgentNamn);
-        String resultatAgentNamn = svarAgentNamn;
-        //Hämta namn alien
-        String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
-        String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
-        String resultatAlienNamn = svarAlienNamn;
-        //Hämta lösen alien
-        String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
-        String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
-        String resultatAlienLosen = svarAlienLosen;
-
-               
-                if (resultatAgentNamn != null) 
-                {
-                    if (resultatAgentLosen.equals(currentPassword)) 
-                    {
-                        inloggningsStatus = true;
-                        agentinloggad = true;
-                    } 
-                   else 
-                    {
-                        success.setText("Password and username does not match");
-                        inloggningsStatus = false;
-                    }
-                } 
-                else if(resultatAlienNamn != null)
-                {
-                    if(resultatAlienLosen.equals(currentPassword))
-                    {
-                        inloggningsStatus = true;
-                        alieninloggad = true;
-                    }
-                    else
-                    {
-                        success.setText("Password and username does not match");
-                        inloggningsStatus = false;
-                    }
-                }
-                else {
-                    success.setText("Username doesn´t exist in database");
-                    inloggningsStatus = false;
-                }
-                
-                
-                if (agentinloggad) {
-                    String newPassword = nPasswordText.getText();
-                    String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
-                    String svarChange = idb.fetchSingle(frågaChange);
-                    String nyttPassword = svarChange;
-                    success.setText("Password updated");
-                }
-                else if(alieninloggad)
-                {
-                    String newPassword = nPasswordText.getText();
-                    String frågaChange = "UPDATE Alien SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
-                    String svarChange = idb.fetchSingle(frågaChange);
-                    String nyttPassword = svarChange;
-                    success.setText("Password updated");
-                }
-
-            } 
-            
-            catch (InfException e) 
-            {
-                JOptionPane.showMessageDialog(null, "Login failed"); 
-            }
-    }
-    
-    
-//______________________________________________________________________________________________________
-// Koden för knappen som instansierar GUIn ändra lösenord
-    public class ChangePasswordHandeler implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent a)
-        {
-            changePasswordWindow();
-        }
-    }
-
-//______________________________________________________________________________________________________
-// Koden för metoden getNamn från Agent tabellen
+    // Koden för metoden getNamn från Agent tabellen
     public String getNamn() throws InfException 
     {
         try
@@ -405,84 +241,8 @@ public class MIB_Project {
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
-
     
-//______________________________________________________________________________________________________
-// Koden för knappen man trycker på för att logga in
-    public class LoginHandeler implements ActionListener
-    {
-        @Override
-    public void actionPerformed(ActionEvent evt) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-        try {
-        String username = userText.getText();
-        String password = passwordText.getText();
-
-        
-        //Hämta lösen agent
-        String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
-        String svarAgentLosen = idb.fetchSingle(frågaAgentLosen);
-        String resultatAgentLosen = svarAgentLosen;
-        //Hämta namn agent
-        String frågaAgentNamn = "Select namn from agent where namn =" + "'" + username + "'";
-        String svarAgentNamn = idb.fetchSingle(frågaAgentNamn);
-        String resultatAgentNamn = svarAgentNamn;
-        //Hämta namn alien
-        String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
-        String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
-        String resultatAlienNamn = svarAlienNamn;
-        //Hämta lösen alien
-        String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
-        String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
-        String resultatAlienLosen = svarAlienLosen;
-              
-        if(resultatAgentNamn!=null)
-        {
-            if(resultatAgentLosen.equals(password))           
-            {
-                success.setText("Login successfull!");
-                inloggningsStatus = true;
-                
-                GUIMeny();
-               // timerUpdate();
-                //sessionTimer();
-            }
-            else
-            {
-                success.setText("Login failed");
-            }
-        }
-        else if(resultatAlienNamn!=null)
-        {
-            if(resultatAlienLosen.equals(password))
-            {
-                success.setText("Login successfull!");
-                inloggningsStatus = true;
-                GUIMeny_alien();
-               // timerUpdate();
-                //sessionTimer();
-            }
-        }
-        else
-        {
-            success.setText("Username doesn´t exist in database");
-        }
- 
-        }
-        catch (InfException e)
-        {
-            JOptionPane.showMessageDialog(null, "Login failed");
-        }
-        
-       
-        
-        
-        
-    }
-    }
-
-//______________________________________________________________________________________________________
-// Koden för Agent Menyn som öppnas efter inlogg som agent    
+    // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException
     {
         JPanel panel = new JPanel();
@@ -631,6 +391,248 @@ public class MIB_Project {
     }
     
     
+    // Koden för knappen man trycker på för att logga in
+    public class LoginHandeler implements ActionListener
+    {
+        @Override
+    public void actionPerformed(ActionEvent evt) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+        try {
+        String username = userText.getText();
+        String password = passwordText.getText();
+
+        
+        //Hämta lösen agent
+        String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
+        String svarAgentLosen = idb.fetchSingle(frågaAgentLosen);
+        String resultatAgentLosen = svarAgentLosen;
+        //Hämta namn agent
+        String frågaAgentNamn = "Select namn from agent where namn =" + "'" + username + "'";
+        String svarAgentNamn = idb.fetchSingle(frågaAgentNamn);
+        String resultatAgentNamn = svarAgentNamn;
+        //Hämta namn alien
+        String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
+        String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
+        String resultatAlienNamn = svarAlienNamn;
+        //Hämta lösen alien
+        String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
+        String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
+        String resultatAlienLosen = svarAlienLosen;
+              
+        if(resultatAgentNamn!=null)
+        {
+            if(resultatAgentLosen.equals(password))           
+            {
+                success.setText("Login successfull!");
+                inloggningsStatus = true;
+                
+                GUIMeny();
+               // timerUpdate();
+                //sessionTimer();
+            }
+            else
+            {
+                success.setText("Login failed");
+            }
+        }
+        else if(resultatAlienNamn!=null)
+        {
+            if(resultatAlienLosen.equals(password))
+            {
+                success.setText("Login successfull!");
+                inloggningsStatus = true;
+                GUIMeny_alien();
+               // timerUpdate();
+                //sessionTimer();
+            }
+        }
+        else
+        {
+            success.setText("Username doesn´t exist in database");
+        }
+ 
+        }
+        catch (InfException e)
+        {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        
+       
+        
+        
+        
+    }
+    }
+
+//______________________________________________________________________________________________________
+// Koden för GUIn till inloggningsfönstret
+    public void passwordWindow()
+    {
+       JPanel panel = new JPanel();
+      
+       JFrame frame = new JFrame();
+        frame.setSize(400, 250);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        userLabel = new JLabel("User");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+        
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(10,50,80,25);
+        panel.add(passwordLabel);
+        
+        passwordText = new JPasswordField();
+        passwordText.setBounds(100, 50, 165, 25);
+        panel.add(passwordText);
+        
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        panel.add(userText);
+        
+        inloggButton = new JButton("Login");
+        inloggButton.setBounds(10, 80, 80, 25);
+        inloggButton.addActionListener( loginHandeler);
+        //inloggButton.addActionListener(timerHandler);
+        //inloggButton.setActionCommand("Login");
+        panel.add(inloggButton);
+        
+        changePassButton = new JButton("Ändra lösenord");
+        changePassButton.setBounds(100,80,165,25);
+        changePassButton.addActionListener(changePassHandeler);
+        panel.add(changePassButton);
+        
+        success = new JLabel("");
+        success.setBounds(10,110,300,25);
+        panel.add(success);
+        
+        //Om inloggningsStatus = false så ska fönstret förbli öppet när man klickar på login.
+        if(!inloggningsStatus)
+        {
+        frame.setVisible(true);
+        }
+        
+        //Om inloggningsstatus = true ska fönstret stängas när man klickar på login. Inte fått denna att funka än. 
+        if(inloggningsStatus)
+        {
+        WindowEvent windowClosing = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(windowClosing);
+        frame.dispatchEvent(windowClosing);
+        
+        }
+        
+    }
+    
+    // Koden för knappen som instansierar GUIn ändra lösenord
+    public class ChangePasswordHandeler implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent a)
+        {
+            changePasswordWindow();
+        }
+    }
+    
+//______________________________________________________________________________________________________    
+// Koden för knappen som exikverar nytt lösenord
+    public class ExeNewPassword implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent b)
+        {
+            try {
+
+                String username = userText.getText();
+                String currentPassword = passwordText.getText();
+
+        
+        //Hämta lösen agent
+        String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
+        String svarAgentLosen = idb.fetchSingle(frågaAgentLosen);
+        String resultatAgentLosen = svarAgentLosen;
+        //Hämta namn agent
+        String frågaAgentNamn = "Select namn from agent where namn =" + "'" + username + "'";
+        String svarAgentNamn = idb.fetchSingle(frågaAgentNamn);
+        String resultatAgentNamn = svarAgentNamn;
+        //Hämta namn alien
+        String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
+        String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
+        String resultatAlienNamn = svarAlienNamn;
+        //Hämta lösen alien
+        String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
+        String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
+        String resultatAlienLosen = svarAlienLosen;
+
+               
+                if (resultatAgentNamn != null) 
+                {
+                    if (resultatAgentLosen.equals(currentPassword)) 
+                    {
+                        inloggningsStatus = true;
+                        agentinloggad = true;
+                    } 
+                   else 
+                    {
+                        success.setText("Password and username does not match");
+                        inloggningsStatus = false;
+                    }
+                } 
+                else if(resultatAlienNamn != null)
+                {
+                    if(resultatAlienLosen.equals(currentPassword))
+                    {
+                        inloggningsStatus = true;
+                        alieninloggad = true;
+                    }
+                    else
+                    {
+                        success.setText("Password and username does not match");
+                        inloggningsStatus = false;
+                    }
+                }
+                else {
+                    success.setText("Username doesn´t exist in database");
+                    inloggningsStatus = false;
+                }
+                
+                
+                if (agentinloggad) {
+                    String newPassword = nPasswordText.getText();
+                    String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                    String svarChange = idb.fetchSingle(frågaChange);
+                    String nyttPassword = svarChange;
+                    success.setText("Password updated");
+                }
+                else if(alieninloggad)
+                {
+                    String newPassword = nPasswordText.getText();
+                    String frågaChange = "UPDATE Alien SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                    String svarChange = idb.fetchSingle(frågaChange);
+                    String nyttPassword = svarChange;
+                    success.setText("Password updated");
+                }
+
+            } 
+            
+            catch (InfException e) 
+            {
+                JOptionPane.showMessageDialog(null, "Login failed"); 
+            }
+    }
+    
+    
+
+
+//______________________________________________________________________________________________________
+    
+//______________________________________________________________________________________________________
+
+//______________________________________________________________________________________________________
+
+    
 /** public void sessionTimer()
 {
     
@@ -712,6 +714,7 @@ public class TimerHandler implements ActionListener
 
 
 //}
+}
 }
 
 
