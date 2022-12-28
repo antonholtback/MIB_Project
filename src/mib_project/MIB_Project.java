@@ -34,6 +34,8 @@ public class MIB_Project {
     ChangePasswordHandeler changePassHandeler = new ChangePasswordHandeler();
     LoginHandeler loginHandeler = new LoginHandeler();
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
+    RegistreraAlien registreraAlienHandler = new RegistreraAlien();
+    
     //TimerHandler timerHandler = new TimerHandler();
     
     
@@ -55,6 +57,8 @@ public class MIB_Project {
     private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
+    private static JLabel label1, label2, label3, label4, label5, label6, label7;
+    private static JTextField text1, text2, text3, text4, text5, text6, text7;
     
     
 
@@ -179,6 +183,7 @@ public class MIB_Project {
     }
     
     
+    
 //______________________________________________________________________________________________________
 // Koden för metoden getNamn från Alien tabellen
     public String getNamnAlien() throws InfException 
@@ -242,6 +247,90 @@ public class MIB_Project {
         return svar;
     }
     
+    public void registreraAlienWindow()
+    {
+        
+         JPanel panel = new JPanel();
+        
+        JFrame frame = new JFrame();
+        frame.setSize(100, 100);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+        
+        label1 = new JLabel("Alien_ID");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+        
+        label2 = new JLabel("Registreringsdatum");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+        
+        label3 = new JLabel("Lösenord");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+        
+        label4 = new JLabel("Namn");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+        
+        label5 = new JLabel("Telefon");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+        
+        label6 = new JLabel("Plats");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+        
+        label7 = new JLabel("Ansvarig agent");
+        label7.setBounds(10, 200, 120, 25);
+        panel.add(label7);
+        
+        text1 = new JTextField(20);
+        text1.setBounds(120, 20, 185, 25);
+        panel.add(text1);
+        
+        text2 = new JTextField(20);
+        text2.setBounds(120, 50, 185, 25);
+        panel.add(text2);
+        
+        text3 = new JTextField(20);
+        text3.setBounds(120, 80, 185, 25);
+        panel.add(text3);
+        
+        text4 = new JTextField(20);
+        text4.setBounds(120, 110, 185, 25);
+        panel.add(text4);
+        
+        text5 = new JTextField(20);
+        text5.setBounds(120, 140, 185, 25);
+        panel.add(text5);
+        
+        text6 = new JTextField(20);
+        text6.setBounds(120, 170, 185, 25);
+        panel.add(text6);
+        
+        text7 = new JTextField(20);
+        text7.setBounds(120, 200, 185, 25);
+        panel.add(text7);
+        
+        exeNewPasswordButton = new JButton("Ändra lösenord");
+        exeNewPasswordButton.setBounds(10, 230, 185, 25);
+        exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
+        panel.add(exeNewPasswordButton);
+        
+        success = new JLabel("");
+        success.setBounds(10,100,300,25);
+        panel.add(success);
+        
+        frame.setVisible(true);
+        
+        
+    }
+    
+    
+    
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException
     {
@@ -286,9 +375,9 @@ public class MIB_Project {
         
         buttonSet1 = new JButton ("Registrera Alien");
         buttonSet1.setFont(fontBread);
-        //buttonSet1.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet1.setFocusPainted(true);
+        buttonSet1.addActionListener(registreraAlienHandler);
+        buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet1);
         
         buttonSet2 = new JButton ("Ändra Alien");
@@ -501,6 +590,8 @@ public class MIB_Project {
         
     }
     }
+    
+    
 
 //______________________________________________________________________________________________________
 // Koden för GUIn till inloggningsfönstret
@@ -573,6 +664,9 @@ public class MIB_Project {
             changePasswordWindow();
         }
     }
+    
+    
+    
     
 //______________________________________________________________________________________________________    
 // Koden för knappen som exikverar nytt lösenord
@@ -659,7 +753,13 @@ public class MIB_Project {
             {
                 JOptionPane.showMessageDialog(null, "Login failed"); 
             }
+            
+            
     }
+        
+        
+       
+    
     
     
 
@@ -753,6 +853,14 @@ public class TimerHandler implements ActionListener
 
 //}
 }
+    public class RegistreraAlien implements ActionListener
+    {
+        @Override
+    public void actionPerformed(ActionEvent h) {
+        
+        registreraAlienWindow();
+    }
+    }
 }
 
 
