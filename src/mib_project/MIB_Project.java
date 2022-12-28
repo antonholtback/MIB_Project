@@ -42,6 +42,11 @@ public class MIB_Project {
     //int timerSpeed, sessionTimerCounter;
     boolean inloggningsStatus = false;
 
+=======
+    boolean agentinloggad = false;
+    boolean alieninloggad = false;
+    
+>>>>>>> 5c665e7b7694abbc31123497d7b460bba7f15a8c
     private static InfDB idb;
     private static JLabel userLabel, sessionTimerLabel, perSecLabel;
     private static JTextField userText;
@@ -243,9 +248,70 @@ public class MIB_Project {
 
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Login failed");
+        String username = userText.getText();
+        String currentPassword = cPasswordText.getText();
+        
+        //Hämta lösenord från AgentTabellen. vi skulle kunna göra den här till en getLosen-metod då det är ett återkommande tema.
+        String fråga = "Select Losenord from Agent where Namn =" + "'" + username + "'";
+        String svar = idb.fetchSingle(fråga);
+        String resultat = svar;
+        System.out.println(svar);
+        
+        //Hämta namn från AgentTabellen. samma här. skulle kunna skapa en metod. återkommande.
+        String fråga2 = "Select namn from agent where namn =" + "'" + username + "'"; 
+        String svar2 = idb.fetchSingle(fråga2);
+        String user = svar2;
+        
+        String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
+        String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
+        String resultatAlienNamn = svarAlienNamn;
+        //Hämta lösen alien
+        String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
+        String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
+        String resultatAlienLosen = svarAlienLosen;
+        
+        
+        if(user!=null)
+        {
+            if(resultat.equals(currentPassword))           
+            {
+                inloggningsStatus = true;
+                agentinloggad = true;
+            }
+            else
+            {
+                success.setText("Password and username does not match");
+                inloggningsStatus = false;
             }
 
         }
+        else
+        {
+            success.setText("Username doesn´t exist in database");
+            inloggningsStatus = false;
+        }
+        if(inloggningsStatus || agentinloggad)
+            {
+                String newPassword = nPasswordText.getText();
+                String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                String svarChange = idb.fetchSingle(frågaChange);
+                String nyttPassword = svarChange;
+                success.setText("Password updated");
+            }
+        else if(inloggningsStatus || alieninloggad)
+            {
+                String newPassword = nPasswordText.getText();
+                String frågaChange = "UPDATE Alien SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                String svarChange = idb.fetchSingle(frågaChange);
+                String nyttPassword = svarChange;
+                success.setText("Password updated");
+            }
+        }
+            catch (InfException e)
+        {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+            
     }
 
 //______________________________________________________________________________________________________
@@ -418,6 +484,14 @@ public class MIB_Project {
 
         JPanel listPanel = new JPanel();
         listPanel.setBounds(500, 170, 250, 250);
+        logoLabel.setBounds(1360,720,90,70);
+        ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
+       // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
+        logoLabel.setIcon(logo);
+        panel.add(logoLabel);
+        
+       /** JPanel listPanel = new JPanel();
+        listPanel.setBounds(500,170,250,250);
         listPanel.setBackground(Color.DARK_GRAY);
         listPanel.setLayout(new GridLayout(4, 1));
         frame.add(listPanel);
@@ -449,6 +523,28 @@ public class MIB_Project {
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet4);
+        listPanel.add(buttonSet4);*/
+        
+       /** JPanel timerPanel = new JPanel();
+        timerPanel.setBounds(100,100,200,100);
+        timerPanel.setBackground(Color.pink);
+        timerPanel.setLayout(new GridLayout(2,1));
+        frame.add(timerPanel);
+        
+        sessionTimerLabel = new JLabel(sessionTimerCounter + " sekunder");
+        sessionTimerLabel.setForeground(Color.white);
+        sessionTimerLabel.setFont(fontBread);
+        timerPanel.add(sessionTimerLabel);
+        
+        perSecLabel = new JLabel();
+        perSecLabel.setForeground(Color.white);
+        perSecLabel.setFont(fontBread);
+        timerPanel.add(perSecLabel);
+        */
+        
+        
+        frame.setVisible(true);
+        
 
         /**
          * JPanel timerPanel = new JPanel();
@@ -497,6 +593,9 @@ public class MIB_Project {
         logoLabel.setBounds(1020, 580, 200, 200);
         ImageIcon logo = new ImageIcon("Images/bildlogga.png");
         // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
+        logoLabel.setBounds(1360,720,90,70);
+        ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
+       // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
         panel.add(logoLabel);
 
