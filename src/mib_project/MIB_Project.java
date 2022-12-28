@@ -52,7 +52,7 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     
@@ -298,7 +298,7 @@ public class MIB_Project {
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet2);
         
-        buttonSet3 = new JButton ("Ändra Agent");
+        buttonSet3 = new JButton ("Registrera utrustning");
         buttonSet3.setFont(fontBread);
         buttonSet3.setFocusPainted(true);
         //buttonSet1.addActionListener();
@@ -312,6 +312,38 @@ public class MIB_Project {
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet4);
         listPanel.add(buttonSet4);
+        
+        buttonSet5 = new JButton ("Ansök om pensionering");
+        buttonSet5.setFont(fontBread);
+        buttonSet5.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet5);
+        listPanel.add(buttonSet5);
+        
+        buttonSet6 = new JButton ("Ansök om pensionering");
+        buttonSet6.setFont(fontBread);
+        buttonSet6.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet6);
+        listPanel.add(buttonSet6);
+        
+        buttonSet7 = new JButton ("Ansök om pensionering");
+        buttonSet7.setFont(fontBread);
+        buttonSet7.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet7);
+        listPanel.add(buttonSet7);
+        
+        buttonSet8 = new JButton ("Ansök om pensionering");
+        buttonSet8.setFont(fontBread);
+        buttonSet8.setFocusPainted(true);
+        //buttonSet1.addActionListener();
+        //buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet8);
+        listPanel.add(buttonSet8);
 
         
        /** JPanel timerPanel = new JPanel();
