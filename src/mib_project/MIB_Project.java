@@ -57,6 +57,7 @@ public class MIB_Project {
 
     /**
      * @param args the command line arguments
+     * @throws oru.inf.InfException
      */
     //Koden för att logga in till databasen. Körs direkt per auto (riktiga mainen).
     public static void main(String[] args) throws InfException {
@@ -233,6 +234,7 @@ public class MIB_Project {
         String fråga = "Select Losenord from Agent where Namn =" + "'" + username + "'";
         String svar = idb.fetchSingle(fråga);
         String resultat = svar;
+        System.out.println(svar);
         
         //Hämta namn från AgentTabellen. samma här. skulle kunna skapa en metod. återkommande.
         String fråga2 = "Select namn from agent where namn =" + "'" + username + "'"; 
@@ -329,6 +331,48 @@ public class MIB_Project {
                 }
         return getNamnAlien();
     }
+    
+    public String getIDAgent(String namn) throws InfException
+    {
+        String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getIDAlien(String namn) throws InfException
+    {
+        String fråga = "Select Alien_ID from Alien where Namn = '" + namn + "';";
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAgentByID(String id) throws InfException
+    {
+        String fråga = "Select Losenord from Agent where id = " + id;
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAgentByName(String name) throws InfException
+    {
+        String fråga = "Select Losenord from Agent where namn = '" + name + "';";
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAlienByID(String id) throws InfException
+    {
+        String fråga = "Select Losenord from Alien where id = " + id;
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
+    
+    public String getLosenAlienByName(String name) throws InfException
+    {
+        String fråga = "Select Losenord from Alien where Namn = '" + name + "';";
+        String svar = idb.fetchSingle(fråga);
+        return svar;
+    }
 
     
 //______________________________________________________________________________________________________
@@ -341,6 +385,7 @@ public class MIB_Project {
         try {
         String username = userText.getText();
         String password = passwordText.getText();
+
         
         //Hämta lösen agent
         String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
@@ -358,7 +403,7 @@ public class MIB_Project {
         String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
         String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
         String resultatAlienLosen = svarAlienLosen;
-        
+              
         if(resultatAgentNamn!=null)
         {
             if(resultatAgentLosen.equals(password))           
@@ -445,7 +490,7 @@ public class MIB_Project {
         
         buttonSet1 = new JButton ("name function1");
         buttonSet1.setFont(fontBread);
-        buttonSet1.setFocusPainted(true);
+        //buttonSet1.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet1);
@@ -605,10 +650,10 @@ public class TimerHandler implements ActionListener
 //finslipa meny alien
 //finslipa meny agent
 //ÄndraLösenMetod(?)                        Återkommande?  if(samma kod dyker upp för både alien och agent.){do} else{ ignore();}
-//getIdAgent-metod
-//getIdAlien-metod
-//getLosenAgent-metod
-//getLosenAlien-metod
+//getIdAgent-metod      KLART
+//getIdAlien-metod      KLART
+//getLosenAgent-metod       KLART
+//getLosenAlien-metod       KLART
 //getKonAlien-metod
 //closeWindow-metod       
 
