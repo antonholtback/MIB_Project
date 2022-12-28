@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
 //import javax.swing.Timer;
 
 /**
@@ -54,12 +55,11 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, registreraAlienButton;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
     private static JTextField text1, text2, text3, text4, text5, text6, text7;
-    
     
 
     /**
@@ -253,7 +253,7 @@ public class MIB_Project {
          JPanel panel = new JPanel();
         
         JFrame frame = new JFrame();
-        frame.setSize(100, 100);
+        frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         frame.setLocationRelativeTo(null);
