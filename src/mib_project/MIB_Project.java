@@ -232,56 +232,18 @@ public class MIB_Project {
             try {
 
                 String username = userText.getText();
-                String currentPassword = cPasswordText.getText();
+                String currentPassword = passwordText.getText();
 
-                //Hämta lösenord från AgentTabellen. vi skulle kunna göra den här till en getLosen-metod då det är ett återkommande tema.
-                String fråga = "Select Losenord from Agent where Namn =" + "'" + username + "'";
-                String svar = idb.fetchSingle(fråga);
-                String resultat = svar;
-                System.out.println(svar);
-
-                //Hämta namn från AgentTabellen. samma här. skulle kunna skapa en metod. återkommande.
-                String fråga2 = "Select namn from agent where namn =" + "'" + username + "'";
-                String svar2 = idb.fetchSingle(fråga2);
-                String user = svar2;
-
-                if (user != null) {
-                    if (resultat.equals(currentPassword)) {
-                        inloggningsStatus = true;
-                    } else {
-                        success.setText("Password and username does not match");
-                        inloggningsStatus = false;
-                    }
-                } else {
-                    success.setText("Username doesn´t exist in database");
-                    inloggningsStatus = false;
-                }
-                if (inloggningsStatus) {
-                    String newPassword = nPasswordText.getText();
-                    String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
-                    String svarChange = idb.fetchSingle(frågaChange);
-                    String nyttPassword = svarChange;
-                    success.setText("Password updated");
-                }
-
-            } catch (InfException e) {
-                JOptionPane.showMessageDialog(null, "Login failed");
-
-        String username = userText.getText();
-        String currentPassword = cPasswordText.getText();
         
-        //Hämta lösenord från AgentTabellen. vi skulle kunna göra den här till en getLosen-metod då det är ett återkommande tema.
-        String fråga = "Select Losenord from Agent where Namn =" + "'" + username + "'";
-        String svar = idb.fetchSingle(fråga);
-        String resultat = svar;
-        System.out.println(svar);
-        
-        //Hämta namn från AgentTabellen. samma här. skulle kunna skapa en metod. återkommande.
-        String fråga2 = "Select namn from agent where namn =" + "'" + username + "'"; 
-        String svar2 = idb.fetchSingle(fråga2);
-        String user = svar2;
-        
-
+        //Hämta lösen agent
+        String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
+        String svarAgentLosen = idb.fetchSingle(frågaAgentLosen);
+        String resultatAgentLosen = svarAgentLosen;
+        //Hämta namn agent
+        String frågaAgentNamn = "Select namn from agent where namn =" + "'" + username + "'";
+        String svarAgentNamn = idb.fetchSingle(frågaAgentNamn);
+        String resultatAgentNamn = svarAgentNamn;
+        //Hämta namn alien
         String frågaAlienNamn = "SELECT Namn FROM Alien WHERE Namn =" + "'" + username + "'"; 
         String svarAlienNamn = idb.fetchSingle(frågaAlienNamn);
         String resultatAlienNamn = svarAlienNamn;
@@ -290,53 +252,61 @@ public class MIB_Project {
         String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
         String resultatAlienLosen = svarAlienLosen;
 
-        
-        if(user!=null)
-        {
-            if(resultat.equals(currentPassword))           
-            {
-                inloggningsStatus = true;
+               
+                if (resultatAgentNamn != null) 
+                {
+                    if (resultatAgentLosen.equals(currentPassword)) 
+                    {
+                        inloggningsStatus = true;
+                        agentinloggad = true;
+                    } 
+                   else 
+                    {
+                        success.setText("Password and username does not match");
+                        inloggningsStatus = false;
+                    }
+                } 
+                else if(resultatAlienNamn != null)
+                {
+                    if(resultatAlienLosen.equals(currentPassword))
+                    {
+                        inloggningsStatus = true;
+                        alieninloggad = true;
+                    }
+                    else
+                    {
+                        success.setText("Password and username does not match");
+                        inloggningsStatus = false;
+                    }
+                }
+                else {
+                    success.setText("Username doesn´t exist in database");
+                    inloggningsStatus = false;
+                }
+                
+                
+                if (agentinloggad) {
+                    String newPassword = nPasswordText.getText();
+                    String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                    String svarChange = idb.fetchSingle(frågaChange);
+                    String nyttPassword = svarChange;
+                    success.setText("Password updated");
+                }
+                else if(alieninloggad)
+                {
+                    String newPassword = nPasswordText.getText();
+                    String frågaChange = "UPDATE Alien SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
+                    String svarChange = idb.fetchSingle(frågaChange);
+                    String nyttPassword = svarChange;
+                    success.setText("Password updated");
+                }
 
-                agentinloggad = true;
-
-            }
-            else
-            {
-                success.setText("Password and username does not match");
-                inloggningsStatus = false;
-            }
-        }
-        else
-        {
-            success.setText("Username doesn´t exist in database");
-            inloggningsStatus = false;
-        }
-
-        if(inloggningsStatus || agentinloggad)
-            {
-                String newPassword = nPasswordText.getText();
-                String frågaChange = "UPDATE Agent SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
-                String svarChange = idb.fetchSingle(frågaChange);
-                String nyttPassword = svarChange;
-                success.setText("Password updated");
-            }
-
-        else if(inloggningsStatus || alieninloggad)
-            {
-                String newPassword = nPasswordText.getText();
-                String frågaChange = "UPDATE Alien SET Losenord =" + "'" + newPassword + "'" + "WHERE Namn =" + "'" + username + "'";
-                String svarChange = idb.fetchSingle(frågaChange);
-                String nyttPassword = svarChange;
-                success.setText("Password updated");
-            }
-
-        }
-            catch (InfException e)
-        {
-            JOptionPane.showMessageDialog(null, "Login failed");
-        }
+            } 
             
-    }
+            catch (InfException e) 
+            {
+                JOptionPane.showMessageDialog(null, "Login failed"); 
+            }
     }
     
     
