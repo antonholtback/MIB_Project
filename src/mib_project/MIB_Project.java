@@ -245,70 +245,73 @@ public class MIB_Project {
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException
     {
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.pink);
-        
         JFrame frame = new JFrame();
         frame.setSize(1920,1080);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
         frame.setLocationRelativeTo(null);
-        panel.setLayout(null);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.PINK);
+        
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(100,220,200,200);
+        panel.setBackground(Color.black);
+        frame.add(panel);
         
         JLabel headliner = new JLabel("MIB HUB");
         headliner.setBounds(625,80,300,80);
         headliner.setForeground(Color.black);
         headliner.setFont((fontHeadliner1));
-        panel.add(headliner);
+        frame.add(headliner);
         
         JLabel welcomeLabel = new JLabel("Welcome back " + getNamn());
         welcomeLabel.setBounds(625, 130,450,50);
         welcomeLabel.setForeground(Color.red);
         welcomeLabel.setFont(fontBread);
-        panel.add(welcomeLabel);
+        frame.add(welcomeLabel);
         
         JLabel logoLabel = new JLabel();
         logoLabel.setBounds(1020,580,200,200);
         ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
        // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
-        panel.add(logoLabel);
+        frame.add(logoLabel);
         
-       /** JPanel listPanel = new JPanel();
-        * 
+        JPanel listPanel = new JPanel();
+         
         listPanel.setBounds(500,170,250,250);
         listPanel.setBackground(Color.DARK_GRAY);
         listPanel.setLayout(new GridLayout (4,1));
         frame.add(listPanel);
         
-        buttonSet1 = new JButton ("name function1");
+        buttonSet1 = new JButton ("Registrera Alien");
         buttonSet1.setFont(fontBread);
         //buttonSet1.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet1);
         
-        buttonSet2 = new JButton ("name function2");
+        buttonSet2 = new JButton ("Ändra Alien");
         buttonSet2.setFont(fontBread);
         buttonSet2.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet2);
         
-        buttonSet3 = new JButton ("name function3");
+        buttonSet3 = new JButton ("Ändra Agent");
         buttonSet3.setFont(fontBread);
         buttonSet3.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet3);
         
-        buttonSet4 = new JButton ("name function4");
+        buttonSet4 = new JButton ("Ansök om pensionering");
         buttonSet4.setFont(fontBread);
         buttonSet4.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet4);
-        listPanel.add(buttonSet4);*/
+        listPanel.add(buttonSet4);
 
         
        /** JPanel timerPanel = new JPanel();
@@ -358,15 +361,18 @@ public class MIB_Project {
 // Koden för Alien Meny som kommer upp direkt efter inlogg som Alien
     public void GUIMeny_alien() throws InfException
     {
-        JPanel panel = new JPanel();
-        panel.setBackground(Color.pink);
-        
         JFrame frame = new JFrame();
         frame.setSize(1920,1080);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
         frame.setLocationRelativeTo(null);
-        panel.setLayout(null);
+        frame.setLayout(null);
+        frame.getContentPane().setBackground(Color.PINK);
+        
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(100,220,200,200);
+        panel.setBackground(Color.black);
+        frame.add(panel);
         
         JLabel headliner = new JLabel("Alien HUB");
         headliner.setBounds(625,80,300,80);
@@ -546,7 +552,7 @@ public class MIB_Project {
             try {
 
                 String username = userText.getText();
-                String currentPassword = passwordText.getText();
+                String currentPassword = cPasswordText.getText();
 
         
         //Hämta lösen agent
@@ -574,7 +580,7 @@ public class MIB_Project {
                         inloggningsStatus = true;
                         agentinloggad = true;
                     } 
-                   else 
+                   else
                     {
                         success.setText("Password and username does not match");
                         inloggningsStatus = false;
