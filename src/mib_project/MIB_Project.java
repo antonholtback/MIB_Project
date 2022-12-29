@@ -554,7 +554,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Ändra Agent");
         instansieraNyButton.setBounds(10, 240, 185, 25);
-        instansieraNyButton.addActionListener(uppdateraAgentHandler);
+        instansieraNyButton.addActionListener(hanteraAgentHandler);
         panel.add(instansieraNyButton);
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
         /**
