@@ -47,6 +47,7 @@ public class MIB_Project {
     RegistreraUtrustning registreraUtrustningHandler = new RegistreraUtrustning();
     InstansieraNyUtrustning instansieraNyUtrustning = new InstansieraNyUtrustning();
     UppdateraAlien uppdateraAlienHandler = new UppdateraAlien();
+    UppdateraAgentHandler uppdateraAgentHandler = new UppdateraAgentHandler();
     ValjAlienHandler valjAlienHandler = new ValjAlienHandler();
     ÄndraAlienHandler ändraAlienHandler = new ÄndraAlienHandler();
     LetaAlienID letaAlienID = new LetaAlienID();
@@ -554,7 +555,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Ändra Agent");
         instansieraNyButton.setBounds(10, 240, 185, 25);
-        instansieraNyButton.addActionListener(hanteraAgentHandler);
+        instansieraNyButton.addActionListener(uppdateraAgentHandler);
         panel.add(instansieraNyButton);
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
         /**
@@ -735,7 +736,7 @@ public class MIB_Project {
             buttonSet11 = new JButton("Hantera Agent");
             buttonSet11.setFont(fontBread);
             buttonSet11.setFocusPainted(true);
-            //buttonSet11.addActionListener();
+            buttonSet11.addActionListener(hanteraAgentHandler);
             //buttonSet11.setActionCommand(" ");
             listPanel.add(buttonSet11);
         }
