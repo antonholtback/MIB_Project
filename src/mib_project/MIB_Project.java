@@ -818,7 +818,7 @@ public class TimerHandler implements ActionListener
         String action = g.getActionCommand();
         
         switch(action)
-          {
+          { 
             case "Login":
                 perSecond = perSecond + 0.1;
                 timerUpdate();
