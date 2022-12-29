@@ -4,6 +4,7 @@
  */
 package mib_project;
 
+//import com.mysql.cj.xdevapi.Statement;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -23,6 +24,13 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+//import java.sql.*; 
+//import java.util.Scanner;
 //import javax.swing.Timer;
 
 /**
@@ -35,6 +43,7 @@ public class MIB_Project {
     LoginHandeler loginHandeler = new LoginHandeler();
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
     RegistreraAlien registreraAlienHandler = new RegistreraAlien();
+    InstansieraNyAlien instansieraNyAlien = new InstansieraNyAlien();
     
     //TimerHandler timerHandler = new TimerHandler();
     
@@ -54,7 +63,7 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8,instansieraNyButton;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
@@ -120,7 +129,7 @@ public class MIB_Project {
         JPanel panel = new JPanel();
         
         JFrame frame = new JFrame();
-        frame.setSize(100, 100);
+        frame.setSize(400, 250);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         frame.setLocationRelativeTo(null);
@@ -253,7 +262,7 @@ public class MIB_Project {
          JPanel panel = new JPanel();
         
         JFrame frame = new JFrame();
-        frame.setSize(100, 100);
+        frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
         frame.setLocationRelativeTo(null);
@@ -288,37 +297,42 @@ public class MIB_Project {
         panel.add(label7);
         
         text1 = new JTextField(20);
-        text1.setBounds(120, 20, 185, 25);
+        text1.setBounds(125, 20, 185, 25);
         panel.add(text1);
         
         text2 = new JTextField(20);
-        text2.setBounds(120, 50, 185, 25);
+        text2.setBounds(125, 50, 185, 25);
         panel.add(text2);
         
         text3 = new JTextField(20);
-        text3.setBounds(120, 80, 185, 25);
+        text3.setBounds(125, 80, 185, 25);
         panel.add(text3);
         
         text4 = new JTextField(20);
-        text4.setBounds(120, 110, 185, 25);
+        text4.setBounds(125, 110, 185, 25);
         panel.add(text4);
         
         text5 = new JTextField(20);
-        text5.setBounds(120, 140, 185, 25);
+        text5.setBounds(125, 140, 185, 25);
         panel.add(text5);
         
         text6 = new JTextField(20);
-        text6.setBounds(120, 170, 185, 25);
+        text6.setBounds(125, 170, 185, 25);
         panel.add(text6);
         
         text7 = new JTextField(20);
-        text7.setBounds(120, 200, 185, 25);
+        text7.setBounds(125, 200, 185, 25);
         panel.add(text7);
         
-        exeNewPasswordButton = new JButton("Ändra lösenord");
+        instansieraNyButton = new JButton("Registrera Alien");
+        instansieraNyButton.setBounds(10,240,185,25);
+        instansieraNyButton.addActionListener(instansieraNyAlien);
+        panel.add(instansieraNyButton);
+        //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
+        /**exeNewPasswordButton = new JButton("Ändra lösenord");
         exeNewPasswordButton.setBounds(10, 230, 185, 25);
         exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
-        panel.add(exeNewPasswordButton);
+        panel.add(exeNewPasswordButton);*/
         
         success = new JLabel("");
         success.setBounds(10,100,300,25);
@@ -861,6 +875,75 @@ public class TimerHandler implements ActionListener
         registreraAlienWindow();
     }
     }
+    
+    public class InstansieraNyAlien implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent s)
+        {
+            
+            try {
+                //String sql =
+                
+                String iD = text1.getText();
+                    String registreringsDatum = text2.getText();
+                    String lösenord = text3.getText();
+                    String namn = text4.getText();
+                    String tele = text5.getText();
+                    String plats = text6.getText();
+                    String ansvarigAgent = text7.getText();
+                    
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO ALIEN (Alien_ID, Registreringsdatum, Losenord, Namn, Telefon, Plats, Ansvarig_Agent) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                
+                
+                ps.setString(1, iD);
+                ps.setString(2, registreringsDatum);
+                ps.setString(3, lösenord);
+                ps.setString(4, namn);
+                ps.setString(5,tele);
+                ps.setString(6, plats);
+                ps.setString(7, ansvarigAgent);
+                
+                ps.execute();
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Alien added to chart");
+//String sql = "INSERT INTO Alien VALUES " + "'" + text1.getText() + "'" + "'" + text2.getText() + "'"+ "'" + text3.getText() + "'"+ "'" + text4.getText() + "'"+ "'" + text5.getText() + "'"+ "'" + text6.getText() + "'"+ "'" + text7.getText() + "'";
+                
+                //Scanner sc = new Scanner(System.out);
+                
+                    
+                    
+                    //String sql = "INSERT INTO Alien VALUES " + ("'"+iD+"'" +"," +  "'"+registreringsDatum+"'" +"," + "'"+lösenord+"'" +","  + "'"+namn+"'" +"," + "'"+tele+"'" +"," + "'"+plats+"'" +"," + "'"+ansvarigAgent+"'");
+                    //stmt.executeUpdate(sql);
+                    
+
+                
+                //stmt.close();
+                //conn.close();
+                
+                //int x=stmt.executeUpdate(sql);
+                /**if(x!=0)
+                {
+                                    System.out.println("Alien tillaggd");
+
+                }
+                else{
+                System.out.println("Alien inte tillaggd");
+                }*/
+            } catch (Exception ex) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Attempt failed"); 
+
+            } 
+          
+        }
+        
+    }
+    
+    
+    
 }
 
 
