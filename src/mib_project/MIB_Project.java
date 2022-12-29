@@ -44,6 +44,8 @@ public class MIB_Project {
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
     RegistreraAlien registreraAlienHandler = new RegistreraAlien();
     InstansieraNyAlien instansieraNyAlien = new InstansieraNyAlien();
+    RegistreraUtrustning registreraUtrustningHandler = new RegistreraUtrustning();
+    InstansieraNyUtrustning instansieraNyUtrustning = new InstansieraNyUtrustning();
     
     //TimerHandler timerHandler = new TimerHandler();
     
@@ -343,6 +345,53 @@ public class MIB_Project {
         
     }
     
+    public void registreraUtrustningWindow()
+    {
+        
+         JPanel panel = new JPanel();
+        
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+        
+        label1 = new JLabel("Utrustnings ID");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+        
+        label2 = new JLabel("Benämning");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+        
+        text1 = new JTextField(20);
+        text1.setBounds(125, 20, 185, 25);
+        panel.add(text1);
+        
+        text2 = new JTextField(20);
+        text2.setBounds(125, 50, 185, 25);
+        panel.add(text2);
+        
+        instansieraNyButton = new JButton("Registrera Utrustning");
+        instansieraNyButton.setBounds(10,240,185,25);
+        instansieraNyButton.addActionListener(instansieraNyUtrustning);
+        panel.add(instansieraNyButton);
+        //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
+        /**exeNewPasswordButton = new JButton("Ändra lösenord");
+        exeNewPasswordButton.setBounds(10, 230, 185, 25);
+        exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
+        panel.add(exeNewPasswordButton);*/
+        
+        success = new JLabel("");
+        success.setBounds(10,100,300,25);
+        panel.add(success);
+        
+        frame.setVisible(true);
+        
+        
+    }
+    
     
     
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
@@ -404,8 +453,8 @@ public class MIB_Project {
         buttonSet3 = new JButton ("Registrera utrustning");
         buttonSet3.setFont(fontBread);
         buttonSet3.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet3.addActionListener(registreraUtrustningHandler);
+        buttonSet3.setActionCommand(" ");
         listPanel.add(buttonSet3);
         
         buttonSet4 = new JButton ("Visa områdeschef");
@@ -875,7 +924,43 @@ public class TimerHandler implements ActionListener
         registreraAlienWindow();
     }
     }
-    
+    public class RegistreraUtrustning implements ActionListener
+    {
+        @Override
+    public void actionPerformed(ActionEvent h) {
+        
+        registreraUtrustningWindow();
+    }
+    }
+    public class InstansieraNyUtrustning implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent q)
+        {
+            try{
+                
+                String utrustningsID = text1.getText();
+                String benamning = text2.getText();
+                
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO UTRUSTNING (Utrustnings_ID, Benamning) VALUES (?, ?)");
+                
+                ps.setString(1, utrustningsID);
+                ps.setString(2, benamning);
+                
+                ps.execute();
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Gear added to chart");
+                
+            }
+            catch (Exception exa)
+            {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
+                JOptionPane.showMessageDialog(null, "Attempt failed"); 
+            }
+        }
+    }
     public class InstansieraNyAlien implements ActionListener
     {
         @Override
