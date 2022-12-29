@@ -164,6 +164,33 @@ public class MIB_Project {
 
     }
 
+    public Boolean getStatus() throws InfException
+    {
+        try{
+        String username = userText.getText();
+        String frågaAdmin = "SELECT Administrator FROM Agent WHERE Namn =" + username + "'";
+        String svarAdmin = idb.fetchSingle(frågaAdmin);
+        String adminStatus = svarAdmin;
+        
+        if(adminStatus.equals("J"))
+        {
+            admin = true;
+            return admin;
+        }
+        else if(adminStatus.equals("N"))
+        {
+            admin = false;
+            return admin;
+        }
+        
+        }
+        catch (InfException y)
+                {
+                JOptionPane.showMessageDialog(null, "Attempt failed");
+                }
+        return getStatus();
+    }
+    
     // Koden för metoden getNamn från Agent tabellen
     public String getNamn() throws InfException {
         try {
