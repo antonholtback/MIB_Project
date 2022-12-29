@@ -74,7 +74,7 @@ public class MIB_Project {
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
-    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, omradeLabel, ansvarigAgentLabel, telefonLabel;
+    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
 
     /**
@@ -198,8 +198,9 @@ public class MIB_Project {
         }
         return getNamnAlien();
     }
-    
-    public String getIDAlien2() throws InfException {
+//______________________________________________________________________________________________________
+// Metod för att hämta Alien_ID utan parameter    
+    public String getIDAlienUtanString() throws InfException {
         try {
             String username = userText.getText();
             String frågaID = "SELECT Alien_ID FROM Alien WHERE Namn =" + "'" + username + "'";
@@ -210,9 +211,90 @@ public class MIB_Project {
         } catch (InfException c) {
             JOptionPane.showMessageDialog(null, "Login failed");
         }
-        return getNamnAlien();
+        return getIDAlienUtanString();
     }
+    
+//______________________________________________________________________________________________________
+// Metod för att hämta en aliens registreringsdatum utan parameter    
+    public String getRegistreringsdatum() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaRegDate = "SELECT Registreringsdatum FROM Alien WHERE Namn =" + "'" + username + "'";
+            String svarRegDate = idb.fetchSingle(frågaRegDate);
+            String regDate = svarRegDate;
 
+            return regDate;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        return getRegistreringsdatum();
+    }    
+    
+//______________________________________________________________________________________________________
+// Metod för att hämta en aliens lösenord utan parameter    
+    public String getAlienLosenordUtanParameter() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
+            String svarLosen = idb.fetchSingle(frågaLosen);
+            String losenord = svarLosen;
+
+            return losenord;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        return getAlienLosenordUtanParameter();
+    }
+    
+//______________________________________________________________________________________________________
+// Metod för att hämta en aliens telefonnummer utan parameter    
+    public String getAlienTelefon() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaTelefon = "SELECT Telefon FROM Alien WHERE Namn =" + "'" + username + "'";
+            String svarTelefon = idb.fetchSingle(frågaTelefon);
+            String alienTelefon = svarTelefon;
+
+            return alienTelefon;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        return getAlienTelefon();
+    }    
+
+//______________________________________________________________________________________________________
+// Metod för att hämta en aliens plats utan parameter    
+    public String getAlienPlats() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaPlats = "SELECT Plats FROM Alien WHERE Namn =" + "'" + username + "'";
+            String svarPlats= idb.fetchSingle(frågaPlats);
+            String alienPlats = svarPlats;
+
+            return alienPlats;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        return getAlienPlats();
+    }        
+
+//______________________________________________________________________________________________________
+// Metod för att hämta en aliens ansvariga agent utan parameter    
+    public String getAlienAnsvarigAgent() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaAnsvarigAgent = "SELECT Ansvarig_Agent FROM Alien WHERE Namn =" + "'" + username + "'";
+            String svarAnsvarigAgent= idb.fetchSingle(frågaAnsvarigAgent);
+            String ansvarigAgent = svarAnsvarigAgent;
+
+            return ansvarigAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        return getAlienAnsvarigAgent();
+    }        
+
+     
     public String getIDAgent(String namn) throws InfException {
         String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
         String svar = idb.fetchSingle(fråga);
@@ -538,7 +620,7 @@ public class MIB_Project {
         label5.setBounds(10, 140, 120, 25);
         panel.add(label5);
 
-        label6 = new JLabel("Område: ");
+        label6 = new JLabel("Plats: ");
         label6.setBounds(10, 170, 120, 25);
         panel.add(label6);
 
@@ -547,27 +629,34 @@ public class MIB_Project {
         panel.add(label7);
 
         registreringsdatumLabel = new JLabel("");
-        registreringsdatumLabel.setBounds(110, 50, 120, 25);
+        registreringsdatumLabel.setBounds(130, 50, 120, 25);
+        registreringsdatumLabel.setFont(fontBread);
         panel.add(registreringsdatumLabel);
 
         losenordsLabel = new JLabel("");
-        losenordsLabel.setBounds(110, 80, 120, 25);
+        losenordsLabel.setBounds(70, 80, 120, 25);
+        losenordsLabel.setFont(fontBread);
         panel.add(losenordsLabel);
+        
 
         idLabel = new JLabel("");
         idLabel.setBounds(60, 110, 120, 25);
+        idLabel.setFont(fontBread);
         panel.add(idLabel);
 
         telefonLabel = new JLabel("");
         telefonLabel.setBounds(60, 140, 120, 25);
+        telefonLabel.setFont(fontBread);
         panel.add(telefonLabel);
 
-        omradeLabel = new JLabel("");
-        omradeLabel.setBounds(60, 170, 120, 25);
-        panel.add(omradeLabel);
+        platsLabel = new JLabel("");
+        platsLabel.setBounds(45, 170, 120, 25);
+        platsLabel.setFont(fontBread);
+        panel.add(platsLabel);
 
         ansvarigAgentLabel = new JLabel("");
-        ansvarigAgentLabel.setBounds(60, 200, 120, 25);
+        ansvarigAgentLabel.setBounds(100, 200, 120, 25);
+        ansvarigAgentLabel.setFont(fontBread);
         panel.add(ansvarigAgentLabel);
 
         userText = new JTextField();
@@ -585,20 +674,19 @@ public class MIB_Project {
     public void hamtaAlienInfo() throws InfException {
 
         try {
-            registreringsdatumLabel.setText(getNamnAlien());
+            registreringsdatumLabel.setText(getRegistreringsdatum());
+            idLabel.setText(getIDAlienUtanString());
+            losenordsLabel.setText(getAlienLosenordUtanParameter());
+            telefonLabel.setText(getAlienTelefon());
+            platsLabel.setText(getAlienPlats());
+            ansvarigAgentLabel.setText(getAlienAnsvarigAgent());
             
-            
-            idLabel.setText(getIDAlien2());
            
 
         } catch (InfException p) {
 
         }
     }
-
-             
-    
-    
     
 
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
