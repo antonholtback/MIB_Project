@@ -949,7 +949,7 @@ public class TimerHandler implements ActionListener
                 ps.setString(1, utrustningsID);
                 ps.setString(2, benamning);
                 
-                ps.execute();
+                
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Gear added to chart");
                 
@@ -991,7 +991,7 @@ public class TimerHandler implements ActionListener
                 ps.setString(6, plats);
                 ps.setString(7, ansvarigAgent);
                 
-                ps.execute();
+                
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Alien added to chart");
 //String sql = "INSERT INTO Alien VALUES " + "'" + text1.getText() + "'" + "'" + text2.getText() + "'"+ "'" + text3.getText() + "'"+ "'" + text4.getText() + "'"+ "'" + text5.getText() + "'"+ "'" + text6.getText() + "'"+ "'" + text7.getText() + "'";
