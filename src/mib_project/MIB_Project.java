@@ -50,6 +50,9 @@ public class MIB_Project {
     ValjAlienHandler valjAlienHandler = new ValjAlienHandler();
     ÄndraAlienHandler ändraAlienHandler = new ÄndraAlienHandler();
     LetaAlienID letaAlienID = new LetaAlienID();
+    VisaAlienInfo visaAlienInfo = new VisaAlienInfo();
+    HamtaAlienInfo hamtaAlienInfo = new HamtaAlienInfo();
+    
     
 
     //TimerHandler timerHandler = new TimerHandler();
@@ -71,6 +74,7 @@ public class MIB_Project {
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
+    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, omradeLabel, ansvarigAgentLabel, telefonLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
 
     /**
@@ -189,6 +193,20 @@ public class MIB_Project {
             String user = svarNamn;
 
             return user;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Login failed");
+        }
+        return getNamnAlien();
+    }
+    
+    public String getIDAlien2() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaID = "SELECT Alien_ID FROM Alien WHERE Namn =" + "'" + username + "'";
+            String svarID = idb.fetchSingle(frågaID);
+            String ID = svarID;
+
+            return ID;
         } catch (InfException c) {
             JOptionPane.showMessageDialog(null, "Login failed");
         }
@@ -488,6 +506,100 @@ public class MIB_Project {
         frame.setVisible(true);
 
     }
+    
+    public void alienInfoWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Namn: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Registreringsdatum: ");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+
+        label3 = new JLabel("Lösenord: ");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+
+        label4 = new JLabel("Alien-ID: ");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+
+        label5 = new JLabel("Telefon: ");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+
+        label6 = new JLabel("Område: ");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+
+        label7 = new JLabel("Ansvarig agent: ");
+        label7.setBounds(10, 200, 120, 25);
+        panel.add(label7);
+
+        registreringsdatumLabel = new JLabel("");
+        registreringsdatumLabel.setBounds(110, 50, 120, 25);
+        panel.add(registreringsdatumLabel);
+
+        losenordsLabel = new JLabel("");
+        losenordsLabel.setBounds(110, 80, 120, 25);
+        panel.add(losenordsLabel);
+
+        idLabel = new JLabel("");
+        idLabel.setBounds(60, 110, 120, 25);
+        panel.add(idLabel);
+
+        telefonLabel = new JLabel("");
+        telefonLabel.setBounds(60, 140, 120, 25);
+        panel.add(telefonLabel);
+
+        omradeLabel = new JLabel("");
+        omradeLabel.setBounds(60, 170, 120, 25);
+        panel.add(omradeLabel);
+
+        ansvarigAgentLabel = new JLabel("");
+        ansvarigAgentLabel.setBounds(60, 200, 120, 25);
+        panel.add(ansvarigAgentLabel);
+
+        userText = new JTextField();
+        userText.setBounds(60, 20, 120, 25);
+        panel.add(userText);
+
+        instansieraNyButton = new JButton("Hämta info");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(hamtaAlienInfo);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public void hamtaAlienInfo() throws InfException {
+
+        try {
+            registreringsdatumLabel.setText(getNamnAlien());
+            
+            
+            idLabel.setText(getIDAlien2());
+           
+
+        } catch (InfException p) {
+
+        }
+    }
+
+             
+    
+    
+    
 
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException {
@@ -581,8 +693,8 @@ public class MIB_Project {
         buttonSet8 = new JButton("Visa Alien info");
         buttonSet8.setFont(fontBread);
         buttonSet8.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet8.addActionListener(visaAlienInfo);
+        buttonSet8.setActionCommand(" ");
         listPanel.add(buttonSet8);
 
         if (admin) {
@@ -1128,5 +1240,26 @@ public class MIB_Project {
         }
 
     }
+    
+    public class VisaAlienInfo implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            alienInfoWindow();
+        }
+    }
+    
+    public class HamtaAlienInfo implements ActionListener {
 
-}
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+                hamtaAlienInfo();
+            } catch (InfException p) {
+
+            }
+    }
+    
+
+}}
