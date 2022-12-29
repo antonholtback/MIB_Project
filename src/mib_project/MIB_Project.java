@@ -55,8 +55,8 @@ public class MIB_Project {
     //boolean timerOn;
     //int timerSpeed, sessionTimerCounter;
     
+    boolean admin = false;
     boolean inloggningsStatus = false;
-
     boolean agentinloggad = false;
     boolean alieninloggad = false;
 
@@ -65,7 +65,7 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8,instansieraNyButton;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, instansieraNyButton;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
@@ -120,7 +120,7 @@ public class MIB_Project {
         fontHeadliner = new Font("Papyrus",Font.LAYOUT_NO_START_CONTEXT, 45);
         fontHeadliner1 = new Font("Courier New", Font.BOLD, 70 );
         fontHeadliner2 = new Font("Desdemona", Font.BOLD, 55 );
-        fontBread = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 18);
+        fontBread = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 15);
     }
     
 
@@ -411,19 +411,19 @@ public class MIB_Project {
         frame.add(panel);
         
         JLabel headliner = new JLabel("MIB HUB");
-        headliner.setBounds(625,80,300,80);
+        headliner.setBounds(620,80,300,80);
         headliner.setForeground(Color.black);
         headliner.setFont((fontHeadliner1));
         frame.add(headliner);
         
         JLabel welcomeLabel = new JLabel("Welcome back " + getNamn());
-        welcomeLabel.setBounds(625, 130,450,50);
+        welcomeLabel.setBounds(690, 150,450,50);
         welcomeLabel.setForeground(Color.red);
         welcomeLabel.setFont(fontBread);
         frame.add(welcomeLabel);
         
         JLabel logoLabel = new JLabel();
-        logoLabel.setBounds(1020,580,200,200);
+        logoLabel.setBounds(1320,630,200,200);
         ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
        // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
@@ -431,9 +431,9 @@ public class MIB_Project {
         
         JPanel listPanel = new JPanel();
          
-        listPanel.setBounds(500,170,250,250);
+        listPanel.setBounds(1100,270,400,250);
         listPanel.setBackground(Color.DARK_GRAY);
-        listPanel.setLayout(new GridLayout (4,1));
+        listPanel.setLayout(new GridLayout (4,2));
         frame.add(listPanel);
         
         buttonSet1 = new JButton ("Registrera Alien");
@@ -463,14 +463,12 @@ public class MIB_Project {
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet4);
-        listPanel.add(buttonSet4);
         
         buttonSet5 = new JButton ("Visa Alien på plats");
         buttonSet5.setFont(fontBread);
         buttonSet5.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
-        listPanel.add(buttonSet5);
         listPanel.add(buttonSet5);
         
         buttonSet6 = new JButton ("Visa Alien av art");
@@ -479,14 +477,12 @@ public class MIB_Project {
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet6);
-        listPanel.add(buttonSet6);
         
         buttonSet7 = new JButton ("Alien Registrerad mellan datum");
         buttonSet7.setFont(fontBread);
         buttonSet7.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
-        listPanel.add(buttonSet7);
         listPanel.add(buttonSet7);
         
         buttonSet8 = new JButton ("Visa Alien info");
@@ -495,7 +491,33 @@ public class MIB_Project {
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet8);
-        listPanel.add(buttonSet8);
+        
+        if(admin)
+        {
+            /**ta bort alien
+                    ta bort utrustning
+                            hantera agent*/
+            buttonSet9 = new JButton("Ta bort Alien");
+            buttonSet9.setFont(fontBread);
+            buttonSet9.setFocusPainted(true);
+            //buttonSet9.addActionListener();
+            //buttonSet9.setActionCommand(" ");
+            listPanel.add(buttonSet9);
+            
+            buttonSet10 = new JButton("Ta bort Utrustning");
+            buttonSet10.setFont(fontBread);
+            buttonSet10.setFocusPainted(true);
+            //buttonSet10.addActionListener();
+            //buttonSet10.setActionCommand(" ");
+            listPanel.add(buttonSet10);
+            
+            buttonSet11 = new JButton("Hantera Agent");
+            buttonSet11.setFont(fontBread);
+            buttonSet11.setFocusPainted(true);
+            //buttonSet11.addActionListener();
+            //buttonSet11.setActionCommand(" ");
+            listPanel.add(buttonSet11);
+        }
 
         
        /** JPanel timerPanel = new JPanel();
