@@ -163,33 +163,30 @@ public class MIB_Project {
         frame.setVisible(true);
 
     }
-
-    public Boolean getStatus() throws InfException
+/**
+    public boolean getStatus() throws InfException
     {
-        try{
-        String username = userText.getText();
-        String frågaAdmin = "SELECT Administrator FROM Agent WHERE Namn =" + username + "'";
+        
+        //String username = userText.getText();
+        String username = getNamn();
+        String frågaAdmin = "SELECT Administrator FROM Agent WHERE Namn =" + "'" + username + "'";
         String svarAdmin = idb.fetchSingle(frågaAdmin);
         String adminStatus = svarAdmin;
         
+        
         if(adminStatus.equals("J"))
         {
-            admin = true;
-            return admin;
+        
+            return true;
         }
-        else if(adminStatus.equals("N"))
+        else
         {
-            admin = false;
-            return admin;
+            return false;
         }
         
-        }
-        catch (InfException y)
-                {
-                JOptionPane.showMessageDialog(null, "Attempt failed");
-                }
-        return getStatus();
     }
+       */
+    
     
     // Koden för metoden getNamn från Agent tabellen
     public String getNamn() throws InfException {
@@ -611,7 +608,7 @@ public class MIB_Project {
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet8);
-
+        
         if (admin) {
             /**
              * ta bort alien ta bort utrustning hantera agent
@@ -652,7 +649,7 @@ public class MIB_Project {
          * perSecLabel = new JLabel(); perSecLabel.setForeground(Color.white);
          * perSecLabel.setFont(fontBread); timerPanel.add(perSecLabel);
          */
-        frame.setVisible(true);
+        //frame.setVisible(true);
 
         /**
          * JPanel timerPanel = new JPanel();
@@ -717,6 +714,8 @@ public class MIB_Project {
             try {
                 String username = userText.getText();
                 String password = passwordText.getText();
+                String jaAdmin = "J";
+                String nejAdmin = "N";
 
                 //Hämta lösen agent
                 String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
@@ -734,16 +733,32 @@ public class MIB_Project {
                 String frågaAlienLosen = "SELECT Losenord FROM Alien WHERE Namn =" + "'" + username + "'";
                 String svarAlienLosen = idb.fetchSingle(frågaAlienLosen);
                 String resultatAlienLosen = svarAlienLosen;
-
+                //Hämta adminstatus
+                String frågaAgentAdmin = "SELECT Administrator FROM Agent WHERE Namn =" + "'" + username + "'";
+                String svarAgentAdmin = idb.fetchSingle(frågaAgentAdmin);
+                String adminStatus = svarAgentAdmin;
+                
+                
                 if (resultatAgentNamn != null) {
-                    if (resultatAgentLosen.equals(password)) {
-                        success.setText("Login successfull!");
+                    if (resultatAgentLosen.equals(password) && adminStatus.equals(jaAdmin)) {
+                        success.setText("Login successfull! User identified as admin");
                         inloggningsStatus = true;
-
+                        admin = true;
                         GUIMeny();
+                    }
+                        else if(resultatAgentLosen.equals(password) && adminStatus.equals(nejAdmin))
+                                {
+                                    success.setText("Login successfull! User identified as pesant");
+                                    inloggningsStatus = true;
+                                    admin = false;
+                                    
+                                    GUIMeny();
+                                }
+                        
+                        
                         // timerUpdate();
                         //sessionTimer();
-                    } else {
+                      else {
                         success.setText("Login failed");
                     }
                 } else if (resultatAlienNamn != null) {
@@ -759,7 +774,7 @@ public class MIB_Project {
                 }
 
             } catch (InfException e) {
-                JOptionPane.showMessageDialog(null, "Login failed");
+                JOptionPane.showMessageDialog(null, "Login failed due to unknown reason");
             }
 
         }
@@ -897,7 +912,7 @@ public class MIB_Project {
                 }
 
             } catch (InfException e) {
-                JOptionPane.showMessageDialog(null, "Login failed");
+                JOptionPane.showMessageDialog(null, "Attempt to create new password failed");
             }
 
         }
@@ -1001,7 +1016,7 @@ public class MIB_Project {
 
             } catch (Exception exa) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
-                JOptionPane.showMessageDialog(null, "Attempt failed");
+                JOptionPane.showMessageDialog(null, "Attempt to add gear to chart failed");
             }
         }
     }
@@ -1037,7 +1052,7 @@ public class MIB_Project {
             }
             catch (Exception exb) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exb);
-                JOptionPane.showMessageDialog(null, "Attempt failed"); 
+                JOptionPane.showMessageDialog(null, "Attempt to access alter alien failed"); 
             }  
         
         }
@@ -1096,7 +1111,7 @@ public class MIB_Project {
             
             catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Attempt failed");
+                JOptionPane.showMessageDialog(null, "Attempt to update alien failed");
             }
         }
     }
