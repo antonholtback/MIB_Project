@@ -34,6 +34,7 @@ public class MIB_Project {
     ChangePasswordHandeler changePassHandeler = new ChangePasswordHandeler();
     LoginHandeler loginHandeler = new LoginHandeler();
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
+<<<<<<< Updated upstream
     TimerHandler timerHandler = new TimerHandler();
     
     
@@ -41,6 +42,15 @@ public class MIB_Project {
     double perSecond;
     boolean timerOn;
     int timerSpeed, sessionTimerCounter;
+=======
+    RegistreraAlien registreraAlienHandler = new RegistreraAlien();
+    InstansieraNyAlien instansieraNyAlien = new InstansieraNyAlien();
+    RegistreraUtrustning registreraUtrustningHandler = new RegistreraUtrustning();
+    InstansieraNyUtrustning instansieraNyUtrustning = new InstansieraNyUtrustning();
+    UppdateraAlien uppdateraAlienHandler = new UppdateraAlien();
+    ValjAlienHandler valjAlienHandler = new ValjAlienHandler();
+    LetaAlienID letaAlienID = new LetaAlienID();
+>>>>>>> Stashed changes
     
     boolean inloggningsStatus = false;
     
@@ -88,10 +98,15 @@ public class MIB_Project {
     }
     
     //Här kan vi skapa en metod vi åkallar när vi vill att ett fönster ska stängas utan att behöva klicka på krysset i programmfönstret.
+<<<<<<< Updated upstream
     public void closeWindow()
     {
         
 
+=======
+    public void closeWindow(JFrame frame) {
+ 
+>>>>>>> Stashed changes
     }
     
     //Här har vi en metod för att skapa typsnitt som används i programmet. Dessa deklareras som fält längst upp i MIB_Project-classen.
@@ -344,10 +359,29 @@ public class MIB_Project {
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
+<<<<<<< Updated upstream
     
     public String getLosenAgentByID(String id) throws InfException
     {
         String fråga = "Select Losenord from Agent where id = " + id;
+=======
+    public boolean letaAlienID(String id) throws InfException {
+        System.out.println(id);
+        String fråga = "Select Alien_ID from Alien where Alien_ID = " + id + ";";
+        String svar = idb.fetchSingle(fråga);
+        System.out.println(svar);
+        
+        if (svar != null)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public String getLosenAgentByID(String id) throws InfException {
+        String fråga = "Select Losenord from Agent where id = " + id + ";";
+>>>>>>> Stashed changes
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
@@ -445,7 +479,102 @@ public class MIB_Project {
         
         
         
+<<<<<<< Updated upstream
     }
+=======
+        success = new JLabel("");
+        success.setBounds(10, 100, 300, 25);
+        panel.add(success);
+        
+        frame.setVisible(true);
+    }
+    
+    public void ändraAlienWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Alien_ID");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Registreringsdatum");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+
+        label3 = new JLabel("Lösenord");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+
+        label4 = new JLabel("Namn");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+
+        label5 = new JLabel("Telefon");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+
+        label6 = new JLabel("Plats");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+
+        label7 = new JLabel("Ansvarig agent");
+        label7.setBounds(10, 200, 120, 25);
+        panel.add(label7);
+
+        text1 = new JTextField(20);
+        text1.setBounds(125, 20, 185, 25);
+        panel.add(text1);
+
+        text2 = new JTextField(20);
+        text2.setBounds(125, 50, 185, 25);
+        panel.add(text2);
+
+        text3 = new JTextField(20);
+        text3.setBounds(125, 80, 185, 25);
+        panel.add(text3);
+
+        text4 = new JTextField(20);
+        text4.setBounds(125, 110, 185, 25);
+        panel.add(text4);
+
+        text5 = new JTextField(20);
+        text5.setBounds(125, 140, 185, 25);
+        panel.add(text5);
+
+        text6 = new JTextField(20);
+        text6.setBounds(125, 170, 185, 25);
+        panel.add(text6);
+
+        text7 = new JTextField(20);
+        text7.setBounds(125, 200, 185, 25);
+        panel.add(text7);
+
+        instansieraNyButton = new JButton("Ändra Alien");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(uppdateraAlienHandler);
+        panel.add(instansieraNyButton);
+        //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
+        /**
+         * exeNewPasswordButton = new JButton("Ändra lösenord");
+         * exeNewPasswordButton.setBounds(10, 230, 185, 25);
+         * exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
+        panel.add(exeNewPasswordButton);
+         */
+
+        success = new JLabel("");
+        success.setBounds(10, 270, 300, 25);
+        panel.add(success);
+
+        frame.setVisible(true);
+
+>>>>>>> Stashed changes
     }
 
 //______________________________________________________________________________________________________
@@ -663,8 +792,140 @@ public class TimerHandler implements ActionListener
 
 
 
+<<<<<<< Updated upstream
     
     
+=======
+            } catch (Exception exa) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
+                JOptionPane.showMessageDialog(null, "Attempt failed");
+            }
+        }
+    }
+    
+    public class LetaAlienID implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent t) {
+            try
+            {
+                String valdAlien = text8.getText();
+                if(valdAlien != null && letaAlienID(valdAlien))
+                {
+                    success.setText("");
+                    ändraAlienWindow();
+                    
+                }
+                
+                else 
+                {
+                    success.setText("Valt ID existerar inte!");
+                }
+            }
+            catch (InfException ex)
+            {
+                success.setText("Valt ID existerar inte");
+            }
+                
+        }
+  
+    }
+    
+    public class ValjAlienHandler implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent u) {
+       
+            valjAlienWindow();
+        
+        }
+    }
+    
+    
+    public class UppdateraAlien implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent s) {
+
+            try {
+                //String sql =
+                String fråga = "UPDATE Alien set ";
+                String valdAlienId = text8.getText();
+               
+                String iD = text1.getText();
+                String registreringsDatum = text2.getText();
+                String lösenord = text3.getText();
+                String namn = text4.getText();
+                String tele = text5.getText();
+                String plats = text6.getText();
+                String ansvarigAgent = text7.getText();
+                
+
+                
+                if(!(iD.isEmpty())){
+                  fråga = (fråga + "Alien_ID =" + iD + ", ");
+                }
+                if(!(registreringsDatum.isEmpty())){
+                  fråga = (fråga + "Registreringsdatum ='" + registreringsDatum + "', ");
+                }
+                if(!(lösenord.isEmpty())){
+                  fråga = (fråga + "Losenord ='" + lösenord + "', ");
+                }
+                if(!(namn.isEmpty())){
+                  fråga = (fråga + "Namn ='" + namn + "', ");
+                }
+                if(!(tele.isEmpty())){
+                  fråga = (fråga + "Telefon = '" + tele + "', ");
+                }
+                if(!(plats.isEmpty())){
+                  fråga = (fråga + "Plats = " + plats + ", ");
+                }
+                if(!(ansvarigAgent.isEmpty())){
+                  fråga = (fråga + "Ansvarig_Agent = " + ansvarigAgent + ", ");
+                }
+            StringBuffer sb = new StringBuffer(fråga);
+            sb.deleteCharAt(sb.length() - 2);
+            fråga = sb.toString();
+            fråga = (fråga + "where Alien_ID = " + valdAlienId + ";");
+            
+            System.out.println(fråga);
+            idb.update(fråga);
+            success.setText("Ändringar sparade!");
+            }
+            
+            catch (Exception ex) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Attempt failed");
+            }
+        }
+    }
+        
+    public class InstansieraNyAlien implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent s) {
+
+            try {
+                //String sql =
+
+                String iD = text1.getText();
+                String registreringsDatum = text2.getText();
+                String lösenord = text3.getText();
+                String namn = text4.getText();
+                String tele = text5.getText();
+                String plats = text6.getText();
+                String ansvarigAgent = text7.getText();
+
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO ALIEN (Alien_ID, Registreringsdatum, Losenord, Namn, Telefon, Plats, Ansvarig_Agent) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+                ps.setString(1, iD);
+                ps.setString(2, registreringsDatum);
+                ps.setString(3, lösenord);
+                ps.setString(4, namn);
+                ps.setString(5, tele);
+                ps.setString(6, plats);
+                ps.setString(7, ansvarigAgent);
+>>>>>>> Stashed changes
 
 
 
