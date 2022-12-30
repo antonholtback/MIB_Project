@@ -52,6 +52,8 @@ public class MIB_Project {
     LetaAlienID letaAlienID = new LetaAlienID();
     VisaAlienInfo visaAlienInfo = new VisaAlienInfo();
     HamtaAlienInfo hamtaAlienInfo = new HamtaAlienInfo();
+    PlatsAllaAliens platsAllaAliens = new PlatsAllaAliens();
+    PlatsAllaAliensWindow platsAllaAliensWindow = new PlatsAllaAliensWindow();
     
     
 
@@ -293,7 +295,25 @@ public class MIB_Project {
         }
         return getAlienAnsvarigAgent();
     }        
+    
+    
+//______________________________________________________________________________________________________
+// Metod för att hämta en plats alla aliens   
+    public String getPlatsAllaAliens() throws InfException {
+        try {
+            String s = userText.getText();
+            int plats = Integer.parseInt(s);
+            String fragaPlats = "SELECT namn FROM Alien WHERE plats = " + plats;
+            String svarPlats= idb.fetchSingle(fragaPlats);
+            String platsAliens = svarPlats;
 
+            return platsAliens;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Platsen finns inte");
+            
+        }
+        return getPlatsAllaAliens();
+    } 
      
     public String getIDAgent(String namn) throws InfException {
         String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
@@ -680,15 +700,65 @@ public class MIB_Project {
             telefonLabel.setText(getAlienTelefon());
             platsLabel.setText(getAlienPlats());
             ansvarigAgentLabel.setText(getAlienAnsvarigAgent());
+
             
-           
 
         } catch (InfException p) {
 
         }
     }
     
+    
+    public void platsAllaAliensWindow(){
+        
+        JPanel panel = new JPanel();
 
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+        
+        label1 = new JLabel("Plats: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+        
+        userText = new JTextField();
+        userText.setBounds(60, 20, 120, 25);
+        panel.add(userText);
+        
+       // platsLabel = new JLabel("");
+       // platsLabel.setBounds(100,140,120,25);
+       // panel.add(platsLabel);
+        
+        platsLabel = new JLabel("");
+        platsLabel.setBounds(45, 170, 120, 25);
+        platsLabel.setFont(fontBread);
+        panel.add(platsLabel);
+        
+        instansieraNyButton = new JButton("Hämta aliens");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(platsAllaAliens);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public void platsAllaAliens(){
+        try {
+            
+       
+        platsLabel.setText(getPlatsAllaAliens());
+        
+    }
+    
+        catch (InfException asd){
+            
+        }
+    }
+    
+    
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException {
         JFrame frame = new JFrame();
@@ -760,8 +830,8 @@ public class MIB_Project {
         buttonSet5 = new JButton("Visa Alien på plats");
         buttonSet5.setFont(fontBread);
         buttonSet5.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet5.addActionListener(platsAllaAliensWindow);
+        buttonSet5.setActionCommand(" ");
         listPanel.add(buttonSet5);
 
         buttonSet6 = new JButton("Visa Alien av art");
@@ -1347,7 +1417,31 @@ public class MIB_Project {
             } catch (InfException p) {
 
             }
-    }
-    
+        }
 
-}}
+    }
+   
+    public class PlatsAllaAliensWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent w) {
+            platsAllaAliensWindow();
+        }
+    }
+
+    public class PlatsAllaAliens implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+               String s = getPlatsAllaAliens();
+               userLabel.setText(s);
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+}
+
