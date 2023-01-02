@@ -345,6 +345,102 @@ public class MIB_Project {
         return getAlienPlats();
     }
 
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs namn genom plats
+    public String getOmradeschefNamnByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select namn from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefNamnByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs telefon genom plats
+    public String getOmradeschefTelefonByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select telefon from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefTelefonByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs anställningsdatum genom plats
+    public String getOmradeschefAnstallninsdatumByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select anstallningsdatum from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefAnstallninsdatumByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs lösenord genom plats
+    public String getOmradeschefLosenordByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select losenord from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefLosenordByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs agent_Id genom plats
+    public String getOmradeschefIdByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select Agent_id from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefIdByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschef admininstartörsstatus genom plats
+    public String getOmradeschefAdminByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select administrator from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefAdminByPlats();
+    }
+
     public String getIDAgent(String namn) throws InfException {
         String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
         String svar = idb.fetchSingle(fråga);
@@ -506,7 +602,7 @@ public class MIB_Project {
         label2 = new JLabel("Namn: ");
         label2.setBounds(10, 50, 120, 25);
         panel.add(label2);
-        
+
         label3 = new JLabel("Telefon: ");
         label3.setBounds(10, 80, 120, 25);
         panel.add(label3);
@@ -519,13 +615,9 @@ public class MIB_Project {
         label5.setBounds(10, 140, 120, 25);
         panel.add(label5);
 
-        label6 = new JLabel("Lösenord: ");
+        label6 = new JLabel("Agent_ID: ");
         label6.setBounds(10, 170, 120, 25);
         panel.add(label6);
-
-        label7 = new JLabel("Agent_ID: ");
-        label7.setBounds(10, 200, 120, 25);
-        panel.add(label7);
 
         platsLabel = new JLabel("");
         platsLabel.setBounds(130, 50, 120, 25);
@@ -533,27 +625,29 @@ public class MIB_Project {
         panel.add(platsLabel);
 
         namnLabel = new JLabel("");
-        namnLabel.setBounds(70, 80, 120, 25);
+        namnLabel.setBounds(45, 50, 120, 25);
         namnLabel.setFont(fontBread);
         panel.add(namnLabel);
 
         telefonLabel = new JLabel("");
-        telefonLabel.setBounds(60, 110, 120, 25);
+        telefonLabel.setBounds(60, 80, 120, 25);
         telefonLabel.setFont(fontBread);
         panel.add(telefonLabel);
 
+        //Label för att visa anställningsdatum
         registreringsdatumLabel = new JLabel("");
-        registreringsdatumLabel.setBounds(60, 140, 120, 25);
+        registreringsdatumLabel.setBounds(120, 110, 120, 25);
         registreringsdatumLabel.setFont(fontBread);
         panel.add(registreringsdatumLabel);
 
-        losenordsLabel = new JLabel("");
-        losenordsLabel.setBounds(45, 170, 120, 25);
-        losenordsLabel.setFont(fontBread);
-        panel.add(losenordsLabel);
+        //Label för att visa om agenten är admin eller ej
+        ansvarigAgentLabel = new JLabel("");
+        ansvarigAgentLabel.setBounds(95, 140, 120, 25);
+        ansvarigAgentLabel.setFont(fontBread);
+        panel.add(ansvarigAgentLabel);
 
         idLabel = new JLabel("");
-        idLabel.setBounds(100, 200, 120, 25);
+        idLabel.setBounds(80, 170, 120, 25);
         idLabel.setFont(fontBread);
         panel.add(idLabel);
 
@@ -563,7 +657,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Hämta info");
         instansieraNyButton.setBounds(10, 240, 185, 25);
-        instansieraNyButton.addActionListener(hamtaAlienInfo);
+        instansieraNyButton.addActionListener(omradeschefInfo);
         panel.add(instansieraNyButton);
 
         frame.setVisible(true);
@@ -572,12 +666,11 @@ public class MIB_Project {
     public void omradeschefInfo() throws InfException {
 
         try {
-            registreringsdatumLabel.setText(getRegistreringsdatum());
-            idLabel.setText(getIDAlienUtanString());
-            losenordsLabel.setText(getAlienLosenordUtanParameter());
-            telefonLabel.setText(getAlienTelefon());
-            platsLabel.setText(getAlienPlats());
-            ansvarigAgentLabel.setText(getAlienAnsvarigAgent());
+            namnLabel.setText(getOmradeschefNamnByPlats());
+            telefonLabel.setText(getOmradeschefTelefonByPlats());
+            registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
+            ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
+            idLabel.setText(getOmradeschefIdByPlats());
 
         } catch (InfException p) {
 
@@ -1303,7 +1396,7 @@ public class MIB_Project {
                 String s = getPlatsAllaAliens();
                 platsLabel.setText(s);
             } catch (InfException p) {
-
+                JOptionPane.showMessageDialog(null, "Platsen saknar aliens eller finns inte");
             }
         }
 
