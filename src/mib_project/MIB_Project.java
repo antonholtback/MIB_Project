@@ -1521,11 +1521,9 @@ public class MIB_Project {
         welcomeLabel.setBounds(690, 150, 450, 50);
         welcomeLabel.setForeground(Color.red);
         welcomeLabel.setFont(fontBread);
-        panel.add(welcomeLabel);
         frame.add(welcomeLabel);
 
         JLabel logoLabel = new JLabel();
-        logoLabel.setBounds(1020, 580, 200, 200);
         logoLabel.setBounds(1320, 630, 200, 200);
         ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
         // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
