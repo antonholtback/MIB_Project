@@ -74,7 +74,7 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, instansieraNyButton;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, instansieraNyButton;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
@@ -1047,6 +1047,13 @@ public class MIB_Project {
             buttonSet11.addActionListener(hanteraAgentHandler);
             //buttonSet11.setActionCommand(" ");
             listPanel.add(buttonSet11);
+            
+            buttonSet12 = new JButton("Registrera Agent");
+            buttonSet12.setFont(fontBread);
+            buttonSet12.setFocusPainted(true);
+            //buttonSet12.addActionListener();
+            //buttonSet12.setActionCommand(" ");
+            listPanel.add(buttonSet12);
         }
 
         /**
