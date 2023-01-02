@@ -54,6 +54,10 @@ public class MIB_Project {
     HamtaAlienInfo hamtaAlienInfo = new HamtaAlienInfo();
     PlatsAllaAliens platsAllaAliens = new PlatsAllaAliens();
     PlatsAllaAliensWindow platsAllaAliensWindow = new PlatsAllaAliensWindow();
+    AlienAvRas alienAvRas = new AlienAvRas();
+    AlienAvRasWindow alienAvRasWindow = new AlienAvRasWindow();
+    
+    
     
     
 
@@ -314,7 +318,26 @@ public class MIB_Project {
         }
         return getPlatsAllaAliens();
     } 
-     
+    
+//______________________________________________________________________________________________________
+//Metod för att hämta alla aliens av ras
+    
+    public String getAlienAvRas() throws InfException {
+        try{
+            String ras = userText.getText();
+            String fragaRas = "SELECT alien.namn from Alien join " + ras + " on " + ras + ".`Alien_ID` = Alien.`Alien_ID`";
+            String svarRas = idb.fetchSingle(fragaRas);
+            String enAlienAvRas = svarRas;
+
+            return enAlienAvRas;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Rasen finns inte");
+        }
+        return getAlienAvRas();
+        }
+    
+    
+    
     public String getIDAgent(String namn) throws InfException {
         String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
         String svar = idb.fetchSingle(fråga);
@@ -759,6 +782,56 @@ public class MIB_Project {
     }
     
     
+    
+    public void alienAvRasWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Ras: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Namn: ");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+
+        registreringsdatumLabel = new JLabel("");
+        registreringsdatumLabel.setBounds(130, 50, 120, 25);
+        registreringsdatumLabel.setFont(fontBread);
+        panel.add(registreringsdatumLabel);
+        
+        userText = new JTextField();
+        userText.setBounds(60, 20, 120, 25);
+        panel.add(userText);
+
+        instansieraNyButton = new JButton("Hämta info");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(alienAvRas);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+    
+    public String hamtaAlienAvRas() throws InfException{
+        try {
+            String ras = getAlienAvRas();
+            System.out.println(alienAvRas);
+            return ras;
+        }
+        catch (InfException a){
+            
+        }
+        return hamtaAlienAvRas();
+    }
+    
+    
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException {
         JFrame frame = new JFrame();
@@ -823,8 +896,8 @@ public class MIB_Project {
         buttonSet4 = new JButton("Visa områdeschef");
         buttonSet4.setFont(fontBread);
         buttonSet4.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        //buttonSet4.addActionListener();
+        //buttonSet4.setActionCommand(" ");
         listPanel.add(buttonSet4);
 
         buttonSet5 = new JButton("Visa Alien på plats");
@@ -837,8 +910,8 @@ public class MIB_Project {
         buttonSet6 = new JButton("Visa Alien av art");
         buttonSet6.setFont(fontBread);
         buttonSet6.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet6.addActionListener(alienAvRasWindow);
+        buttonSet6.setActionCommand(" ");
         listPanel.add(buttonSet6);
 
         buttonSet7 = new JButton("Alien Registrerad mellan datum");
@@ -947,6 +1020,7 @@ public class MIB_Project {
         ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
         logoLabel.setIcon(logo);
         panel.add(logoLabel);
+        
 
         frame.setVisible(true);
     }
@@ -1443,5 +1517,29 @@ public class MIB_Project {
         }
 
     }
+    
+    public class AlienAvRasWindow implements ActionListener{
+        
+        @Override
+        public void actionPerformed(ActionEvent w) {
+            alienAvRasWindow();
+        }
+        
+    }
+    
+    public class AlienAvRas implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent jj) {
+
+            try {
+                hamtaAlienAvRas();
+
+            } catch (InfException jjj) {
+
+            }
+        }
+    }
 }
+
 
