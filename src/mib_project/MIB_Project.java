@@ -80,7 +80,7 @@ public class MIB_Project {
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
-    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel;
+    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
 
     /**
@@ -365,7 +365,7 @@ public class MIB_Project {
     }
 
     public boolean letaAlienID(String id) throws InfException {
-        String fråga = "Select Alien_ID from Alien where id = " + id + ";";
+        String fråga = "Select Alien_ID from Alien where Alien_ID = " + id;
         String svar = idb.fetchSingle(fråga);
 
         if (svar != null) {
@@ -376,7 +376,7 @@ public class MIB_Project {
     }
 
     public String getLosenAgentByID(String id) throws InfException {
-        String fråga = "Select Losenord from Agent where id = " + id + ";";
+        String fråga = "Select Losenord from Agent where Alien_ID = " + id + ";";
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
@@ -1544,7 +1544,7 @@ public class VisaAlienInfo implements ActionListener {
         public void actionPerformed(ActionEvent t) {
             try {
                 String valdAlien = text8.getText();
-                if (valdAlien != null && letaAlienID(valdAlien)) {
+                if (valdAlien != null && letaAlienID.equals(valdAlien)) {
                     ändraAlienWindow();
                 }
             } catch (Exception ex) {
@@ -1597,7 +1597,8 @@ public class UppdateraAgentHandler implements ActionListener
         try
         {
                 String fråga = "UPDATE Agent SET ";
-                String valdAgentNamn = text8.getText();
+                //String valdAgentNamn = text8.getText();
+                
             
                 String agentID = text1.getText();
                 String namn = text2.getText();
@@ -1607,28 +1608,81 @@ public class UppdateraAgentHandler implements ActionListener
                 String lösenord = text6.getText();
                 String område = text7.getText();
                 
+                String svar1 = null;
+                String svar2 = null;
+                String svar3 = null;
+                String svar4 = null;
+                String svar5 = null;
+                String svar6 = null;
+                String svar7 = null; 
+                
+                
+                String statemens = ("WHERE Agent_ID = " + agentID);
+                
                 if (agentID != null) {
-                    fråga.concat("Agent ID =" + agentID + ", ");
+                    svar1 = ("Agent_ID = " + agentID);
+                    
+                }
+                else{
+                    svar1 = ("Agent_ID = " + null);
                 }
                 if (namn != null) {
-                    fråga.concat("Namn ='" + namn + "', ");
+                    svar2 = ("Namn = " + "'"+namn+"'");
+                }
+                else{
+                    svar2 = ("Namn = " + null);
                 }
                 if (telefon != null) {
-                    fråga.concat("Telefon ='" + telefon + "', ");
+                    svar3 = ("Telefon = " + "'"+telefon+ "'");
+                }
+                else{
+                    svar3 = ("Telefon = " + null);
                 }
                 if (anställningsdatum != null) {
-                    fråga.concat("Anställningsdatum ='" + anställningsdatum + "', ");
+                    svar4 = ("Anställningsdatum = " +"'"+ anställningsdatum+"'");
+                }
+                else{
+                    svar4 = ("Anställningsdatum = " + null);
                 }
                 if (adminstatus != null) {
-                    fråga.concat("Admin = '" + adminstatus + "', ");
+                    svar5 = ("Administrator = " +"'"+ adminstatus+"'");
+                }
+                else{
+                    svar5 = ("Administrator = " + null);
                 }
                 if (lösenord != null) {
-                    fråga.concat("Lösenord = " + lösenord + ", ");
+                    svar6 = ("Losenord = "+"'"+ lösenord+"'");
+                }
+                else{
+                    svar6 = ("Losenord = " + null);
                 }
                 if (område != null) {
-                    fråga.concat("Område = " + område + ", ");
+                    svar7 = ("Område = " + område);
                 }
-                fråga.concat("where Agent_ID = " + valdAgentNamn);
+                else{
+                    svar7 = ("Område = " + null );
+                } 
+                
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("UPDATE Agent SET (?,?,?,?,?,?,?) WHERE Agent_ID = " + agentID);
+                //svar1+svar2+svar3+svar4+svar5+svar6+svar7
+                
+                
+                ps.setString(1, svar1);
+                ps.setString(2, svar2);
+                ps.setString(3, svar3);
+                ps.setString(4, svar4);
+                ps.setString(5, svar5);
+                ps.setString(6, svar6);
+                ps.setString(7, svar7);
+
+                ps.executeUpdate();
+                ps.execute();
+                
+                JOptionPane.showMessageDialog(null, "Attempt to update agent successfull!");
+
+                
             } catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Attempt to update agent failed");
