@@ -299,10 +299,11 @@ public class MIB_Project {
     public String getPlatsAllaAliens() throws InfException {
         try {
             String s = userText.getText();
-            int plats = Integer.parseInt(s);
-            String fragaPlats = "SELECT namn FROM Alien WHERE plats = " + plats;
+            //int plats = Integer.parseInt(s);
+            String fragaPlats = "SELECT Namn FROM Alien WHERE Plats = " +"'"+ s+"'" + " ORDER BY NAMN";
             String svarPlats = idb.fetchSingle(fragaPlats);
             String platsAliens = svarPlats;
+            
 
             return platsAliens;
         } catch (InfException c) {
@@ -997,7 +998,7 @@ public class MIB_Project {
         buttonSet5 = new JButton("Visa Alien på plats");
         buttonSet5.setFont(fontBread);
         buttonSet5.setFocusPainted(true);
-        //buttonSet1.addActionListener();
+        buttonSet5.addActionListener(platsAllaAliensWindow);
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet5);
 
@@ -1171,8 +1172,9 @@ public class MIB_Project {
 
             try {
                 String s = getPlatsAllaAliens();
-                userLabel.setText(s);
+                platsLabel.setText(s);
             } catch (InfException p) {
+                 JOptionPane.showMessageDialog(null, "There are no aliens on given place or place don´t exists");
 
             }
         }
