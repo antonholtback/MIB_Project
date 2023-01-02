@@ -85,7 +85,6 @@ public class MIB_Project {
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
-    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel;
     private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
 
@@ -498,20 +497,6 @@ public class MIB_Project {
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
-            return enAlienAvRas;
-        } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Rasen finns inte");
-        }
-        return getAlienAvRas();
-        }
-    
-    
-    
-    public String getIDAgent(String namn) throws InfException {
-        String fråga = "Select Agent_ID from Agent where Namn = '" + namn + "';";
-        String svar = idb.fetchSingle(fråga);
-        return svar;
-    }
 
     public String getIDAlien(String namn) throws InfException {
         String fråga = "Select Alien_ID from Alien where Namn = '" + namn + "';";
@@ -775,51 +760,19 @@ public class MIB_Project {
         instansieraNyButton.addActionListener(platsAllaAliens);
         panel.add(instansieraNyButton);
 
-    public String getIDAlien(String namn) throws InfException {
-        String fråga = "Select Alien_ID from Alien where Namn = '" + namn + "';";
-        String svar = idb.fetchSingle(fråga);
-        return svar;
-    }
-    public boolean letaAlienID(String id) throws InfException {
-        String fråga = "Select Alien_ID from Alien where id = " + id + ";";
-        String svar = idb.fetchSingle(fråga);
-        
-        if (svar != null)
-            return true;
-        
-        else
-        return false;
         frame.setVisible(true);
     }
 
-    public String getLosenAgentByID(String id) throws InfException {
-        String fråga = "Select Losenord from Agent where id = " + id + ";";
-        String svar = idb.fetchSingle(fråga);
-        return svar;
-    }
     public void platsAllaAliens() {
         try {
 
-    public String getLosenAgentByName(String name) throws InfException {
-        String fråga = "Select Losenord from Agent where namn = '" + name + "';";
-        String svar = idb.fetchSingle(fråga);
-        return svar;
-    }
             platsLabel.setText(getPlatsAllaAliens());
 
-    public String getLosenAlienByID(String id) throws InfException {
-        String fråga = "Select Losenord from Alien where id = " + id;
-        String svar = idb.fetchSingle(fråga);
-        return svar;
         } catch (InfException asd) {
 
         }
     }
 
-    public String getLosenAlienByName(String name) throws InfException {
-        String fråga = "Select Losenord from Alien where Namn = '" + name + "';";
-        String svar = idb.fetchSingle(fråga);
-        return svar;
     public void alienAvRasWindow() {
 
         JPanel panel = new JPanel();
@@ -1507,17 +1460,13 @@ public class MIB_Project {
         panel.setBackground(Color.black);
         frame.add(panel);
 
-        JLabel headliner = new JLabel("Alien HUB");
-        headliner.setBounds(625, 80, 300, 80);
         JLabel headliner = new JLabel("ALIEN HUB");
         headliner.setBounds(620, 80, 400, 80);
         headliner.setForeground(Color.black);
         headliner.setFont((fontHeadliner1));
-        panel.add(headliner);
         frame.add(headliner);
 
         JLabel welcomeLabel = new JLabel("Welcome back " + getNamnAlien());
-        welcomeLabel.setBounds(625, 130, 450, 50);
         welcomeLabel.setBounds(690, 150, 450, 50);
         welcomeLabel.setForeground(Color.red);
         welcomeLabel.setFont(fontBread);
