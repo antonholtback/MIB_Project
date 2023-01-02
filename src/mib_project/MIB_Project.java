@@ -301,8 +301,8 @@ public class MIB_Project {
     public String getPlatsAllaAliens() throws InfException {
         try {
             String s = userText.getText();
-            int plats = Integer.parseInt(s);
-            String fragaPlats = "SELECT namn FROM Alien WHERE plats = " + plats;
+            //int plats = Integer.parseInt(s);
+            String fragaPlats = "SELECT namn FROM Alien WHERE plats = " + "'" + s + "'" + " ORDER BY NAMN";
             String svarPlats = idb.fetchSingle(fragaPlats);
             String platsAliens = svarPlats;
 
@@ -487,7 +487,7 @@ public class MIB_Project {
 
         }
     }
-    
+
     public void omradeschefInfoWindow() {
 
         JPanel panel = new JPanel();
@@ -499,14 +499,14 @@ public class MIB_Project {
         frame.setLocationRelativeTo(null);
         panel.setLayout(null);
 
-        label1 = new JLabel("Agent_ID: ");
+        label1 = new JLabel("Min plats: ");
         label1.setBounds(10, 20, 120, 25);
         panel.add(label1);
 
         label2 = new JLabel("Namn: ");
         label2.setBounds(10, 50, 120, 25);
         panel.add(label2);
-
+        
         label3 = new JLabel("Telefon: ");
         label3.setBounds(10, 80, 120, 25);
         panel.add(label3);
@@ -523,14 +523,14 @@ public class MIB_Project {
         label6.setBounds(10, 170, 120, 25);
         panel.add(label6);
 
-        label7 = new JLabel("Område: ");
+        label7 = new JLabel("Agent_ID: ");
         label7.setBounds(10, 200, 120, 25);
         panel.add(label7);
 
-        idLabel = new JLabel("");
-        idLabel.setBounds(130, 50, 120, 25);
-        idLabel.setFont(fontBread);
-        panel.add(idLabel);
+        platsLabel = new JLabel("");
+        platsLabel.setBounds(130, 50, 120, 25);
+        platsLabel.setFont(fontBread);
+        panel.add(platsLabel);
 
         namnLabel = new JLabel("");
         namnLabel.setBounds(70, 80, 120, 25);
@@ -538,7 +538,7 @@ public class MIB_Project {
         panel.add(namnLabel);
 
         telefonLabel = new JLabel("");
-        telefonLabel.setBounds(60, 110,120, 25);
+        telefonLabel.setBounds(60, 110, 120, 25);
         telefonLabel.setFont(fontBread);
         panel.add(telefonLabel);
 
@@ -552,13 +552,13 @@ public class MIB_Project {
         losenordsLabel.setFont(fontBread);
         panel.add(losenordsLabel);
 
-        platsLabel = new JLabel("");
-        platsLabel.setBounds(100, 200, 120, 25);
-        platsLabel.setFont(fontBread);
-        panel.add(platsLabel);
+        idLabel = new JLabel("");
+        idLabel.setBounds(100, 200, 120, 25);
+        idLabel.setFont(fontBread);
+        panel.add(idLabel);
 
         userText = new JTextField();
-        userText.setBounds(60, 20, 120, 25);
+        userText.setBounds(70, 20, 120, 25);
         panel.add(userText);
 
         instansieraNyButton = new JButton("Hämta info");
@@ -648,10 +648,10 @@ public class MIB_Project {
         label2.setBounds(10, 50, 120, 25);
         panel.add(label2);
 
-        registreringsdatumLabel = new JLabel("");
-        registreringsdatumLabel.setBounds(130, 50, 120, 25);
-        registreringsdatumLabel.setFont(fontBread);
-        panel.add(registreringsdatumLabel);
+        namnLabel = new JLabel("");
+        namnLabel.setBounds(130, 50, 120, 25);
+        namnLabel.setFont(fontBread);
+        panel.add(namnLabel);
 
         userText = new JTextField();
         userText.setBounds(60, 20, 120, 25);
@@ -1181,8 +1181,8 @@ public class MIB_Project {
 
 //______________________________________________________________________________________________________
 // Koden för Alien Meny som kommer upp direkt efter inlogg som Alien
-   public void GUIMeny_alien() throws InfException {
-    	JFrame frame = new JFrame();
+    public void GUIMeny_alien() throws InfException {
+        JFrame frame = new JFrame();
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -1226,17 +1226,15 @@ public class MIB_Project {
         buttonSet1.addActionListener(omradeschefInfoWindow);
         buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet1);
-    
-    	frame.setVisible(true);
-	}
 
-        
-    
+        frame.setVisible(true);
+    }
 
     public String hamtaAlienAvRas() throws InfException {
         try {
             String ras = getAlienAvRas();
             System.out.println(alienAvRas);
+            namnLabel.setText(ras);
             return ras;
         } catch (InfException a) {
 
@@ -1265,7 +1263,7 @@ public class MIB_Project {
         }
 
     }
-    
+
     public class OmradeschefInfoWindow implements ActionListener {
 
         @Override
@@ -1287,8 +1285,6 @@ public class MIB_Project {
         }
 
     }
-    
-    
 
     public class PlatsAllaAliensWindow implements ActionListener {
 
@@ -1305,7 +1301,7 @@ public class MIB_Project {
 
             try {
                 String s = getPlatsAllaAliens();
-                userLabel.setText(s);
+                platsLabel.setText(s);
             } catch (InfException p) {
 
             }
