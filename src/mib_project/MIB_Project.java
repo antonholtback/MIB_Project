@@ -36,6 +36,9 @@ public class MIB_Project {
     LoginHandeler loginHandeler = new LoginHandeler();
     ExeNewPassword exeNewPasswordHandeler = new ExeNewPassword();
     RegistreraAlien registreraAlienHandler = new RegistreraAlien();
+    ValjAlienHandler valjAlienHandler = new ValjAlienHandler();
+    LetaAlienID letaAlienID = new LetaAlienID();
+    UppdateraAlien uppdateraAlien = new UppdateraAlien();
     
     //TimerHandler timerHandler = new TimerHandler();
     
@@ -59,7 +62,8 @@ public class MIB_Project {
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
-    private static JTextField text1, text2, text3, text4, text5, text6, text7;
+    private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
+    private static JButton instansieraNyButton;
     
 
     /**
@@ -182,7 +186,19 @@ public class MIB_Project {
         return getNamn();
     }
     
-    
+        public boolean letaAlienID(String id) throws InfException 
+        {
+        System.out.println(id);
+        String fråga = "Select Alien_ID from Alien where Alien_ID = " + id + ";";
+        String svar = idb.fetchSingle(fråga);
+        System.out.println(svar);
+        
+        if (svar != null)
+        {
+            return true;
+        }
+            return false;
+        }
     
 //______________________________________________________________________________________________________
 // Koden för metoden getNamn från Alien tabellen
@@ -254,7 +270,7 @@ public class MIB_Project {
         
         JFrame frame = new JFrame();
         frame.setSize(400, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.add(panel);
         frame.setLocationRelativeTo(null);
         panel.setLayout(null);
@@ -329,6 +345,125 @@ public class MIB_Project {
         
     }
     
+    public void valjAlienWindow()
+    {
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Alien_ID");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+        
+        text8 = new JTextField(20);
+        text8.setBounds(125, 20, 185, 25);
+        panel.add(text8);
+        
+        instansieraNyButton = new JButton("Ändra Alien");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(letaAlienID);
+        panel.add(instansieraNyButton);
+        
+        success = new JLabel("");
+        success.setBounds(10, 270, 300, 25);
+        panel.add(success);
+
+        frame.setVisible(true);
+    }
+    
+    public void ändraAlienWindow() 
+    {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Alien_ID");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Registreringsdatum");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+
+        label3 = new JLabel("Lösenord");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+
+        label4 = new JLabel("Namn");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+
+        label5 = new JLabel("Telefon");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+
+        label6 = new JLabel("Plats");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+
+        label7 = new JLabel("Ansvarig agent");
+        label7.setBounds(10, 200, 120, 25);
+        panel.add(label7);
+
+        text1 = new JTextField(20);
+        text1.setBounds(125, 20, 185, 25);
+        panel.add(text1);
+
+        text2 = new JTextField(20);
+        text2.setBounds(125, 50, 185, 25);
+        panel.add(text2);
+
+        text3 = new JTextField(20);
+        text3.setBounds(125, 80, 185, 25);
+        panel.add(text3);
+
+        text4 = new JTextField(20);
+        text4.setBounds(125, 110, 185, 25);
+        panel.add(text4);
+
+        text5 = new JTextField(20);
+        text5.setBounds(125, 140, 185, 25);
+        panel.add(text5);
+
+        text6 = new JTextField(20);
+        text6.setBounds(125, 170, 185, 25);
+        panel.add(text6);
+
+        text7 = new JTextField(20);
+        text7.setBounds(125, 200, 185, 25);
+        panel.add(text7);
+
+        instansieraNyButton = new JButton("Ändra Alien");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(uppdateraAlien);
+        panel.add(instansieraNyButton);
+        //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
+        /**
+         * exeNewPasswordButton = new JButton("Ändra lösenord");
+         * exeNewPasswordButton.setBounds(10, 230, 185, 25);
+         * exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
+        panel.add(exeNewPasswordButton);
+         */
+
+        success = new JLabel("");
+        success.setBounds(10, 270, 300, 25);
+        panel.add(success);
+
+        frame.setVisible(true);
+
+        }
+    
     
     
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
@@ -383,7 +518,7 @@ public class MIB_Project {
         buttonSet2 = new JButton ("Ändra Alien");
         buttonSet2.setFont(fontBread);
         buttonSet2.setFocusPainted(true);
-        //buttonSet1.addActionListener();
+        buttonSet2.addActionListener(valjAlienHandler);
         //buttonSet1.setActionCommand(" ");
         listPanel.add(buttonSet2);
         
@@ -667,7 +802,102 @@ public class MIB_Project {
     
     
     
+        public class LetaAlienID implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent t) {
+            try
+            {
+                String valdAlien = text8.getText();
+                if(valdAlien != null && letaAlienID(valdAlien))
+                {
+                    success.setText("");
+                    ändraAlienWindow();
+                    
+                }
+                
+                else 
+                {
+                    success.setText("Valt ID existerar inte!");
+                }
+            }
+            catch (InfException ex)
+            {
+                success.setText("Valt ID existerar inte");
+            }
+                
+        }
+  
+    }
     
+    public class ValjAlienHandler implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent u) {
+       
+            valjAlienWindow();
+        
+        }
+    }
+    
+    
+    public class UppdateraAlien implements ActionListener 
+    {
+        @Override
+        public void actionPerformed(ActionEvent s) 
+        {
+            
+            try {
+                //String sql =
+                String fråga = "UPDATE Alien set ";
+                String valdAlienId = text8.getText();
+               
+                String iD = text1.getText();
+                String registreringsDatum = text2.getText();
+                String lösenord = text3.getText();
+                String namn = text4.getText();
+                String tele = text5.getText();
+                String plats = text6.getText();
+                String ansvarigAgent = text7.getText();
+                
+
+                
+                if(!(iD.isEmpty())){
+                  fråga = (fråga + "Alien_ID =" + iD + ", ");
+                }
+                if(!(registreringsDatum.isEmpty())){
+                  fråga = (fråga + "Registreringsdatum ='" + registreringsDatum + "', ");
+                }
+                if(!(lösenord.isEmpty())){
+                  fråga = (fråga + "Losenord ='" + lösenord + "', ");
+                }
+                if(!(namn.isEmpty())){
+                  fråga = (fråga + "Namn ='" + namn + "', ");
+                }
+                if(!(tele.isEmpty())){
+                  fråga = (fråga + "Telefon = '" + tele + "', ");
+                }
+                if(!(plats.isEmpty())){
+                  fråga = (fråga + "Plats = " + plats + ", ");
+                }
+                if(!(ansvarigAgent.isEmpty())){
+                  fråga = (fråga + "Ansvarig_Agent = " + ansvarigAgent + ", ");
+                }
+            StringBuffer sb = new StringBuffer(fråga);
+            sb.deleteCharAt(sb.length() - 2);
+            fråga = sb.toString();
+            fråga = (fråga + "where Alien_ID = " + valdAlienId + ";");
+            
+            System.out.println(fråga);
+            idb.update(fråga);
+            success.setText("Ändringar sparade!");
+            }
+            
+            catch (Exception ex) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Attempt failed");
+            }
+        }
+    }
 //______________________________________________________________________________________________________    
 // Koden för knappen som exikverar nytt lösenord
     public class ExeNewPassword implements ActionListener
