@@ -2570,9 +2570,7 @@ public class MIB_Project {
 
                 String statemens = (" WHERE Agent_ID = " + agentID);
 
-                if (agentID != null) {
-                    idb.update(fråga + " Agent_ID = " + agentID + statemens);
-                }
+            
                 if (namn != null) {
                     idb.update(fråga + " Namn = " + "'" + namn +"'" + statemens);
                 }
@@ -2592,6 +2590,9 @@ public class MIB_Project {
                 }
                 if (område != null) {
                     idb.update(fråga + " Omrade = " + område + statemens);
+                }
+                if (agentID != null) {
+                    idb.update(fråga + " Agent_ID = " + agentID + statemens);
                 }
 
                 
@@ -2632,11 +2633,9 @@ public class MIB_Project {
                 if (registrering != null) {
                     idb.update(fråga + "Registreringsdatum = " + registrering + statemens);
                 }
-                
                 if (lösenord != null) {
                     idb.update(fråga + "Losenord = " +"'" + lösenord +"'" + statemens);
                 }
-                
                 if (namn != null) {
                     idb.update(fråga + " Namn = " +"'" + namn +"'" + statemens);
                 }
