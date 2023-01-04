@@ -395,6 +395,17 @@ public class MIB_Project {
     }
 
     // Metod för att hämta en aliens ansvariga agent utan parameter    
+    public boolean letaAnsvarigAgent(String id) throws InfException
+    {
+        String fråga = "Select Ansvarig_Agent from Alien where Ansvarig_Agent = " + id;
+        String svar = idb.fetchSingle(fråga);
+
+        if (svar != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public String getAlienAnsvarigAgent() throws InfException {
         try {
             String username = userText.getText();
@@ -2390,9 +2401,10 @@ public class MIB_Project {
             try {
                 String agentID = text1.getText();
                 int agentId = Integer.parseInt(agentID);
-                String ansvarigAgent = getAlienAnsvarigAgent();
+                boolean existera = letaAnsvarigAgent(agentID);
+                //String ansvarigAgent = getAlienAnsvarigAgent();
 
-                if (ansvarigAgent != null) {
+                if (agentID != null) {
                     changeAnsvarigAgentWindow();
                 } else {
                     /*Class.forName("com.mysql.cj.jdbc.Driver");
