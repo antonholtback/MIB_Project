@@ -2616,20 +2616,21 @@ public class MIB_Project {
                 
                 //String valdAgentNamn = text8.getText();
 
-                String alienID = text1.getText();
+                String alienIDNy = text1.getText();
                 String registrering = text2.getText();
                 String lösenord = text3.getText();
                 String namn = text4.getText(); 
                 String telefon = text5.getText();
                 String plats = text6.getText();
                 String ansvarigAgent = text7.getText();
+                String alienID = text8.getText();
 
 
 
                 String statemens = (" WHERE Alien_ID = " + alienID);
 
-                if (alienID != null) {
-                    idb.update(fråga + "Alien_ID = " + alienID + statemens);
+                if (alienIDNy != null) {
+                    idb.update(fråga + "Alien_ID = " + alienIDNy + statemens);
                 }
                 if (registrering != null) {
                     idb.update(fråga + "Registreringsdatum = " + registrering + statemens);
