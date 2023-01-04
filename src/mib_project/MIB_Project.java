@@ -71,6 +71,7 @@ public class MIB_Project {
     AlienMellanDatumHandler alienMellanDatum = new AlienMellanDatumHandler();
     AlienMellanDatumWindow alienMellanDatumWindow = new AlienMellanDatumWindow();
     DropAgent dropAgent = new DropAgent();
+    DropUtrustning dropUtrustning = new DropUtrustning();
     RegistreraAgent registreraAgent = new RegistreraAgent();
     InstansieraNyAgent instansieraNyAgent = new InstansieraNyAgent();
 
@@ -89,7 +90,7 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, buttonSet15, dropAgentButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton;
+    private static JButton inloggButton, buttonSet15, dropAgentButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton, instansieraNyButton2;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread, fontBreadLiten;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
@@ -395,8 +396,7 @@ public class MIB_Project {
     }
 
     // Metod för att hämta en aliens ansvariga agent utan parameter    
-    public boolean letaAnsvarigAgent(String id) throws InfException
-    {
+    public boolean letaAnsvarigAgent(String id) throws InfException {
         String fråga = "Select Ansvarig_Agent from Alien where Ansvarig_Agent = " + id;
         String svar = idb.fetchSingle(fråga);
 
@@ -406,6 +406,19 @@ public class MIB_Project {
             return false;
         }
     }
+
+    // Metod för att se om utrustning existerar    
+    public boolean letaUtrustning(String id) throws InfException {
+        String fråga = "Select utrustnings_id from utrustning where utrustnings_id = " + id;
+        String svar = idb.fetchSingle(fråga);
+
+        if (svar != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String getAlienAnsvarigAgent() throws InfException {
         try {
             String username = userText.getText();
@@ -575,15 +588,14 @@ public class MIB_Project {
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
-    
+
     public boolean letaAktivFaltagent(String id) throws InfException {
         String fråga = "SELECT Agent_ID FROM Faltagent where Agent_ID =" + id;
         String svar = idb.fetchSingle(fråga);
-        
-        if(svar != null) {
+
+        if (svar != null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -1444,6 +1456,11 @@ public class MIB_Project {
         instansieraNyButton.setBounds(10, 240, 185, 25);
         instansieraNyButton.addActionListener(instansieraNyUtrustning);
         panel.add(instansieraNyButton);
+
+        instansieraNyButton2 = new JButton("Ta bort utrustning");
+        instansieraNyButton2.setBounds(125, 240, 185, 25);
+        instansieraNyButton2.addActionListener(dropUtrustning);
+        panel.add(instansieraNyButton2);
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
         /**
          * exeNewPasswordButton = new JButton("Ändra lösenord");
@@ -2154,7 +2171,7 @@ public class MIB_Project {
         success = new JLabel("");
         success.setBounds(10, 110, 300, 25);
         panel.add(success);
-        
+
         frame.setVisible(true);
     }
 
@@ -2420,18 +2437,15 @@ public class MIB_Project {
                 //String ansvarigAgent = getAlienAnsvarigAgent();
 
                 if (agentID != null) {
-                    if(existera2)
-                    {
+                    if (existera2) {
                         idb.delete("DELETE FROM faltagent WHERE Agent_ID = " + agentId);
                     }
-                    if(existera){
-                    changeAnsvarigAgentWindow();
-                    }
-                    else if(!existera)
-                    {
+                    if (existera) {
+                        changeAnsvarigAgentWindow();
+                    } else if (!existera) {
                         idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
                         JOptionPane.showMessageDialog(null, "Agent dropped");
-                } 
+                    }
                     /*Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
                 PreparedStatement ps = conn.prepareStatement("DELETE FROM Agent, Alien WHERE Agent_ID = "+ "'"+ agentID +"'");
@@ -2445,6 +2459,36 @@ public class MIB_Project {
             } catch (Exception exa) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
                 JOptionPane.showMessageDialog(null, "Attempt to remove Agent from database failed");
+
+            }
+        }
+    }
+
+    public class DropUtrustning implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent sss) {
+
+            try {
+                String utrustningsID = text1.getText();
+                boolean existera = letaUtrustning(utrustningsID);
+
+                /*String fragaUtrustning = "SELECT utrustnings_id FROM utrustning WHERE utrustnings_id =" + "'" + utrustning + "'";
+                String svarUtrustning = idb.fetchSingle(fragaUtrustning);
+                String enUtrustning = svarUtrustning; */
+                if (!existera) {
+
+                    JOptionPane.showMessageDialog(null, "UtrustningsID finns inte");
+
+                } else {
+                    idb.delete("DELETE FROM Utrustning WHERE Utrustnings_ID = " + utrustningsID);
+                    JOptionPane.showMessageDialog(null, "Utrustningen är raderad");
+
+                }
+
+            } catch (Exception exa) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
+                JOptionPane.showMessageDialog(null, "hej daniel :)");
 
             }
         }
