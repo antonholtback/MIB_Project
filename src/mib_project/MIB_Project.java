@@ -2510,7 +2510,31 @@ public class MIB_Project {
         @Override
         public void actionPerformed(ActionEvent ssf)
         {
+            try {
+            String alienID = userText.getText();
+            int agentId = Integer.parseInt(alienID);
+            boolean existera1 = letaRasB(alienID);
+            boolean existera2 = letaRasS(alienID);
+            boolean existera3 = letaRasW(alienID);
             
+            if(alienID != null) {
+                if (existera1) {
+                        idb.delete("DELETE FROM Boglodite WHERE Alien_ID = " + alienID);
+            }
+                if (existera2) {
+                        idb.delete("DELETE FROM Squid WHERE Alien_ID = " + alienID);
+            }
+                if (existera3) {
+                        idb.delete("DELETE FROM Worm WHERE Alien_ID = " + alienID);
+            }
+            
+            idb.delete("DELETE FROM Alien WHERE Alien_ID = " + alienID);
+            }
+            }
+            catch(InfException sdes) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, sdes);
+                JOptionPane.showMessageDialog(null, "Attempt to remove Alien from database failed");
+            }
         }
     }
 
