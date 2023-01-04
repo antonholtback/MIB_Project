@@ -490,6 +490,8 @@ public class MIB_Project {
 //______________________________________________________________________________________________________
 //Metod för att hämta alla aliens av ras
     public String getAlienAvRas() throws InfException {
+      
+        String error = "Inga registrerade aliens";
         try {
             String ras = userText.getText();
             String fragaRas = "SELECT alien.namn from Alien join " + ras + " on " + ras + ".`Alien_ID` = Alien.`Alien_ID`";
@@ -500,7 +502,7 @@ public class MIB_Project {
         } catch (InfException c) {
             JOptionPane.showMessageDialog(null, "Rasen finns inte");
         }
-        return getAlienAvRas();
+        return error;
     }
 
     // Metod för att hämta en aliens plats utan parameter    
@@ -521,6 +523,8 @@ public class MIB_Project {
     //______________________________________________________________________________________________________
 //Metod för att hämta områdeschefs namn genom plats
     public String getOmradeschefNamnByPlats() throws InfException {
+        
+        String s = "Namn saknas";
         try {
             String plats = userText.getText();
             String fragaPlats = "select namn from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
@@ -529,14 +533,16 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "1");
+            JOptionPane.showMessageDialog(null, "Namn saknas");
         }
-        return getOmradeschefNamnByPlats();
+        return s;
     }
 
     //______________________________________________________________________________________________________
 //Metod för att hämta områdeschefs telefon genom plats
     public String getOmradeschefTelefonByPlats() throws InfException {
+      
+        String s = "Telefon saknas";
         try {
             String plats = userText.getText();
             String fragaPlats = "select telefon from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
@@ -545,14 +551,16 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "2");
+            JOptionPane.showMessageDialog(null, "Telefon saknas");
         }
-        return getOmradeschefTelefonByPlats();
+        return s;
     }
 
     //______________________________________________________________________________________________________
 //Metod för att hämta områdeschefs anställningsdatum genom plats
     public String getOmradeschefAnstallninsdatumByPlats() throws InfException {
+       
+        String s = "error";
         try {
             String plats = userText.getText();
             String fragaPlats = "select anstallningsdatum from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
@@ -561,14 +569,16 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+            JOptionPane.showMessageDialog(null, "Anställningsdatum saknas");
         }
-        return getOmradeschefAnstallninsdatumByPlats();
+        return s;
     }
 
     //______________________________________________________________________________________________________
 //Metod för att hämta områdeschefs lösenord genom plats
     public String getOmradeschefLosenordByPlats() throws InfException {
+       
+        String s = "Lösenord saknas";
         try {
             String plats = userText.getText();
             String fragaPlats = "select losenord from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
@@ -577,14 +587,16 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+            JOptionPane.showMessageDialog(null, "Lösenord saknas");
         }
-        return getOmradeschefLosenordByPlats();
+        return s;
     }
 
     //______________________________________________________________________________________________________
 //Metod för att hämta områdeschefs agent_Id genom plats
     public String getOmradeschefIdByPlats() throws InfException {
+      
+        String s = "Agent_ID saknas";
         try {
             String plats = userText.getText();
             String fragaPlats = "select Agent_id from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
@@ -593,14 +605,16 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+            JOptionPane.showMessageDialog(null, "Agent_ID saknas");
         }
-        return getOmradeschefIdByPlats();
+        return s;
     }
 
     //______________________________________________________________________________________________________
 //Metod för att hämta områdeschef admininstartörsstatus genom plats
     public String getOmradeschefAdminByPlats() throws InfException {
+        
+        String s = "Adminstatus saknas";
         try {
             String plats = userText.getText();
             String fragaPlats = "select administrator from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
@@ -609,9 +623,9 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+            JOptionPane.showMessageDialog(null, "Adminstatus saknas");
         }
-        return getOmradeschefAdminByPlats();
+        return s;
     }
 
     public String getIDAgent(String namn) throws InfException {
@@ -1439,12 +1453,12 @@ public class MIB_Project {
         panel.add(text7);
 
         instansieraNyButton = new JButton("Ändra Agent");
-        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.setBounds(10, 240, 140, 25);
         instansieraNyButton.addActionListener(uppdateraAgentHandler);
         panel.add(instansieraNyButton);
 
         dropAgentButton = new JButton("Ta bort Agent");
-        dropAgentButton.setBounds(125, 240, 185, 25);
+        dropAgentButton.setBounds(10, 270, 140, 25);
         dropAgentButton.addActionListener(dropAgent);
         panel.add(dropAgentButton);
 
@@ -1489,7 +1503,7 @@ public class MIB_Project {
         platsLabel.setFont(fontBread);
         panel.add(platsLabel);
 
-        instansieraNyButton = new JButton("Terminera angiven Alien");
+        instansieraNyButton = new JButton("Ta bort Alien");
         instansieraNyButton.setBounds(10, 240, 185, 25);
         instansieraNyButton.addActionListener(dropAlienExe);
         panel.add(instansieraNyButton);
@@ -1525,14 +1539,16 @@ public class MIB_Project {
         panel.add(text2);
 
         instansieraNyButton = new JButton("Registrera Utrustning");
-        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.setBounds(10, 240, 160, 25);
         instansieraNyButton.addActionListener(instansieraNyUtrustning);
         panel.add(instansieraNyButton);
 
-        instansieraNyButton2 = new JButton("Ta bort utrustning");
-        instansieraNyButton2.setBounds(125, 240, 185, 25);
-        instansieraNyButton2.addActionListener(dropUtrustning);
-        panel.add(instansieraNyButton2);
+        if (admin) {
+            instansieraNyButton2 = new JButton("Ta bort utrustning");
+            instansieraNyButton2.setBounds(10, 270, 160, 25);
+            instansieraNyButton2.addActionListener(dropUtrustning);
+            panel.add(instansieraNyButton2);
+        }
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
         /**
          * exeNewPasswordButton = new JButton("Ändra lösenord");
@@ -1654,7 +1670,7 @@ public class MIB_Project {
         buttonSet2.setActionCommand(" ");
         listPanel.add(buttonSet2);
 
-        buttonSet3 = new JButton("Registrera utrustning");
+        buttonSet3 = new JButton("Hantera utrustning");
         buttonSet3.setFont(fontBread);
         buttonSet3.setFocusPainted(true);
         buttonSet3.addActionListener(registreraUtrustningHandler);
@@ -1675,15 +1691,15 @@ public class MIB_Project {
         buttonSet5.setActionCommand(" ");
         listPanel.add(buttonSet5);
 
-        buttonSet6 = new JButton("Visa Alien av art");
+        buttonSet6 = new JButton("Visa Alien av ras");
         buttonSet6.setFont(fontBread);
         buttonSet6.setFocusPainted(true);
         buttonSet6.addActionListener(alienAvRasWindow);
         buttonSet6.setActionCommand(" ");
         listPanel.add(buttonSet6);
 
-        buttonSet7 = new JButton("Alien Registrerad mellan datum");
-        buttonSet7.setFont(fontBread);
+        buttonSet7 = new JButton("Registrerad mellan datum");
+        buttonSet7.setFont(fontBreadLiten);
         buttonSet7.setFocusPainted(true);
         buttonSet7.addActionListener(alienMellanDatumWindow);
         buttonSet7.setActionCommand(" ");
@@ -1707,12 +1723,12 @@ public class MIB_Project {
             //buttonSet9.setActionCommand(" ");
             listPanel.add(buttonSet9);
 
-            buttonSet10 = new JButton("Ta bort Utrustning");
+         /*   buttonSet10 = new JButton("Ta bort Utrustning");
             buttonSet10.setFont(fontBread);
             buttonSet10.setFocusPainted(true);
             //buttonSet10.addActionListener();
             //buttonSet10.setActionCommand(" ");
-            listPanel.add(buttonSet10);
+            listPanel.add(buttonSet10); */
 
             buttonSet11 = new JButton("Hantera Agent");
             buttonSet11.setFont(fontBread);
@@ -1735,7 +1751,7 @@ public class MIB_Project {
             //buttonSet13.setActionCommand(" ");
             listPanel.add(buttonSet13);
 
-            buttonSet14 = new JButton("Ändra kontorerts chef");
+            buttonSet14 = new JButton("Ändra kontorschef");
             buttonSet14.setFont(fontBread);
             buttonSet14.setFocusPainted(true);
             buttonSet14.addActionListener(andraKontorschefWindow);
@@ -1835,15 +1851,22 @@ public class MIB_Project {
     }
 
     public String hamtaAlienAvRas() throws InfException {
+
+        String s = "error";
         try {
             String ras = getAlienAvRas();
             System.out.println(alienAvRas);
             namnLabel.setText(ras);
+
+            if (ras == null) {
+                JOptionPane.showMessageDialog(null, "Platsen saknar aliens eller finns inte");
+            }
             return ras;
+
         } catch (InfException a) {
 
         }
-        return hamtaAlienAvRas();
+        return s;
 
     }
 
@@ -2530,11 +2553,13 @@ public class MIB_Project {
             }
             
             idb.delete("DELETE FROM Alien WHERE Alien_ID = " + alienID);
+            
+            JOptionPane.showMessageDialog(null, "Alien borttagen");
             }
             }
             catch(InfException sdes) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, sdes);
-                JOptionPane.showMessageDialog(null, "Attempt to remove Alien from database failed");
+                JOptionPane.showMessageDialog(null, "Det gick inte att ta bort alien.");
             }
         }
     }
@@ -2832,7 +2857,7 @@ public class MIB_Project {
                 ps.setString(7, ansvarigAgent);
 
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Alien added to chart");
+                JOptionPane.showMessageDialog(null, "Alien tillagd");
 //String sql = "INSERT INTO Alien VALUES " + "'" + text1.getText() + "'" + "'" + text2.getText() + "'"+ "'" + text3.getText() + "'"+ "'" + text4.getText() + "'"+ "'" + text5.getText() + "'"+ "'" + text6.getText() + "'"+ "'" + text7.getText() + "'";
 
                 //Scanner sc = new Scanner(System.out);
