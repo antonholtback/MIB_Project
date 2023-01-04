@@ -75,6 +75,7 @@ public class MIB_Project {
     RegistreraAgent registreraAgent = new RegistreraAgent();
     InstansieraNyAgent instansieraNyAgent = new InstansieraNyAgent();
     DropAlien dropAlien = new DropAlien();
+    DropAlienExe dropAlienExe = new DropAlienExe();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -1489,7 +1490,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Terminera angiven Alien");
         instansieraNyButton.setBounds(10, 240, 185, 25);
-        //instansieraNyButton.addActionListener();
+        instansieraNyButton.addActionListener(dropAlienExe);
         panel.add(instansieraNyButton);
 
         frame.setVisible(true);
@@ -2501,6 +2502,15 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent ssd) {
             
             dropAlienWindow();
+        }
+    }
+    
+    public class DropAlienExe implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent ssf)
+        {
+            
         }
     }
 
