@@ -74,6 +74,7 @@ public class MIB_Project {
     DropUtrustning dropUtrustning = new DropUtrustning();
     RegistreraAgent registreraAgent = new RegistreraAgent();
     InstansieraNyAgent instansieraNyAgent = new InstansieraNyAgent();
+    DropAlien dropAlien = new DropAlien();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -1459,6 +1460,41 @@ public class MIB_Project {
         frame.setVisible(true);
     }
 
+    public void dropAlienWindow() {
+        
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Alien ID: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        userText = new JTextField();
+        userText.setBounds(60, 20, 120, 25);
+        panel.add(userText);
+
+        // platsLabel = new JLabel("");
+        // platsLabel.setBounds(100,140,120,25);
+        // panel.add(platsLabel);
+        platsLabel = new JLabel("");
+        platsLabel.setBounds(45, 170, 120, 25);
+        platsLabel.setFont(fontBread);
+        panel.add(platsLabel);
+
+        instansieraNyButton = new JButton("Terminera angiven Alien");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        //instansieraNyButton.addActionListener();
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+    
     public void registreraUtrustningWindow() {
 
         JPanel panel = new JPanel();
@@ -1665,7 +1701,7 @@ public class MIB_Project {
             buttonSet9 = new JButton("Ta bort Alien");
             buttonSet9.setFont(fontBread);
             buttonSet9.setFocusPainted(true);
-            //buttonSet9.addActionListener();
+            buttonSet9.addActionListener(dropAlien);
             //buttonSet9.setActionCommand(" ");
             listPanel.add(buttonSet9);
 
@@ -2456,6 +2492,15 @@ public class MIB_Project {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
                 JOptionPane.showMessageDialog(null, "Attempt to add gear to chart failed");
             }
+        }
+    }
+    
+    public class DropAlien implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent ssd) {
+            
+            dropAlienWindow();
         }
     }
 
