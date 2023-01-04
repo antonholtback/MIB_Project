@@ -58,9 +58,17 @@ public class MIB_Project {
     PlatsAllaAliensWindow platsAllaAliensWindow = new PlatsAllaAliensWindow();
     AlienAvRas alienAvRas = new AlienAvRas();
     AlienAvRasWindow alienAvRasWindow = new AlienAvRasWindow();
+    OmradeschefInfo omradeschefInfo = new OmradeschefInfo();
+    OmradeschefInfoWindow omradeschefInfoWindow = new OmradeschefInfoWindow();
+    HamtaAgentInfo hamtaAgentInfo = new HamtaAgentInfo();
+    HamtaAgentInfoWindow hamtaAgentInfoWindow = new HamtaAgentInfoWindow();
+    AndraOmradeschef andraOmradeschef = new AndraOmradeschef();
+    AndraOmradeschefWindow andraOmradeschefWindow = new AndraOmradeschefWindow();
+    AndraKontorschef andraKontorschef = new AndraKontorschef();
+    AndraKontorschefWindow andraKontorschefWindow = new AndraKontorschefWindow();
 
     //TimerHandler timerHandler = new TimerHandler();
-    //Timer timer;
+    //Timer timer;  
     //double perSecond;
     //boolean timerOn;
     //int timerSpeed, sessionTimerCounter;
@@ -74,9 +82,9 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, instansieraNyButton;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton;
     private static JLabel success;
-    private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
+    private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread, fontBreadLiten;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
     private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
@@ -121,6 +129,7 @@ public class MIB_Project {
         fontHeadliner1 = new Font("Courier New", Font.BOLD, 70);
         fontHeadliner2 = new Font("Desdemona", Font.BOLD, 55);
         fontBread = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 15);
+        fontBreadLiten = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 12);
     }
 
 //______________________________________________________________________________________________________
@@ -234,6 +243,104 @@ public class MIB_Project {
         return getRegistreringsdatum();
     }
 
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents ID 
+    public String getAgentId() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaId = "SELECT agent_id FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarId = idb.fetchSingle(frågaId);
+            String agentId = svarId;
+
+            return agentId;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentId();
+    }
+
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents telefonnummer
+    public String getAgentTelefon() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaNamn = "SELECT telefon FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarNamn = idb.fetchSingle(frågaNamn);
+            String agentNamn = svarNamn;
+
+            return agentNamn;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentTelefon();
+    }
+
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents anställningsdatum
+    public String getAgentAnstallningsdatum() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaNamn = "SELECT anstallningsdatum FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarNamn = idb.fetchSingle(frågaNamn);
+            String agentNamn = svarNamn;
+
+            return agentNamn;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentAnstallningsdatum();
+    }
+
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents adminstatus
+    public String getAgentAdministrator() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaNamn = "SELECT administrator FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarNamn = idb.fetchSingle(frågaNamn);
+            String agentNamn = svarNamn;
+
+            return agentNamn;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentAdministrator();
+    }
+
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents lösenord
+    public String getAgentLosenord() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaNamn = "SELECT losenord FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarNamn = idb.fetchSingle(frågaNamn);
+            String agentNamn = svarNamn;
+
+            return agentNamn;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentLosenord();
+
+    }
+
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents område
+    public String getAgentOmrade() throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaNamn = "SELECT omrade FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarNamn = idb.fetchSingle(frågaNamn);
+            String agentNamn = svarNamn;
+
+            return agentNamn;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentOmrade();
+
+    }
+
 //______________________________________________________________________________________________________
 // Koden för metoden getNamn från Alien tabellen
     public String getNamnAlien() throws InfException {
@@ -300,10 +407,9 @@ public class MIB_Project {
         try {
             String s = userText.getText();
             //int plats = Integer.parseInt(s);
-            String fragaPlats = "SELECT Namn FROM Alien WHERE Plats = " +"'"+ s+"'" + " ORDER BY NAMN";
+            String fragaPlats = "SELECT namn FROM Alien WHERE plats = " + "'" + s + "'" + " ORDER BY NAMN";
             String svarPlats = idb.fetchSingle(fragaPlats);
             String platsAliens = svarPlats;
-            
 
             return platsAliens;
         } catch (InfException c) {
@@ -319,7 +425,7 @@ public class MIB_Project {
         try {
             String ras = userText.getText();
             String fragaRas = "SELECT alien.namn from Alien join " + ras + " on " + ras + ".`Alien_ID` = Alien.`Alien_ID`";
-            String svarRas = idb.fetchSingle(fragaRas); 
+            String svarRas = idb.fetchSingle(fragaRas);
             String enAlienAvRas = svarRas;
 
             return enAlienAvRas;
@@ -342,6 +448,102 @@ public class MIB_Project {
             JOptionPane.showMessageDialog(null, "Login failed");
         }
         return getAlienPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs namn genom plats
+    public String getOmradeschefNamnByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select namn from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "1");
+        }
+        return getOmradeschefNamnByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs telefon genom plats
+    public String getOmradeschefTelefonByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select telefon from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "2");
+        }
+        return getOmradeschefTelefonByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs anställningsdatum genom plats
+    public String getOmradeschefAnstallninsdatumByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select anstallningsdatum from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefAnstallninsdatumByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs lösenord genom plats
+    public String getOmradeschefLosenordByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select losenord from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefLosenordByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschefs agent_Id genom plats
+    public String getOmradeschefIdByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select Agent_id from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefIdByPlats();
+    }
+
+    //______________________________________________________________________________________________________
+//Metod för att hämta områdeschef admininstartörsstatus genom plats
+    public String getOmradeschefAdminByPlats() throws InfException {
+        try {
+            String plats = userText.getText();
+            String fragaPlats = "select administrator from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            return enAgent;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+        }
+        return getOmradeschefAdminByPlats();
     }
 
     public String getIDAgent(String namn) throws InfException {
@@ -485,6 +687,294 @@ public class MIB_Project {
         } catch (InfException p) {
 
         }
+    }
+
+    public void omradeschefInfoWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Min plats: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Namn: ");
+        label2.setBounds(10, 50, 500, 25);
+        panel.add(label2);
+
+        /*  label3 = new JLabel("Telefon: ");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+
+        label4 = new JLabel("Anställningsdatum: ");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+
+        label5 = new JLabel("Administratör: ");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+
+        label6 = new JLabel("Agent_ID: ");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+
+        platsLabel = new JLabel("");
+        platsLabel.setBounds(130, 50, 120, 25);
+        platsLabel.setFont(fontBread);
+        panel.add(platsLabel);
+
+        namnLabel = new JLabel("");
+        namnLabel.setBounds(45, 50, 120, 25);
+        namnLabel.setFont(fontBread);
+        panel.add(namnLabel);
+
+        telefonLabel = new JLabel("");
+        telefonLabel.setBounds(60, 80, 120, 25);
+        telefonLabel.setFont(fontBread);
+        panel.add(telefonLabel);
+
+        //Label för att visa anställningsdatum
+        registreringsdatumLabel = new JLabel("");
+        registreringsdatumLabel.setBounds(120, 110, 120, 25);
+        registreringsdatumLabel.setFont(fontBread);
+        panel.add(registreringsdatumLabel);
+
+        //Label för att visa om agenten är admin eller ej
+        ansvarigAgentLabel = new JLabel("");
+        ansvarigAgentLabel.setBounds(95, 140, 120, 25);
+        ansvarigAgentLabel.setFont(fontBread);
+        panel.add(ansvarigAgentLabel);
+
+        idLabel = new JLabel("");
+        idLabel.setBounds(80, 170, 120, 25);
+        idLabel.setFont(fontBread);
+        panel.add(idLabel);    */
+        userText = new JTextField();
+        userText.setBounds(70, 20, 120, 25);
+        panel.add(userText);
+
+        instansieraNyButton = new JButton("Hämta info");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(omradeschefInfo);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public void hamtaAgentInfoWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Agentnamn: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Agent_ID: ");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+
+        label3 = new JLabel("Telefon: ");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+
+        label4 = new JLabel("Anställningsdatum: ");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+
+        label5 = new JLabel("Administratör: ");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+
+        label6 = new JLabel("Lösenord: ");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+
+        label7 = new JLabel("Område: ");
+        label7.setBounds(10, 200, 120, 25);
+        panel.add(label7);
+
+        idLabel = new JLabel("");
+        idLabel.setBounds(65, 50, 120, 25);
+        idLabel.setFont(fontBread);
+        panel.add(idLabel);
+
+        telefonLabel = new JLabel("");
+        telefonLabel.setBounds(60, 80, 120, 25);
+        telefonLabel.setFont(fontBread);
+        panel.add(telefonLabel);
+
+        //label för att visa anställningsdatum
+        registreringsdatumLabel = new JLabel("");
+        registreringsdatumLabel.setBounds(120, 110, 120, 25);
+        registreringsdatumLabel.setFont(fontBread);
+        panel.add(registreringsdatumLabel);
+
+        //Label för att visa adminstatus
+        ansvarigAgentLabel = new JLabel("");
+        ansvarigAgentLabel.setBounds(90, 140, 120, 25);
+        ansvarigAgentLabel.setFont(fontBread);
+        panel.add(ansvarigAgentLabel);
+
+        losenordsLabel = new JLabel("");
+        losenordsLabel.setBounds(70, 170, 120, 25);
+        losenordsLabel.setFont(fontBread);
+        panel.add(losenordsLabel);
+
+        platsLabel = new JLabel("");
+        platsLabel.setBounds(60, 200, 120, 25);
+        platsLabel.setFont(fontBread);
+        panel.add(platsLabel);
+
+        userText = new JTextField();
+        userText.setBounds(80, 20, 120, 25);
+        panel.add(userText);
+
+        instansieraNyButton = new JButton("Hämta info");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(hamtaAgentInfo);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public void hamtaAgentInfo() throws InfException {
+
+        try {
+            idLabel.setText(getAgentId());
+            telefonLabel.setText(getAgentTelefon());
+            //Label för agents anställningsdatum
+            registreringsdatumLabel.setText(getAgentAnstallningsdatum());
+            //Label för agents adminstatus
+            ansvarigAgentLabel.setText(getAgentAdministrator());
+            losenordsLabel.setText(getAgentLosenord());
+            platsLabel.setText(getAgentOmrade());
+
+        } catch (InfException p) {
+
+        }
+    }
+
+    public void andraOmradeschefWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Agent_ID: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Nytt chefsområde: ");
+        label2.setBounds(10, 60, 120, 25);
+        panel.add(label2);
+
+        //Textfält för agentnamnt
+        text1 = new JTextField();
+        text1.setBounds(120, 20, 120, 25);
+        panel.add(text1);
+
+        //Textfält för nytt chefsområde
+        text2 = new JTextField();
+        text2.setBounds(120, 60, 120, 25);
+        panel.add(text2);
+
+        instansieraNyButton = new JButton("Utse ny områdeschef");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(andraOmradeschef);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public String andraOmradeschef() throws InfException {
+
+        try {
+            String agent = text1.getText();
+            String omrade = text2.getText();
+            String fragaChef = "update omradeschef set agent_id = " + agent + " where omrade = " + omrade;
+            String svarChef = idb.fetchSingle(fragaChef);
+            String enAgent = svarChef;
+
+            return enAgent;
+        } catch (InfException p) {
+
+            JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
+
+        }
+        return andraOmradeschef();
+    }
+
+    public void andraKontorschefWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Agent_ID: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Nytt chefsområde: ");
+        label2.setBounds(10, 60, 120, 25);
+        panel.add(label2);
+
+        //Textfält för agentnamnt
+        text1 = new JTextField();
+        text1.setBounds(120, 20, 120, 25);
+        panel.add(text1);
+
+        //Textfält för nytt chefsområde
+        text2 = new JTextField();
+        text2.setBounds(120, 60, 120, 25);
+        panel.add(text2);
+
+        instansieraNyButton = new JButton("Utse ny områdeschef");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(andraKontorschef);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public String andraKontorschef() throws InfException {
+
+        try {
+            String agent = text1.getText();
+            String kontor = text2.getText();
+            String fragaChef = "update kontorschef set agent_id = " + agent + " where omrade = " + "'" + kontor + "'";
+            String svarChef = idb.fetchSingle(fragaChef);
+            String enAgent = svarChef;
+
+            return enAgent;
+        } catch (InfException p) {
+
+            JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
+
+        }
+        return andraOmradeschef();
     }
 
     public void platsAllaAliensWindow() {
@@ -962,7 +1452,7 @@ public class MIB_Project {
 
         JPanel listPanel = new JPanel();
 
-        listPanel.setBounds(1100, 270, 400, 250);
+        listPanel.setBounds(500, 270, 700, 250);
         listPanel.setBackground(Color.DARK_GRAY);
         listPanel.setLayout(new GridLayout(4, 2));
         frame.add(listPanel);
@@ -991,26 +1481,26 @@ public class MIB_Project {
         buttonSet4 = new JButton("Visa områdeschef");
         buttonSet4.setFont(fontBread);
         buttonSet4.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet4.addActionListener(omradeschefInfoWindow);
+        buttonSet4.setActionCommand(" ");
         listPanel.add(buttonSet4);
 
         buttonSet5 = new JButton("Visa Alien på plats");
         buttonSet5.setFont(fontBread);
         buttonSet5.setFocusPainted(true);
         buttonSet5.addActionListener(platsAllaAliensWindow);
-        //buttonSet1.setActionCommand(" ");
+        buttonSet5.setActionCommand(" ");
         listPanel.add(buttonSet5);
 
         buttonSet6 = new JButton("Visa Alien av art");
         buttonSet6.setFont(fontBread);
         buttonSet6.setFocusPainted(true);
         buttonSet6.addActionListener(alienAvRasWindow);
-        //buttonSet1.setActionCommand(" ");
+        buttonSet6.setActionCommand(" ");
         listPanel.add(buttonSet6);
 
         buttonSet7 = new JButton("Alien Registrerad mellan datum");
-        buttonSet7.setFont(fontBread);
+        buttonSet7.setFont(fontBreadLiten);
         buttonSet7.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
@@ -1019,8 +1509,8 @@ public class MIB_Project {
         buttonSet8 = new JButton("Visa Alien info");
         buttonSet8.setFont(fontBread);
         buttonSet8.setFocusPainted(true);
-        //buttonSet1.addActionListener();
-        //buttonSet1.setActionCommand(" ");
+        buttonSet8.addActionListener(visaAlienInfo);
+        buttonSet8.setActionCommand(" ");
         listPanel.add(buttonSet8);
 
         if (admin) {
@@ -1047,13 +1537,27 @@ public class MIB_Project {
             buttonSet11.addActionListener(hanteraAgentHandler);
             //buttonSet11.setActionCommand(" ");
             listPanel.add(buttonSet11);
-            
-            buttonSet12 = new JButton("Registrera Agent");
+
+            buttonSet12 = new JButton("Visa agentinfo");
             buttonSet12.setFont(fontBread);
             buttonSet12.setFocusPainted(true);
-            //buttonSet12.addActionListener();
-            //buttonSet12.setActionCommand(" ");
+            buttonSet12.addActionListener(hamtaAgentInfoWindow);
+            //buttonSet11.setActionCommand(" ");
             listPanel.add(buttonSet12);
+
+            buttonSet13 = new JButton("Ändra områdeschef");
+            buttonSet13.setFont(fontBread);
+            buttonSet13.setFocusPainted(true);
+            buttonSet13.addActionListener(andraOmradeschefWindow);
+            //buttonSet13.setActionCommand(" ");
+            listPanel.add(buttonSet13);
+
+            buttonSet14 = new JButton("Ändra kontorschef");
+            buttonSet14.setFont(fontBread);
+            buttonSet14.setFocusPainted(true);
+            buttonSet14.addActionListener(andraKontorschefWindow);
+            //buttonSet14.setActionCommand(" ");
+            listPanel.add(buttonSet14);
         }
 
         /**
@@ -1105,35 +1609,45 @@ public class MIB_Project {
         frame.add(panel);
 
         JLabel headliner = new JLabel("Alien HUB");
-        headliner.setBounds(625, 80, 300, 80);
+        headliner.setBounds(620, 80, 400, 80);
         headliner.setForeground(Color.black);
         headliner.setFont((fontHeadliner1));
-        panel.add(headliner);
+        frame.add(headliner);
 
         JLabel welcomeLabel = new JLabel("Welcome back " + getNamnAlien());
-        welcomeLabel.setBounds(625, 130, 450, 50);
+        welcomeLabel.setBounds(690, 150, 450, 50);
         welcomeLabel.setForeground(Color.red);
         welcomeLabel.setFont(fontBread);
-        panel.add(welcomeLabel);
+        frame.add(welcomeLabel);
 
         JLabel logoLabel = new JLabel();
-        logoLabel.setBounds(1020, 580, 200, 200);
+        logoLabel.setBounds(1320, 630, 200, 200);
         ImageIcon logo = new ImageIcon("Images/bildlogga(3).png");
+        // ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource(bildtest1.png));
         logoLabel.setIcon(logo);
-        panel.add(logoLabel);
+        frame.add(logoLabel);
+
+        JPanel listPanel = new JPanel();
+
+        listPanel.setBounds(1100, 270, 400, 250);
+        listPanel.setBackground(Color.DARK_GRAY);
+        listPanel.setLayout(new GridLayout(4, 2));
+        frame.add(listPanel);
+
+        buttonSet1 = new JButton("Min områdeschef");
+        buttonSet1.setFont(fontBread);
+        buttonSet1.setFocusPainted(true);
+        buttonSet1.addActionListener(omradeschefInfoWindow);
+        buttonSet1.setActionCommand(" ");
+        listPanel.add(buttonSet1);
 
         frame.setVisible(true);
     }
-    
-    //public void addToSquid() throws InfException
-  //  {
-        
-   // }
 
     public String hamtaAlienAvRas() throws InfException {
         try {
             String ras = getAlienAvRas();
-            System.out.println(ras);
+            System.out.println(alienAvRas);
             namnLabel.setText(ras);
             return ras;
         } catch (InfException a) {
@@ -1164,6 +1678,106 @@ public class MIB_Project {
 
     }
 
+    public class OmradeschefInfoWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            omradeschefInfoWindow();
+        }
+    }
+
+    public class OmradeschefInfo implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+
+                String omrade = getAlienPlats();
+                String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
+                String svarPlats = idb.fetchSingle(fragaPlats);
+                String enAgent = svarPlats;
+
+                String fragaAgent = "select * from agent where agent_id = " + enAgent;
+                String svarAgent = idb.fetchSingle(fragaAgent);
+                String allAgent = svarAgent;
+
+                namnLabel.setText(allAgent);
+
+                /*  omradeschefInfo(); */
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+
+    public class HamtaAgentInfoWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            hamtaAgentInfoWindow();
+        }
+    }
+
+    public class HamtaAgentInfo implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+                hamtaAgentInfo();
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+
+    public class AndraOmradeschefWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            andraOmradeschefWindow();
+        }
+    }
+
+    public class AndraOmradeschef implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+                andraOmradeschef();
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+
+    public class AndraKontorschefWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            andraKontorschefWindow();
+        }
+    }
+
+    public class AndraKontorschef implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+                andraKontorschef();
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+
     public class PlatsAllaAliensWindow implements ActionListener {
 
         @Override
@@ -1181,8 +1795,7 @@ public class MIB_Project {
                 String s = getPlatsAllaAliens();
                 platsLabel.setText(s);
             } catch (InfException p) {
-                 JOptionPane.showMessageDialog(null, "There are no aliens on given place or place don´t exists");
-
+                JOptionPane.showMessageDialog(null, "Platsen saknar aliens eller finns inte");
             }
         }
 
@@ -1222,6 +1835,7 @@ public class MIB_Project {
                 String password = passwordText.getText();
                 String jaAdmin = "J";
                 String nejAdmin = "N";
+                String omrade = getAlienPlats();
 
                 //Hämta lösen agent
                 String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
@@ -1265,6 +1879,7 @@ public class MIB_Project {
                     if (resultatAlienLosen.equals(password)) {
                         success.setText("Login successfull!");
                         inloggningsStatus = true;
+
                         GUIMeny_alien();
                         // timerUpdate();
                         //sessionTimer();
@@ -1278,6 +1893,37 @@ public class MIB_Project {
             }
 
         }
+    }
+
+    public String omradeschefInfo() throws InfException {
+
+        // String s = getOmradeschefNamnByPlats();
+        String omrade = getAlienPlats();
+
+        try {
+            //String plats = userText.getText();
+            String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            String fragaAgent = "select * from agent where agent_id = " + enAgent;
+            String svarAgent = idb.fetchSingle(fragaAgent);
+            String allAgent = svarAgent;
+
+            namnLabel.setText(allAgent);
+
+            /* namnLabel.setText(getOmradeschefNamnByPlats());
+            telefonLabel.setText(getOmradeschefTelefonByPlats());
+            registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
+            ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
+            idLabel.setText(getOmradeschefIdByPlats()); */
+            return allAgent;
+
+        } catch (InfException p) {
+
+            JOptionPane.showMessageDialog(null, "");
+        }
+        return omradeschefInfo();
     }
 
 //______________________________________________________________________________________________________
@@ -1576,12 +2222,12 @@ public class MIB_Project {
 
         @Override
         public void actionPerformed(ActionEvent ss) {
-            try {
-                //String sql =
-                String fråga = "UPDATE Agent set ";
-                //String valdAlienId = text8.getText();
 
-                String iD = text1.getText();
+            try {
+                String fråga = "UPDATE Agent SET ";
+                //String valdAgentNamn = text8.getText();
+
+                String agentID = text1.getText();
                 String namn = text2.getText();
                 String telefon = text3.getText();
                 String anställningsdatum = text4.getText();
@@ -1589,87 +2235,71 @@ public class MIB_Project {
                 String lösenord = text6.getText();
                 String område = text7.getText();
 
-                if (!(iD.isEmpty())) {
-                    fråga = fråga + ("Agent_ID = " + iD + ", ");
+                String svar1 = null;
+                String svar2 = null;
+                String svar3 = null;
+                String svar4 = null;
+                String svar5 = null;
+                String svar6 = null;
+                String svar7 = null;
+
+                String statemens = ("WHERE Agent_ID = " + agentID);
+
+                if (agentID != null) {
+                    svar1 = ("Agent_ID = " + agentID);
+
+                } else {
+                    svar1 = ("Agent_ID = " + null);
                 }
-                if (!(namn.isEmpty())) {
-                    fråga = fråga + ("Namn ='" + namn + "', ");
+                if (namn != null) {
+                    svar2 = ("Namn = " + "'" + namn + "'");
+                } else {
+                    svar2 = ("Namn = " + null);
                 }
-                if (!(telefon.isEmpty())) {
-                    fråga = fråga + ("Telefon ='" + telefon + "', ");
+                if (telefon != null) {
+                    svar3 = ("Telefon = " + "'" + telefon + "'");
+                } else {
+                    svar3 = ("Telefon = " + null);
                 }
-                if (!(anställningsdatum.isEmpty())) {
-                    fråga = fråga + ("Anstallningsdatum ='" + anställningsdatum + "', ");
+                if (anställningsdatum != null) {
+                    svar4 = ("Anställningsdatum = " + "'" + anställningsdatum + "'");
+                } else {
+                    svar4 = ("Anställningsdatum = " + null);
                 }
-                if (!(adminstatus.isEmpty())) {
-                    fråga = fråga + ("Administrator = '" + adminstatus + "', ");
+                if (adminstatus != null) {
+                    svar5 = ("Administrator = " + "'" + adminstatus + "'");
+                } else {
+                    svar5 = ("Administrator = " + null);
                 }
-                if (!(lösenord.isEmpty())) {
-                    fråga = fråga + ("Losenord = '" + lösenord + "', ");
+                if (lösenord != null) {
+                    svar6 = ("Losenord = " + "'" + lösenord + "'");
+                } else {
+                    svar6 = ("Losenord = " + null);
                 }
-                if (!(område.isEmpty())) {
-                    fråga = fråga + ("Omrade = " + område + ", ");
+                if (område != null) {
+                    svar7 = ("Område = " + område);
+                } else {
+                    svar7 = ("Område = " + null);
                 }
 
-                StringBuffer sb = new StringBuffer(fråga);
-                sb.deleteCharAt(sb.length() - 2);
-                fråga = sb.toString();
-                fråga = fråga + ("where Agent_ID = " + iD);
-                idb.update(fråga);
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("UPDATE Agent SET (?,?,?,?,?,?,?) WHERE Agent_ID = " + agentID);
+                //svar1+svar2+svar3+svar4+svar5+svar6+svar7
+
+                ps.setString(1, svar1);
+                ps.setString(2, svar2);
+                ps.setString(3, svar3);
+                ps.setString(4, svar4);
+                ps.setString(5, svar5);
+                ps.setString(6, svar6);
+                ps.setString(7, svar7);
+
+                ps.executeUpdate();
+                ps.execute();
+
                 JOptionPane.showMessageDialog(null, "Attempt to update agent successfull!");
 
-                /**
-                 * try { String fråga = "UPDATE Agent SET "; //String
-                 * valdAgentNamn = text8.getText();
-                 *
-                 *
-                 * String agentID = text1.getText(); String namn =
-                 * text2.getText(); String telefon = text3.getText(); String
-                 * anställningsdatum = text4.getText(); String adminstatus =
-                 * text5.getText(); String lösenord = text6.getText(); String
-                 * område = text7.getText();
-                 *
-                 * String svar1 = null; String svar2 = null; String svar3 =
-                 * null; String svar4 = null; String svar5 = null; String svar6
-                 * = null; String svar7 = null;                  *
-                 *
-                 * String statemens = ("WHERE Agent_ID = " + agentID);
-                 *
-                 * if (agentID != null) { svar1 = ("Agent_ID = " + agentID);
-                 *
-                 * }
-                 * else{ svar1 = ("Agent_ID = " + null); } if (namn != null) {
-                 * svar2 = ("Namn = " + "'"+namn+"'"); } else{ svar2 = ("Namn =
-                 * " + null); } if (telefon != null) { svar3 = ("Telefon = " +
-                 * "'"+telefon+ "'"); } else{ svar3 = ("Telefon = " + null); }
-                 * if (anställningsdatum != null) { svar4 = ("Anställningsdatum
-                 * = " +"'"+ anställningsdatum+"'"); } else{ svar4 =
-                 * ("Anställningsdatum = " + null); } if (adminstatus != null) {
-                 * svar5 = ("Administrator = " +"'"+ adminstatus+"'"); } else{
-                 * svar5 = ("Administrator = " + null); } if (lösenord != null)
-                 * { svar6 = ("Losenord = "+"'"+ lösenord+"'"); } else{ svar6 =
-                 * ("Losenord = " + null); } if (område != null) { svar7 =
-                 * ("Område = " + område); } else{ svar7 = ("Område = " + null
-                 * ); }                  *
-                 * Class.forName("com.mysql.cj.jdbc.Driver"); Connection conn =
-                 * DriverManager.getConnection("jdbc:mysql://localhost/mibdb",
-                 * "mibdba", "mibkey"); PreparedStatement ps =
-                 * conn.prepareStatement("UPDATE Agent SET (?,?,?,?,?,?,?) WHERE
-                 * Agent_ID = " + agentID);
-                 * //svar1+svar2+svar3+svar4+svar5+svar6+svar7
-                 *
-                 *
-                 * ps.setString(1, svar1); ps.setString(2, svar2);
-                 * ps.setString(3, svar3); ps.setString(4, svar4);
-                 * ps.setString(5, svar5); ps.setString(6, svar6);
-                 * ps.setString(7, svar7);
-                 *
-                 * ps.executeUpdate(); ps.execute();
-                 *
-                 * JOptionPane.showMessageDialog(null, "Attempt to update agent
-                 * successfull!");
-                 *
-                 */
             } catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Attempt to update agent failed");
