@@ -1295,9 +1295,9 @@ public class MIB_Project {
         text2.setBounds(125, 50, 185, 25);
         panel.add(text2);
 
-        text3 = new JTextField(20);
-        text3.setBounds(125, 80, 185, 25);
-        panel.add(text3);
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(125, 80, 185, 25);
+        panel.add(passwordText);
 
         text4 = new JTextField(20);
         text4.setBounds(125, 110, 185, 25);
@@ -2618,7 +2618,7 @@ public class MIB_Project {
 
                 String alienIDNy = text1.getText();
                 String registrering = text2.getText();
-                String lösenord = text3.getText();
+                String lösenord = passwordText.getText();
                 String namn = text4.getText(); 
                 String telefon = text5.getText();
                 String plats = text6.getText();
@@ -2629,9 +2629,6 @@ public class MIB_Project {
 
                 String statemens = (" WHERE Alien_ID = " + alienID);
 
-                if (alienIDNy != null) {
-                    idb.update(fråga + "Alien_ID = " + alienIDNy + statemens);
-                }
                 if (registrering != null) {
                     idb.update(fråga + "Registreringsdatum = " + registrering + statemens);
                 }
@@ -2651,6 +2648,9 @@ public class MIB_Project {
                 }
                 if (ansvarigAgent != null) {
                     idb.update(fråga + " Ansvarig_Agent = " + ansvarigAgent + statemens);
+                }
+                if (alienIDNy != null) {
+                    idb.update(fråga + "Alien_ID = " + alienIDNy + statemens);
                 }
 
                 
