@@ -715,7 +715,7 @@ public class MIB_Project {
         label2.setBounds(10, 50, 500, 25);
         panel.add(label2);
 
-        /*  label3 = new JLabel("Telefon: ");
+        label3 = new JLabel("Telefon: ");
         label3.setBounds(10, 80, 120, 25);
         panel.add(label3);
 
@@ -761,7 +761,7 @@ public class MIB_Project {
         idLabel = new JLabel("");
         idLabel.setBounds(80, 170, 120, 25);
         idLabel.setFont(fontBread);
-        panel.add(idLabel);    */
+        panel.add(idLabel); 
         userText = new JTextField();
         userText.setBounds(70, 20, 120, 25);
         panel.add(userText);
@@ -1775,8 +1775,22 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent l) {
 
             try {
+                namnLabel.setText(getOmradeschefNamnByPlats());
+                telefonLabel.setText(getOmradeschefTelefonByPlats());
+                registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
+                ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
+                idLabel.setText(getOmradeschefIdByPlats());
+                
 
-                String omrade = getAlienPlats();
+                
+                
+                
+                
+                
+                
+                
+                
+            /*    String omrade = getAlienPlats();
                 String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
                 String svarPlats = idb.fetchSingle(fragaPlats);
                 String enAgent = svarPlats;
@@ -1787,7 +1801,7 @@ public class MIB_Project {
 
                 namnLabel.setText(allAgent);
 
-                /*  omradeschefInfo(); */
+                omradeschefInfo(); */
             } catch (InfException p) {
 
             }
