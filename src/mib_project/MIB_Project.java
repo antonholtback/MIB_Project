@@ -246,6 +246,10 @@ public class MIB_Project {
             String frågaRegDate = "SELECT Registreringsdatum FROM Alien WHERE Namn =" + "'" + username + "'";
             String svarRegDate = idb.fetchSingle(frågaRegDate);
             String regDate = svarRegDate;
+            
+            
+            if (svarRegDate == null) {
+            JOptionPane.showMessageDialog(null, "Namnet finns inte i databasen"); }
 
             return regDate;
         } catch (InfException c) {
@@ -260,6 +264,26 @@ public class MIB_Project {
         try {
             String username = userText.getText();
             String frågaId = "SELECT agent_id FROM Agent WHERE Namn =" + "'" + username + "'";
+            String svarId = idb.fetchSingle(frågaId);
+            String agentId = svarId;
+            
+            if(svarId == null){
+                JOptionPane.showMessageDialog(null, "Namnet finns inte i databasen");
+            }
+
+            return agentId;
+        } catch (InfException c) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        return getAgentId();
+    }
+    
+    //______________________________________________________________________________________________________
+    // Metod för att hämta en agents ID  genom id
+    public String getAgentIdById(int id) throws InfException {
+        try {
+            String username = userText.getText();
+            String frågaId = "SELECT agent_id FROM Agent WHERE agent_id =" + "'" + username + "'";
             String svarId = idb.fetchSingle(frågaId);
             String agentId = svarId;
 
@@ -491,7 +515,7 @@ public class MIB_Project {
 //Metod för att hämta alla aliens av ras
     public String getAlienAvRas() throws InfException {
       
-        String error = "Inga registrerade aliens";
+        String error = "";
         try {
             String ras = userText.getText();
             String fragaRas = "SELECT alien.namn from Alien join " + ras + " on " + ras + ".`Alien_ID` = Alien.`Alien_ID`";
@@ -530,6 +554,10 @@ public class MIB_Project {
             String fragaPlats = "select namn from agent where agent_id in(select agent_id from omradeschef where omrade = " + plats + ")";
             String svarPlats = idb.fetchSingle(fragaPlats);
             String enAgent = svarPlats;
+            
+            if (svarPlats == null) {
+                JOptionPane.showMessageDialog(null, "ID finns inte i databasen");
+            }
 
             return enAgent;
         } catch (InfException c) {
@@ -848,9 +876,12 @@ public class MIB_Project {
         idLabel.setBounds(80, 170, 120, 25);
         idLabel.setFont(fontBread);
         panel.add(idLabel);
+        
         userText = new JTextField();
         userText.setBounds(70, 20, 120, 25);
         panel.add(userText);
+        
+        
 
         instansieraNyButton = new JButton("Hämta info");
         instansieraNyButton.setBounds(10, 240, 185, 25);
@@ -1007,7 +1038,16 @@ public class MIB_Project {
             String svarChef = idb.fetchSingle(fragaChef);
             String enAgent = svarChef;
 
-            JOptionPane.showMessageDialog(null, "Områdeschef tillsatt");
+            String fraga2 = "select omrades_id from omrade where omrades_id = " + omrade;
+            String svar2 = idb.fetchSingle(fraga2);
+            String ettOmrade = svar2;
+
+            if (ettOmrade == null) {
+                JOptionPane.showMessageDialog(null, "Området eller agent finns inte");
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Områdeschef tillsatt");
+            }
 
             return enAgent;
         } catch (InfException p) {
@@ -1911,19 +1951,7 @@ public class MIB_Project {
                 registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
                 ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
                 idLabel.setText(getOmradeschefIdByPlats());
-
-                /*    String omrade = getAlienPlats();
-                String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
-                String svarPlats = idb.fetchSingle(fragaPlats);
-                String enAgent = svarPlats;
-
-                String fragaAgent = "select * from agent where agent_id = " + enAgent;
-                String svarAgent = idb.fetchSingle(fragaAgent);
-                String allAgent = svarAgent;
-
-                namnLabel.setText(allAgent);
-
-                omradeschefInfo(); */
+                
             } catch (InfException p) {
 
             }
@@ -2530,34 +2558,36 @@ public class MIB_Project {
     }
     
     public class DropAlienExe implements ActionListener {
-        
+
         @Override
-        public void actionPerformed(ActionEvent ssf)
-        {
+        public void actionPerformed(ActionEvent ssf) {
             try {
-            String alienID = userText.getText();
-            int agentId = Integer.parseInt(alienID);
-            boolean existera1 = letaRasB(alienID);
-            boolean existera2 = letaRasS(alienID);
-            boolean existera3 = letaRasW(alienID);
-            
-            if(alienID != null) {
-                if (existera1) {
+                String alienID = userText.getText();
+                int agentId = Integer.parseInt(alienID);
+                boolean existera1 = letaRasB(alienID);
+                boolean existera2 = letaRasS(alienID);
+                boolean existera3 = letaRasW(alienID);
+                String enAlien = getNamnAlien();
+
+                if (alienID != null) {
+                    if (existera1) {
                         idb.delete("DELETE FROM Boglodite WHERE Alien_ID = " + alienID);
-            }
-                if (existera2) {
+                    }
+                    if (existera2) {
                         idb.delete("DELETE FROM Squid WHERE Alien_ID = " + alienID);
-            }
-                if (existera3) {
+                    }
+                    if (existera3) {
                         idb.delete("DELETE FROM Worm WHERE Alien_ID = " + alienID);
-            }
-            
-            idb.delete("DELETE FROM Alien WHERE Alien_ID = " + alienID);
-            
-            JOptionPane.showMessageDialog(null, "Alien borttagen");
-            }
-            }
-            catch(InfException sdes) {
+                    }
+                    if (enAlien == null) {
+                        JOptionPane.showMessageDialog(null, "ID finns inte");
+                    } else {
+                        idb.delete("DELETE FROM Alien WHERE Alien_ID = " + alienID);
+
+                        JOptionPane.showMessageDialog(null, "Alien borttagen");
+                    }
+                }
+            } catch (InfException sdes) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, sdes);
                 JOptionPane.showMessageDialog(null, "Det gick inte att ta bort alien.");
             }
@@ -2574,6 +2604,7 @@ public class MIB_Project {
                 int agentId = Integer.parseInt(agentID);
                 boolean existera = letaAnsvarigAgent(agentID);
                 boolean existera2 = letaAktivFaltagent(agentID);
+                String enAgent = getAgentIdById(agentId);
                 //String ansvarigAgent = getAlienAnsvarigAgent();
 
                 if (agentID != null) {
@@ -2582,9 +2613,13 @@ public class MIB_Project {
                     }
                     if (existera) {
                         changeAnsvarigAgentWindow();
-                    } else if (!existera) {
+                    } else if (!existera && enAgent != null) {
                         idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
                         JOptionPane.showMessageDialog(null, "Agent dropped");
+                        
+                        if (enAgent == null) {
+                                JOptionPane.showMessageDialog(null, "Agent dropped2");
+                                }
                     }
                     /*Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
@@ -2628,7 +2663,7 @@ public class MIB_Project {
 
             } catch (Exception exa) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
-                JOptionPane.showMessageDialog(null, "hej daniel :)");
+                JOptionPane.showMessageDialog(null, "Det går inte att radera utrustning som används");
 
             }
         }
@@ -2644,6 +2679,9 @@ public class MIB_Project {
                 if (valdAlien != null) {
                     if (existera) {
                         ändraAlienWindow();
+                    }
+                    else if (!existera) {
+                        JOptionPane.showMessageDialog(null, "Valt ID existerar inte");
                     }
                 }
             } catch (Exception ex) {
@@ -2783,11 +2821,11 @@ public class MIB_Project {
                     idb.update(fråga + "Alien_ID = " + alienIDNy + statemens);
                 }
 
-                JOptionPane.showMessageDialog(null, "Attempt to update Alien successfull!");
+                JOptionPane.showMessageDialog(null, "Alien uppdaterat");
 
             } catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Attempt to update Alien failed");
+                JOptionPane.showMessageDialog(null, "Det gick inte att uppdatera alien");
             }
 
         }
