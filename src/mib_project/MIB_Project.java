@@ -2416,9 +2416,14 @@ public class MIB_Project {
                 String agentID = text1.getText();
                 int agentId = Integer.parseInt(agentID);
                 boolean existera = letaAnsvarigAgent(agentID);
+                boolean existera2 = letaAktivFaltagent(agentID);
                 //String ansvarigAgent = getAlienAnsvarigAgent();
 
                 if (agentID != null) {
+                    if(existera2)
+                    {
+                        idb.delete("DELETE FROM faltagent WHERE Agent_ID = " + agentId);
+                    }
                     if(existera){
                     changeAnsvarigAgentWindow();
                     }
