@@ -575,6 +575,18 @@ public class MIB_Project {
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
+    
+    public boolean letaAktivFaltagent(String id) throws InfException {
+        String fråga = "SELECT Agent_ID FROM Faltagent where Agent_ID =" + id;
+        String svar = idb.fetchSingle(fråga);
+        
+        if(svar != null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public boolean letaAlienIDs(String id) throws InfException {
         String fråga = "Select Alien_ID from Alien where Alien_ID = " + id;
@@ -2134,7 +2146,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Utför");
         instansieraNyButton.setBounds(10, 80, 80, 25);
-        instansieraNyButton.addActionListener();
+        //instansieraNyButton.addActionListener();
         //inloggButton.addActionListener(timerHandler);
         //inloggButton.setActionCommand("Login");
         panel.add(instansieraNyButton);
@@ -2142,6 +2154,8 @@ public class MIB_Project {
         success = new JLabel("");
         success.setBounds(10, 110, 300, 25);
         panel.add(success);
+        
+        frame.setVisible(true);
     }
 
 //______________________________________________________________________________________________________
@@ -2405,8 +2419,14 @@ public class MIB_Project {
                 //String ansvarigAgent = getAlienAnsvarigAgent();
 
                 if (agentID != null) {
+                    if(existera){
                     changeAnsvarigAgentWindow();
-                } else {
+                    }
+                    else if(!existera)
+                    {
+                        idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
+                        JOptionPane.showMessageDialog(null, "Agent dropped");
+                } 
                     /*Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
                 PreparedStatement ps = conn.prepareStatement("DELETE FROM Agent, Alien WHERE Agent_ID = "+ "'"+ agentID +"'");
@@ -2415,8 +2435,6 @@ public class MIB_Project {
                 JOptionPane.showMessageDialog(null, "Agent dropped");
                 
                 conn.close();*/
-                    idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
-                    JOptionPane.showMessageDialog(null, "Agent dropped");
                 }
 
             } catch (Exception exa) {
