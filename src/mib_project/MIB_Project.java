@@ -395,7 +395,41 @@ public class MIB_Project {
         return getAlienTelefon();
     }
 
-    // Metod för att hämta en aliens ansvariga agent utan parameter    
+    public boolean letaRasB(String id) throws InfException {
+        String frågaB = "SELECT Alien_ID FROM Boglodite WHERE Alien_ID = " + id;
+        String svarB = idb.fetchSingle(frågaB);
+
+        if (svarB != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean letaRasS(String id) throws InfException {
+        String frågaS = "SELECT Alien_ID FROM Squid WHERE Alien_ID = " + id;
+        String svarS = idb.fetchSingle(frågaS);
+
+        if (svarS != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public boolean letaRasW(String id) throws InfException {
+        String frågaW = "SELECT Alien_ID FROM Worm WHERE Alien_ID = " + id;
+        String svarW = idb.fetchSingle(frågaW);
+
+        if (svarW != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+// Metod för att hämta en aliens ansvariga agent utan parameter    
     public boolean letaAnsvarigAgent(String id) throws InfException {
         String fråga = "Select Ansvarig_Agent from Alien where Ansvarig_Agent = " + id;
         String svar = idb.fetchSingle(fråga);
@@ -1772,6 +1806,7 @@ public class MIB_Project {
 
         }
         return hamtaAlienAvRas();
+
     }
 
     public class VisaAlienInfo implements ActionListener {
@@ -1947,7 +1982,7 @@ public class MIB_Project {
         }
     }
 
-    // Koden för knappen man trycker på för att logga in
+// Koden för knappen man trycker på för att logga in
     public class LoginHandeler implements ActionListener {
 
         @Override
@@ -2555,38 +2590,34 @@ public class MIB_Project {
 
             try {
                 String fråga = "UPDATE Agent SET ";
-                
-                //String valdAgentNamn = text8.getText();
 
+                //String valdAgentNamn = text8.getText();
                 String agentID = text1.getText();
                 String namn = text2.getText();
                 String telefon = text3.getText();
-                String anställningsdatum = text4.getText(); 
+                String anställningsdatum = text4.getText();
                 String adminstatus = text5.getText();
                 String lösenord = passwordText.getText();
                 String område = text7.getText();
 
-
-
                 String statemens = (" WHERE Agent_ID = " + agentID);
 
-            
                 if (namn != null) {
-                    idb.update(fråga + " Namn = " + "'" + namn +"'" + statemens);
+                    idb.update(fråga + " Namn = " + "'" + namn + "'" + statemens);
                 }
-                
+
                 if (telefon != null) {
-                    idb.update(fråga + " Telefon = " +"'" + telefon +"'" + statemens);
+                    idb.update(fråga + " Telefon = " + "'" + telefon + "'" + statemens);
                 }
-                
+
                 if (anställningsdatum != null) {
                     idb.update(fråga + " Anstallningsdatum = " + anställningsdatum + statemens);
                 }
                 if (adminstatus != null) {
-                    idb.update(fråga + " Administrator = " +"'" + adminstatus +"'" + statemens);
+                    idb.update(fråga + " Administrator = " + "'" + adminstatus + "'" + statemens);
                 }
                 if (lösenord != null) {
-                    idb.update(fråga + " Losenord = " +"'" + lösenord +"'" + statemens);
+                    idb.update(fråga + " Losenord = " + "'" + lösenord + "'" + statemens);
                 }
                 if (område != null) {
                     idb.update(fråga + " Omrade = " + område + statemens);
@@ -2594,8 +2625,6 @@ public class MIB_Project {
                 if (agentID != null) {
                     idb.update(fråga + " Agent_ID = " + agentID + statemens);
                 }
-
-                
 
                 JOptionPane.showMessageDialog(null, "Attempt to update agent successfull!");
 
@@ -2614,19 +2643,16 @@ public class MIB_Project {
 
             try {
                 String fråga = "UPDATE Alien SET ";
-                
-                //String valdAgentNamn = text8.getText();
 
+                //String valdAgentNamn = text8.getText();
                 String alienIDNy = text1.getText();
                 String registrering = text2.getText();
                 String lösenord = passwordText.getText();
-                String namn = text4.getText(); 
+                String namn = text4.getText();
                 String telefon = text5.getText();
                 String plats = text6.getText();
                 String ansvarigAgent = text7.getText();
                 String alienID = text8.getText();
-
-
 
                 String statemens = (" WHERE Alien_ID = " + alienID);
 
@@ -2634,13 +2660,13 @@ public class MIB_Project {
                     idb.update(fråga + "Registreringsdatum = " + registrering + statemens);
                 }
                 if (lösenord != null) {
-                    idb.update(fråga + "Losenord = " +"'" + lösenord +"'" + statemens);
+                    idb.update(fråga + "Losenord = " + "'" + lösenord + "'" + statemens);
                 }
                 if (namn != null) {
-                    idb.update(fråga + " Namn = " +"'" + namn +"'" + statemens);
+                    idb.update(fråga + " Namn = " + "'" + namn + "'" + statemens);
                 }
                 if (telefon != null) {
-                    idb.update(fråga + " Telefon = " +"'" + telefon +"'" + statemens);
+                    idb.update(fråga + " Telefon = " + "'" + telefon + "'" + statemens);
                 }
                 if (plats != null) {
                     idb.update(fråga + " Plats = " + plats + statemens);
@@ -2652,13 +2678,11 @@ public class MIB_Project {
                     idb.update(fråga + "Alien_ID = " + alienIDNy + statemens);
                 }
 
-                
-
-                JOptionPane.showMessageDialog(null, "Attempt to update agent successfull!");
+                JOptionPane.showMessageDialog(null, "Attempt to update Alien successfull!");
 
             } catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Attempt to update agent failed");
+                JOptionPane.showMessageDialog(null, "Attempt to update Alien failed");
             }
 
         }
@@ -2808,6 +2832,7 @@ public class MIB_Project {
         System.out.println(lista);
 
         return lista;
+
     }
 
     public class AlienMellanDatumWindow implements ActionListener {
@@ -2844,6 +2869,7 @@ public class MIB_Project {
             counter += 4;
         }
         frame.setVisible(true);
+
     }
 
     public class AlienMellanDatumHandler implements ActionListener {
