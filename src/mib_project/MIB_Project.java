@@ -495,15 +495,23 @@ public class MIB_Project {
     }
 
     // Metod för att hämta en plats alla aliens   
-    public String getPlatsAllaAliens() throws InfException {
+    public ArrayList<String> getPlatsAllaAliens() throws InfException {
         try {
             String s = userText.getText();
             //int plats = Integer.parseInt(s);
             String fragaPlats = "SELECT namn FROM Alien WHERE plats = " + "'" + s + "'" + " ORDER BY NAMN";
-            String svarPlats = idb.fetchSingle(fragaPlats);
-            String platsAliens = svarPlats;
+            ArrayList<HashMap<String, String>> svarPlats = new ArrayList();
+            svarPlats = idb.fetchRows(fragaPlats);
+            
+            ArrayList<String> svarLista = new ArrayList();
+            for (HashMap<String, String> rad : svarPlats)
+            {
+                svarLista.add(rad.get("Namn"));
+            }
+            
+            
 
-            return platsAliens;
+            return svarLista;
         } catch (InfException c) {
             JOptionPane.showMessageDialog(null, "Platsen finns inte");
 
@@ -513,20 +521,27 @@ public class MIB_Project {
 
 //______________________________________________________________________________________________________
 //Metod för att hämta alla aliens av ras
-    public String getAlienAvRas() throws InfException {
-      
-        String error = "";
+    public ArrayList<String> getAlienAvRas() throws InfException {
+        
+        ArrayList<String> alienLista = new ArrayList();
+        
         try {
             String ras = userText.getText();
             String fragaRas = "SELECT alien.namn from Alien join " + ras + " on " + ras + ".`Alien_ID` = Alien.`Alien_ID`";
-            String svarRas = idb.fetchSingle(fragaRas);
-            String enAlienAvRas = svarRas;
+            ArrayList<HashMap<String, String>> svarRas = idb.fetchRows(fragaRas);
+            
+            
+            
+            for (HashMap<String, String> rad : svarRas)
+            {
+                alienLista.add(rad.get("Namn"));
+            }
 
-            return enAlienAvRas;
+            return alienLista;
         } catch (InfException c) {
             JOptionPane.showMessageDialog(null, "Rasen finns inte");
         }
-        return error;
+        return alienLista;
     }
 
     // Metod för att hämta en aliens plats utan parameter    
@@ -1153,15 +1168,7 @@ public class MIB_Project {
         frame.setVisible(true);
     }
 
-    public void platsAllaAliens() {
-        try {
 
-            platsLabel.setText(getPlatsAllaAliens());
-
-        } catch (InfException asd) {
-
-        }
-    }
 
     public void alienAvRasWindow() {
 
@@ -1178,9 +1185,7 @@ public class MIB_Project {
         label1.setBounds(10, 20, 120, 25);
         panel.add(label1);
 
-        label2 = new JLabel("Namn: ");
-        label2.setBounds(10, 50, 120, 25);
-        panel.add(label2);
+        
 
         namnLabel = new JLabel("");
         namnLabel.setBounds(130, 50, 120, 25);
@@ -1890,23 +1895,46 @@ public class MIB_Project {
         frame.setVisible(true);
     }
 
-    public String hamtaAlienAvRas() throws InfException {
+     public void hamtaAlienAvRas() throws InfException {
 
-        String s = "error";
+        
         try {
-            String ras = getAlienAvRas();
-            System.out.println(alienAvRas);
-            namnLabel.setText(ras);
+            JPanel panel = new JPanel();
 
-            if (ras == null) {
-                JOptionPane.showMessageDialog(null, "Platsen saknar aliens eller finns inte");
+            JFrame frame = new JFrame();
+            frame.setSize(400, 400);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.add(panel);
+            frame.setLocationRelativeTo(null);
+            panel.setLayout(null);
+            
+            JLabel titel = new JLabel("Aliens: ");
+            titel.setBounds(10, 20, 120, 25);
+            panel.add(titel);
+            
+            JLabel tempLabel = new JLabel();
+            
+            
+            ArrayList<String> alienLista = new ArrayList(); 
+            alienLista = getAlienAvRas();
+            
+            int counter = 1;
+            for (String namn : alienLista)
+            {
+                tempLabel.setText(namn);
+                tempLabel.setBounds(10, 40 * counter ,120, 25);
+                panel.add(tempLabel);
+                counter++;
             }
-            return ras;
+            
+            frame.setVisible(true);
+            
+
 
         } catch (InfException a) {
 
         }
-        return s;
+       
 
     }
 
@@ -2039,8 +2067,35 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent l) {
 
             try {
-                String s = getPlatsAllaAliens();
-                platsLabel.setText(s);
+                JPanel panel = new JPanel();
+
+                JFrame frame = new JFrame();
+                frame.setSize(400, 400);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.add(panel);
+                frame.setLocationRelativeTo(null);
+                panel.setLayout(null);
+                
+                JLabel namnLabel = new JLabel("Aliens: ");
+                namnLabel.setBounds(10,20,120,25);
+                panel.add(namnLabel);
+                
+                if (frame != null) frame.dispose();
+                
+                
+                ArrayList<String> s = getPlatsAllaAliens();
+                int counter = 1;
+                //platsLabel
+                for (String namn : s)
+                {
+                    JLabel tempLabel = new JLabel(namn);
+                    tempLabel.setBounds(10, 40*counter, 120, 25);
+                    panel.add(tempLabel);
+                    counter++;
+                    
+                }
+                frame.setVisible(true);
+                
             } catch (InfException p) {
                 JOptionPane.showMessageDialog(null, "Platsen saknar aliens eller finns inte");
             }
