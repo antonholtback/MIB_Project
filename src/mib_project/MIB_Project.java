@@ -2877,7 +2877,7 @@ public class MIB_Project {
                 //namnLabel.setText(alienRegDatum);
                 visaAlien(svar);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "hihi du fick ett felmeddelande :)");
+                JOptionPane.showMessageDialog(null, "hihi du fick ett felmeddelande!! :)");
 
             }
         }
