@@ -1552,7 +1552,6 @@ public class MIB_Project {
             //buttonSet13.setActionCommand(" ");
             listPanel.add(buttonSet13);
 
-            buttonSet14 = new JButton("Ändra kontorschef");
             buttonSet14.setFont(fontBread);
             buttonSet14.setFocusPainted(true);
             buttonSet14.addActionListener(andraKontorschefWindow);
