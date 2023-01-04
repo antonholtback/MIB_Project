@@ -2561,7 +2561,7 @@ public class MIB_Project {
                 String agentID = text1.getText();
                 String namn = text2.getText();
                 String telefon = text3.getText();
-                String anställningsdatum = text4.getText();
+                String anställningsdatum = text4.getText(); 
                 String adminstatus = text5.getText();
                 String lösenord = passwordText.getText();
                 String område = text7.getText();
@@ -2574,21 +2574,21 @@ public class MIB_Project {
                     idb.update(fråga + " Agent_ID = " + agentID + statemens);
                 }
                 if (namn != null) {
-                    idb.update(fråga + " Namn = " + namn + statemens);
+                    idb.update(fråga + " Namn = " + "'" + namn +"'" + statemens);
                 }
                 
                 if (telefon != null) {
-                    idb.update(fråga + " Telefon = " + telefon + statemens);
+                    idb.update(fråga + " Telefon = " +"'" + telefon +"'" + statemens);
                 }
                 
                 if (anställningsdatum != null) {
                     idb.update(fråga + " Anstallningsdatum = " + anställningsdatum + statemens);
                 }
                 if (adminstatus != null) {
-                    idb.update(fråga + " Administrator = " + adminstatus + statemens);
+                    idb.update(fråga + " Administrator = " +"'" + adminstatus +"'" + statemens);
                 }
                 if (lösenord != null) {
-                    idb.update(fråga + " Losenord = " + lösenord + statemens);
+                    idb.update(fråga + " Losenord = " +"'" + lösenord +"'" + statemens);
                 }
                 if (område != null) {
                     idb.update(fråga + " Omrade = " + område + statemens);
@@ -2612,44 +2612,55 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent s) {
 
             try {
-                //String sql =
-                String fråga = "UPDATE alien set ";
-                String valdAlienId = text8.getText();
+                String fråga = "UPDATE Alien SET ";
+                
+                //String valdAgentNamn = text8.getText();
 
-                String iD = text1.getText();
-                String registreringsDatum = text2.getText();
+                String alienID = text1.getText();
+                String registrering = text2.getText();
                 String lösenord = text3.getText();
-                String namn = text4.getText();
-                String tele = text5.getText();
+                String namn = text4.getText(); 
+                String telefon = text5.getText();
                 String plats = text6.getText();
                 String ansvarigAgent = text7.getText();
 
-                if (iD != null) {
-                    fråga.concat("Alien_ID =" + iD + ", ");
+
+
+                String statemens = (" WHERE Alien_ID = " + alienID);
+
+                if (alienID != null) {
+                    idb.update(fråga + "Alien_ID = " + alienID + statemens);
                 }
-                if (registreringsDatum != null) {
-                    fråga.concat("Registreringsdatum ='" + registreringsDatum + "', ");
+                if (registrering != null) {
+                    idb.update(fråga + "Registreringsdatum = " + registrering + statemens);
                 }
+                
                 if (lösenord != null) {
-                    fråga.concat("Losenord ='" + lösenord + "', ");
+                    idb.update(fråga + "Losenord = " +"'" + lösenord +"'" + statemens);
                 }
+                
                 if (namn != null) {
-                    fråga.concat("Namn ='" + namn + "', ");
+                    idb.update(fråga + " Namn = " +"'" + namn +"'" + statemens);
                 }
-                if (tele != null) {
-                    fråga.concat("Telefon = '" + tele + "', ");
+                if (telefon != null) {
+                    idb.update(fråga + " Telefon = " +"'" + telefon +"'" + statemens);
                 }
                 if (plats != null) {
-                    fråga.concat("Plats = " + plats + ", ");
+                    idb.update(fråga + " Plats = " + plats + statemens);
                 }
                 if (ansvarigAgent != null) {
-                    fråga.concat("Ansvarig_Agent = " + ansvarigAgent + ", ");
+                    idb.update(fråga + " Ansvarig_Agent = " + ansvarigAgent + statemens);
                 }
-                fråga.concat("where Alien_ID = " + valdAlienId);
+
+                
+
+                JOptionPane.showMessageDialog(null, "Attempt to update agent successfull!");
+
             } catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Attempt to update alien failed");
+                JOptionPane.showMessageDialog(null, "Attempt to update agent failed");
             }
+
         }
     }
 
