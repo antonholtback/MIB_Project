@@ -2555,6 +2555,7 @@ public class MIB_Project {
 
             try {
                 String fråga = "UPDATE Agent SET ";
+                
                 //String valdAgentNamn = text8.getText();
 
                 String agentID = text1.getText();
@@ -2565,68 +2566,35 @@ public class MIB_Project {
                 String lösenord = passwordText.getText();
                 String område = text7.getText();
 
-                String svar1 = null;
-                String svar2 = null;
-                String svar3 = null;
-                String svar4 = null;
-                String svar5 = null;
-                String svar6 = null;
-                String svar7 = null;
 
-                String statemens = ("WHERE Agent_ID = " + agentID);
+
+                String statemens = (" WHERE Agent_ID = " + agentID);
 
                 if (agentID != null) {
-                    svar1 = ("Agent_ID = " + agentID);
-
-                } else {
-                    svar1 = ("Agent_ID = " + null);
+                    idb.update(fråga + " Agent_ID = " + agentID + statemens);
                 }
                 if (namn != null) {
-                    svar2 = ("Namn = " + "'" + namn + "'");
-                } else {
-                    svar2 = ("Namn = " + null);
+                    idb.update(fråga + " Namn = " + namn + statemens);
                 }
+                
                 if (telefon != null) {
-                    svar3 = ("Telefon = " + "'" + telefon + "'");
-                } else {
-                    svar3 = ("Telefon = " + null);
+                    idb.update(fråga + " Telefon = " + telefon + statemens);
                 }
+                
                 if (anställningsdatum != null) {
-                    svar4 = ("Anställningsdatum = " + "'" + anställningsdatum + "'");
-                } else {
-                    svar4 = ("Anställningsdatum = " + null);
+                    idb.update(fråga + " Anstallningsdatum = " + anställningsdatum + statemens);
                 }
                 if (adminstatus != null) {
-                    svar5 = ("Administrator = " + "'" + adminstatus + "'");
-                } else {
-                    svar5 = ("Administrator = " + null);
+                    idb.update(fråga + " Administrator = " + adminstatus + statemens);
                 }
                 if (lösenord != null) {
-                    svar6 = ("Losenord = " + "'" + lösenord + "'");
-                } else {
-                    svar6 = ("Losenord = " + null);
+                    idb.update(fråga + " Losenord = " + lösenord + statemens);
                 }
                 if (område != null) {
-                    svar7 = ("Område = " + område);
-                } else {
-                    svar7 = ("Område = " + null);
+                    idb.update(fråga + " Omrade = " + område + statemens);
                 }
 
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
-                PreparedStatement ps = conn.prepareStatement("UPDATE Agent SET (?,?,?,?,?,?,?) WHERE Agent_ID = " + agentID);
-                //svar1+svar2+svar3+svar4+svar5+svar6+svar7
-
-                ps.setString(1, svar1);
-                ps.setString(2, svar2);
-                ps.setString(3, svar3);
-                ps.setString(4, svar4);
-                ps.setString(5, svar5);
-                ps.setString(6, svar6);
-                ps.setString(7, svar7);
-
-                ps.executeUpdate();
-                ps.execute();
+                
 
                 JOptionPane.showMessageDialog(null, "Attempt to update agent successfull!");
 
