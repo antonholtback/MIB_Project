@@ -62,6 +62,10 @@ public class MIB_Project {
     OmradeschefInfoWindow omradeschefInfoWindow = new OmradeschefInfoWindow();
     HamtaAgentInfo hamtaAgentInfo = new HamtaAgentInfo();
     HamtaAgentInfoWindow hamtaAgentInfoWindow = new HamtaAgentInfoWindow();
+    AndraOmradeschef andraOmradeschef = new AndraOmradeschef();
+    AndraOmradeschefWindow andraOmradeschefWindow = new AndraOmradeschefWindow();
+    AndraKontorschef andraKontorschef = new AndraKontorschef();
+    AndraKontorschefWindow andraKontorschefWindow = new AndraKontorschefWindow();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -78,9 +82,9 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, instansieraNyButton;
+    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton;
     private static JLabel success;
-    private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread;
+    private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread, fontBreadLiten;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
     private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
@@ -125,6 +129,7 @@ public class MIB_Project {
         fontHeadliner1 = new Font("Courier New", Font.BOLD, 70);
         fontHeadliner2 = new Font("Desdemona", Font.BOLD, 55);
         fontBread = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 15);
+        fontBreadLiten = new Font("Calibri Brödtext", Font.LAYOUT_NO_START_CONTEXT, 12);
     }
 
 //______________________________________________________________________________________________________
@@ -332,7 +337,7 @@ public class MIB_Project {
         } catch (InfException c) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-        return getAgentLosenord();
+        return getAgentOmrade();
 
     }
 
@@ -456,7 +461,7 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+            JOptionPane.showMessageDialog(null, "1");
         }
         return getOmradeschefNamnByPlats();
     }
@@ -472,7 +477,7 @@ public class MIB_Project {
 
             return enAgent;
         } catch (InfException c) {
-            JOptionPane.showMessageDialog(null, "Områdeschef saknas");
+            JOptionPane.showMessageDialog(null, "2");
         }
         return getOmradeschefTelefonByPlats();
     }
@@ -700,10 +705,10 @@ public class MIB_Project {
         panel.add(label1);
 
         label2 = new JLabel("Namn: ");
-        label2.setBounds(10, 50, 120, 25);
+        label2.setBounds(10, 50, 500, 25);
         panel.add(label2);
 
-        label3 = new JLabel("Telefon: ");
+        /*  label3 = new JLabel("Telefon: ");
         label3.setBounds(10, 80, 120, 25);
         panel.add(label3);
 
@@ -749,8 +754,7 @@ public class MIB_Project {
         idLabel = new JLabel("");
         idLabel.setBounds(80, 170, 120, 25);
         idLabel.setFont(fontBread);
-        panel.add(idLabel);
-
+        panel.add(idLabel);    */
         userText = new JTextField();
         userText.setBounds(70, 20, 120, 25);
         panel.add(userText);
@@ -761,20 +765,6 @@ public class MIB_Project {
         panel.add(instansieraNyButton);
 
         frame.setVisible(true);
-    }
-
-    public void omradeschefInfo() throws InfException {
-
-        try {
-            namnLabel.setText(getOmradeschefNamnByPlats());
-            telefonLabel.setText(getOmradeschefTelefonByPlats());
-            registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
-            ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
-            idLabel.setText(getOmradeschefIdByPlats());
-
-        } catch (InfException p) {
-
-        }
     }
 
     public void hamtaAgentInfoWindow() {
@@ -837,7 +827,7 @@ public class MIB_Project {
         ansvarigAgentLabel.setBounds(90, 140, 120, 25);
         ansvarigAgentLabel.setFont(fontBread);
         panel.add(ansvarigAgentLabel);
-        
+
         losenordsLabel = new JLabel("");
         losenordsLabel.setBounds(70, 170, 120, 25);
         losenordsLabel.setFont(fontBread);
@@ -871,11 +861,120 @@ public class MIB_Project {
             ansvarigAgentLabel.setText(getAgentAdministrator());
             losenordsLabel.setText(getAgentLosenord());
             platsLabel.setText(getAgentOmrade());
-          
 
         } catch (InfException p) {
 
         }
+    }
+
+    public void andraOmradeschefWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Agent_ID: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Nytt chefsområde: ");
+        label2.setBounds(10, 60, 120, 25);
+        panel.add(label2);
+
+        //Textfält för agentnamnt
+        text1 = new JTextField();
+        text1.setBounds(120, 20, 120, 25);
+        panel.add(text1);
+
+        //Textfält för nytt chefsområde
+        text2 = new JTextField();
+        text2.setBounds(120, 60, 120, 25);
+        panel.add(text2);
+
+        instansieraNyButton = new JButton("Utse ny områdeschef");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(andraOmradeschef);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public String andraOmradeschef() throws InfException {
+
+        try {
+            String agent = text1.getText();
+            String omrade = text2.getText();
+            String fragaChef = "update omradeschef set agent_id = " + agent + " where omrade = " + omrade;
+            String svarChef = idb.fetchSingle(fragaChef);
+            String enAgent = svarChef;
+
+            return enAgent;
+        } catch (InfException p) {
+
+            JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
+
+        }
+        return andraOmradeschef();
+    }
+
+    public void andraKontorschefWindow() {
+
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Agent_ID: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Nytt chefsområde: ");
+        label2.setBounds(10, 60, 120, 25);
+        panel.add(label2);
+
+        //Textfält för agentnamnt
+        text1 = new JTextField();
+        text1.setBounds(120, 20, 120, 25);
+        panel.add(text1);
+
+        //Textfält för nytt chefsområde
+        text2 = new JTextField();
+        text2.setBounds(120, 60, 120, 25);
+        panel.add(text2);
+
+        instansieraNyButton = new JButton("Utse ny områdeschef");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(andraKontorschef);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
+    }
+
+    public String andraKontorschef() throws InfException {
+
+        try {
+            String agent = text1.getText();
+            String kontor = text2.getText();
+            String fragaChef = "update kontorschef set agent_id = " + agent + " where omrade = " + "'" + kontor + "'";
+            String svarChef = idb.fetchSingle(fragaChef);
+            String enAgent = svarChef;
+
+            return enAgent;
+        } catch (InfException p) {
+
+            JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
+
+        }
+        return andraOmradeschef();
     }
 
     public void platsAllaAliensWindow() {
@@ -1353,7 +1452,7 @@ public class MIB_Project {
 
         JPanel listPanel = new JPanel();
 
-        listPanel.setBounds(1100, 270, 400, 250);
+        listPanel.setBounds(500, 270, 700, 250);
         listPanel.setBackground(Color.DARK_GRAY);
         listPanel.setLayout(new GridLayout(4, 2));
         frame.add(listPanel);
@@ -1401,7 +1500,7 @@ public class MIB_Project {
         listPanel.add(buttonSet6);
 
         buttonSet7 = new JButton("Alien Registrerad mellan datum");
-        buttonSet7.setFont(fontBread);
+        buttonSet7.setFont(fontBreadLiten);
         buttonSet7.setFocusPainted(true);
         //buttonSet1.addActionListener();
         //buttonSet1.setActionCommand(" ");
@@ -1445,6 +1544,20 @@ public class MIB_Project {
             buttonSet12.addActionListener(hamtaAgentInfoWindow);
             //buttonSet11.setActionCommand(" ");
             listPanel.add(buttonSet12);
+
+            buttonSet13 = new JButton("Ändra områdeschef");
+            buttonSet13.setFont(fontBread);
+            buttonSet13.setFocusPainted(true);
+            buttonSet13.addActionListener(andraOmradeschefWindow);
+            //buttonSet13.setActionCommand(" ");
+            listPanel.add(buttonSet13);
+
+            buttonSet14 = new JButton("Ändra kontorschef");
+            buttonSet14.setFont(fontBread);
+            buttonSet14.setFocusPainted(true);
+            buttonSet14.addActionListener(andraKontorschefWindow);
+            //buttonSet14.setActionCommand(" ");
+            listPanel.add(buttonSet14);
         }
 
         /**
@@ -1579,7 +1692,19 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent l) {
 
             try {
-                omradeschefInfo();
+
+                String omrade = getAlienPlats();
+                String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
+                String svarPlats = idb.fetchSingle(fragaPlats);
+                String enAgent = svarPlats;
+
+                String fragaAgent = "select * from agent where agent_id = " + enAgent;
+                String svarAgent = idb.fetchSingle(fragaAgent);
+                String allAgent = svarAgent;
+
+                namnLabel.setText(allAgent);
+
+                /*  omradeschefInfo(); */
             } catch (InfException p) {
 
             }
@@ -1602,6 +1727,50 @@ public class MIB_Project {
 
             try {
                 hamtaAgentInfo();
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+
+    public class AndraOmradeschefWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            andraOmradeschefWindow();
+        }
+    }
+
+    public class AndraOmradeschef implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+                andraOmradeschef();
+            } catch (InfException p) {
+
+            }
+        }
+
+    }
+
+    public class AndraKontorschefWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent k) {
+            andraKontorschefWindow();
+        }
+    }
+
+    public class AndraKontorschef implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent l) {
+
+            try {
+                andraKontorschef();
             } catch (InfException p) {
 
             }
@@ -1666,6 +1835,7 @@ public class MIB_Project {
                 String password = passwordText.getText();
                 String jaAdmin = "J";
                 String nejAdmin = "N";
+                String omrade = getAlienPlats();
 
                 //Hämta lösen agent
                 String frågaAgentLosen = "Select Losenord from Agent where Namn =" + "'" + username + "'";
@@ -1709,6 +1879,7 @@ public class MIB_Project {
                     if (resultatAlienLosen.equals(password)) {
                         success.setText("Login successfull!");
                         inloggningsStatus = true;
+
                         GUIMeny_alien();
                         // timerUpdate();
                         //sessionTimer();
@@ -1722,6 +1893,37 @@ public class MIB_Project {
             }
 
         }
+    }
+
+    public String omradeschefInfo() throws InfException {
+
+        // String s = getOmradeschefNamnByPlats();
+        String omrade = getAlienPlats();
+
+        try {
+            //String plats = userText.getText();
+            String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
+            String svarPlats = idb.fetchSingle(fragaPlats);
+            String enAgent = svarPlats;
+
+            String fragaAgent = "select * from agent where agent_id = " + enAgent;
+            String svarAgent = idb.fetchSingle(fragaAgent);
+            String allAgent = svarAgent;
+
+            namnLabel.setText(allAgent);
+
+            /* namnLabel.setText(getOmradeschefNamnByPlats());
+            telefonLabel.setText(getOmradeschefTelefonByPlats());
+            registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
+            ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
+            idLabel.setText(getOmradeschefIdByPlats()); */
+            return allAgent;
+
+        } catch (InfException p) {
+
+            JOptionPane.showMessageDialog(null, "");
+        }
+        return omradeschefInfo();
     }
 
 //______________________________________________________________________________________________________
