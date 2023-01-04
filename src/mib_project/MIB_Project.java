@@ -70,6 +70,9 @@ public class MIB_Project {
     AndraKontorschefWindow andraKontorschefWindow = new AndraKontorschefWindow();
     AlienMellanDatumHandler alienMellanDatum = new AlienMellanDatumHandler();
     AlienMellanDatumWindow alienMellanDatumWindow = new AlienMellanDatumWindow();
+    DropAgent dropAgent = new DropAgent();
+    RegistreraAgent registreraAgent = new RegistreraAgent();
+    InstansieraNyAgent instansieraNyAgent = new InstansieraNyAgent();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -86,7 +89,7 @@ public class MIB_Project {
     private static JTextField userText;
     private static JLabel passwordLabel, cPasswordLabel, nPasswordLabel;
     private static JPasswordField passwordText, cPasswordText, nPasswordText;
-    private static JButton inloggButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton;
+    private static JButton inloggButton, buttonSet15, dropAgentButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread, fontBreadLiten;
     private static JLabel label1, label2, label3, label4, label5, label6, label7;
@@ -1360,6 +1363,12 @@ public class MIB_Project {
         instansieraNyButton.setBounds(10, 240, 185, 25);
         instansieraNyButton.addActionListener(uppdateraAgentHandler);
         panel.add(instansieraNyButton);
+        
+        dropAgentButton = new JButton("Ta bort Agent");
+        dropAgentButton.setBounds(125, 240, 185, 25);
+        dropAgentButton.addActionListener(dropAgent);
+        panel.add(dropAgentButton);
+        
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
         /**
          * exeNewPasswordButton = new JButton("Ändra lösenord");
@@ -1618,6 +1627,13 @@ public class MIB_Project {
             buttonSet14.addActionListener(andraKontorschefWindow);
             //buttonSet14.setActionCommand(" ");
             listPanel.add(buttonSet14);
+            
+            buttonSet15 = new JButton("Registrera Agent");
+            buttonSet15.setFont(fontBread);
+            buttonSet15.setFocusPainted(true);
+            buttonSet15.addActionListener(registreraAgent);
+            listPanel.add(buttonSet15);
+            
         }
 
         /**
@@ -1985,6 +2001,93 @@ public class MIB_Project {
         }
         return omradeschefInfo();
     }
+    
+    public void registreraAgentWindow()
+    {
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        label1 = new JLabel("Agent_ID");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
+
+        label2 = new JLabel("Namn");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
+
+        label3 = new JLabel("Telefon");
+        label3.setBounds(10, 80, 120, 25);
+        panel.add(label3);
+
+        label4 = new JLabel("Anställningsdatum");
+        label4.setBounds(10, 110, 120, 25);
+        panel.add(label4);
+
+        label5 = new JLabel("Adminstatus");
+        label5.setBounds(10, 140, 120, 25);
+        panel.add(label5);
+
+        label6 = new JLabel("Lösenord");
+        label6.setBounds(10, 170, 120, 25);
+        panel.add(label6);
+
+        label7 = new JLabel("Aktiv inom område");
+        label7.setBounds(10, 200, 120, 25);
+        panel.add(label7);
+
+        text1 = new JTextField(20);
+        text1.setBounds(125, 20, 185, 25);
+        panel.add(text1);
+
+        text2 = new JTextField(20);
+        text2.setBounds(125, 50, 185, 25);
+        panel.add(text2);
+
+        text3 = new JTextField(20);
+        text3.setBounds(125, 80, 185, 25);
+        panel.add(text3);
+
+        text4 = new JTextField(20);
+        text4.setBounds(125, 110, 185, 25);
+        panel.add(text4);
+
+        text5 = new JTextField(20);
+        text5.setBounds(125, 140, 185, 25);
+        panel.add(text5);
+
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(125, 170, 185, 25);
+        panel.add(passwordText);
+
+        text7 = new JTextField(20);
+        text7.setBounds(125, 200, 185, 25);
+        panel.add(text7);
+
+        instansieraNyButton = new JButton("Registrera Agent");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(instansieraNyAgent);
+        panel.add(instansieraNyButton);
+        //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
+        /**
+         * exeNewPasswordButton = new JButton("Ändra lösenord");
+         * exeNewPasswordButton.setBounds(10, 230, 185, 25);
+         * exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
+         * panel.add(exeNewPasswordButton);
+         */
+
+        success = new JLabel("");
+        success.setBounds(10, 100, 300, 25);
+        panel.add(success);
+
+        frame.setVisible(true);
+
+    }
 
 //______________________________________________________________________________________________________
 // Koden för GUIn till inloggningsfönstret
@@ -2182,13 +2285,23 @@ public class MIB_Project {
 //closeWindow-metod       
 //}
     }
-
+    
+    
     public class RegistreraAlien implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent h) {
 
             registreraAlienWindow();
+        }
+    }
+    
+    public class RegistreraAgent implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent esc)
+        {
+            registreraAgentWindow();
         }
     }
 
@@ -2226,6 +2339,44 @@ public class MIB_Project {
             }
         }
     }
+    
+        public class DropAgent implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent sss)
+        {
+                      
+            try {
+                String agentID = text1.getText();               
+                int agentId = Integer.parseInt(agentID);
+                String ansvarigAgent = getAlienAnsvarigAgent();
+                
+                if(ansvarigAgent != null)
+                {
+                    
+                }
+                else{
+                /*Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("DELETE FROM Agent, Alien WHERE Agent_ID = "+ "'"+ agentID +"'");
+                
+                ps.execute();
+                JOptionPane.showMessageDialog(null, "Agent dropped");
+                
+                conn.close();*/
+                idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
+                JOptionPane.showMessageDialog(null, "Agent dropped");
+                }
+                
+                
+            } catch (Exception exa) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
+                JOptionPane.showMessageDialog(null, "Attempt to remove Agent from database failed"); 
+            
+        }
+    }
+}
+
 
     public class LetaAlienID implements ActionListener {
 
@@ -2415,6 +2566,43 @@ public class MIB_Project {
         }
     }
 
+    public class InstansieraNyAgent implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent ecs)
+        {
+            try {
+                String agentID = text1.getText();
+                String namn = text2.getText();
+                String telefon = text3.getText();
+                String anställd = text4.getText();
+                String admin = text5.getText();
+                String lösen = text6.getText();
+                String område = text7.getText();
+
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO Agent (Agent_ID, Namn, Telefon, Anstallningsdatum, Administrator, Losenord, Omrade) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+                ps.setString(1, agentID);
+                ps.setString(2, namn);
+                ps.setString(3, telefon);
+                ps.setString(4, anställd);
+                ps.setString(5, admin);
+                ps.setString(6, lösen);
+                ps.setString(7, område);
+
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Agent added to MIB-database");
+            }
+            catch (Exception exy) {
+                Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exy);
+                JOptionPane.showMessageDialog(null, "Attempt to add Agent to database failed");
+
+            }
+        }
+    }
+    
     public class InstansieraNyAlien implements ActionListener {
 
         @Override
