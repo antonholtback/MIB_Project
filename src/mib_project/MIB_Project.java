@@ -874,7 +874,7 @@ public class MIB_Project {
         }
     }
 
-    public void andraOmradeschefWindow() {
+     public void andraOmradeschefWindow() {
 
         JPanel panel = new JPanel();
 
@@ -912,7 +912,7 @@ public class MIB_Project {
     }
 
     public String andraOmradeschef() throws InfException {
-        
+
         String s = "error";
         try {
             String agent = text1.getText();
@@ -921,13 +921,15 @@ public class MIB_Project {
             String svarChef = idb.fetchSingle(fragaChef);
             String enAgent = svarChef;
 
+            JOptionPane.showMessageDialog(null, "Områdeschef tillsatt");
+
             return enAgent;
         } catch (InfException p) {
 
             JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
             return s;
         }
-        
+
     }
 
     public void andraKontorschefWindow() {
@@ -969,20 +971,25 @@ public class MIB_Project {
 
     public String andraKontorschef() throws InfException {
 
+        String s = "error";
+
         try {
             String agent = text1.getText();
             String kontor = text2.getText();
-            String fragaChef = "update kontorschef set agent_id = " + agent + " where omrade = " + "'" + kontor + "'";
+            String fragaChef = "update kontorschef set agent_id = " + agent + " where kontorsbeteckning = " + "'" + kontor + "'";
             String svarChef = idb.fetchSingle(fragaChef);
             String enAgent = svarChef;
+
+            JOptionPane.showMessageDialog(null, "Kontorschef tillsatt");
 
             return enAgent;
         } catch (InfException p) {
 
-            JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
+            JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan kontorschef");
+            return s;
 
         }
-        return andraOmradeschef();
+
     }
 
     public void platsAllaAliensWindow() {
