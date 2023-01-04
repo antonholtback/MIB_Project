@@ -2843,6 +2843,8 @@ public class MIB_Project {
                 String admin = text5.getText();
                 String lösen = passwordText.getText();
                 String område = text7.getText();
+                
+                Validering.isValidPassword();
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
@@ -3032,15 +3034,26 @@ public class MIB_Project {
     }
     
     public class Validering {
-        
-        public static boolean isValidDate(String input)
-        {
-            try
-            {
+
+        public static boolean isValidDate(String input) {
+            try {
                 LocalDate.parse(input);
                 return true;
+            } catch (Exception ex) {
+                return false;
             }
-            catch (Exception ex){
+        }
+
+        public static boolean isValidPassword() {
+            try {
+                String ettLosen = passwordText.getText();
+                int losen = Integer.parseInt(ettLosen);
+                if (losen > 6) {
+                    JOptionPane.showMessageDialog(null, "Lösenordet är för långt");
+
+                }
+                return true;
+            } catch (Exception ex) {
                 return false;
             }
         }
