@@ -29,6 +29,7 @@ import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 //import java.sql.*; 
@@ -2963,6 +2964,21 @@ public class MIB_Project {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "hihi du fick ett felmeddelande!! :)");
 
+            }
+        }
+    }
+    
+    public class Validering {
+        
+        public static boolean isValidDate(String input)
+        {
+            try
+            {
+                LocalDate.parse(input);
+                return true;
+            }
+            catch (Exception ex){
+                return false;
             }
         }
     }
