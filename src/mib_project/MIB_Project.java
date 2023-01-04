@@ -1358,9 +1358,9 @@ public class MIB_Project {
         text5.setBounds(125, 140, 185, 25);
         panel.add(text5);
 
-        text6 = new JTextField(20);
-        text6.setBounds(125, 170, 185, 25);
-        panel.add(text6);
+        passwordText = new JPasswordField(20);
+        passwordText.setBounds(125, 170, 185, 25);
+        panel.add(passwordText);
 
         text7 = new JTextField(20);
         text7.setBounds(125, 200, 185, 25);
@@ -2483,7 +2483,7 @@ public class MIB_Project {
                 String telefon = text3.getText();
                 String anställningsdatum = text4.getText();
                 String adminstatus = text5.getText();
-                String lösenord = text6.getText();
+                String lösenord = passwordText.getText();
                 String område = text7.getText();
 
                 String svar1 = null;
