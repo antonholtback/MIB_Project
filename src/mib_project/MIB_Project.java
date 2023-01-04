@@ -761,7 +761,7 @@ public class MIB_Project {
         idLabel = new JLabel("");
         idLabel.setBounds(80, 170, 120, 25);
         idLabel.setFont(fontBread);
-        panel.add(idLabel); 
+        panel.add(idLabel);
         userText = new JTextField();
         userText.setBounds(70, 20, 120, 25);
         panel.add(userText);
@@ -874,7 +874,7 @@ public class MIB_Project {
         }
     }
 
-     public void andraOmradeschefWindow() {
+    public void andraOmradeschefWindow() {
 
         JPanel panel = new JPanel();
 
@@ -1370,12 +1370,12 @@ public class MIB_Project {
         instansieraNyButton.setBounds(10, 240, 185, 25);
         instansieraNyButton.addActionListener(uppdateraAgentHandler);
         panel.add(instansieraNyButton);
-        
+
         dropAgentButton = new JButton("Ta bort Agent");
         dropAgentButton.setBounds(125, 240, 185, 25);
         dropAgentButton.addActionListener(dropAgent);
         panel.add(dropAgentButton);
-        
+
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
         /**
          * exeNewPasswordButton = new JButton("Ändra lösenord");
@@ -1383,7 +1383,6 @@ public class MIB_Project {
          * exeNewPasswordButton.addActionListener(exeNewPasswordHandeler);
          * panel.add(exeNewPasswordButton);
          */
-
         success = new JLabel("");
         success.setBounds(10, 100, 300, 25);
         panel.add(success);
@@ -1435,63 +1434,59 @@ public class MIB_Project {
         panel.add(success);
 
         frame.setVisible(true);
-    
 
     }
-     public void alienMellanDatumWindow() {
 
-   	 JPanel panel = new JPanel();
+    public void alienMellanDatumWindow() {
 
-   	 JFrame frame = new JFrame();
-   	 frame.setSize(400, 400);
-   	 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-   	 frame.add(panel);
-   	 frame.setLocationRelativeTo(null);
-   	 panel.setLayout(null);
+        JPanel panel = new JPanel();
 
-   	 label1 = new JLabel("Startdatum: ");
-   	 label1.setBounds(10, 20, 120, 25);
-   	 panel.add(label1);
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
 
-   	 label2 = new JLabel("Slutdatum: ");
-   	 label2.setBounds(10, 50, 120, 25);
-   	 panel.add(label2);
-         
+        label1 = new JLabel("Startdatum: ");
+        label1.setBounds(10, 20, 120, 25);
+        panel.add(label1);
 
-   	 namnLabel = new JLabel("");
-   	 namnLabel.setBounds(100, 80, 120, 25);
-   	 namnLabel.setFont(fontBread);
-   	 panel.add(namnLabel);
-  	 
-   	 text1 = new JTextField();
-   	 text1.setBounds(80, 20, 120, 25);
-   	 panel.add(text1);
-         
-         text2 = new JTextField();
-   	 text2.setBounds(80, 50, 120, 25);
-   	 panel.add(text2);
-         
-         label3 = new JLabel("(YYYY-MM-DD)");
-         label3.setBounds(10, 100, 120, 25);
-         panel.add(label3);
+        label2 = new JLabel("Slutdatum: ");
+        label2.setBounds(10, 50, 120, 25);
+        panel.add(label2);
 
-   	 instansieraNyButton = new JButton("Hämta info");
-   	 instansieraNyButton.setBounds(10, 240, 185, 25);
-   	 instansieraNyButton.addActionListener(alienMellanDatum);
-         panel.add(instansieraNyButton);
-                 
+        namnLabel = new JLabel("");
+        namnLabel.setBounds(100, 80, 120, 25);
+        namnLabel.setFont(fontBread);
+        panel.add(namnLabel);
 
-   	 frame.setVisible(true);
+        text1 = new JTextField();
+        text1.setBounds(80, 20, 120, 25);
+        panel.add(text1);
+
+        text2 = new JTextField();
+        text2.setBounds(80, 50, 120, 25);
+        panel.add(text2);
+
+        label3 = new JLabel("(YYYY-MM-DD)");
+        label3.setBounds(10, 100, 120, 25);
+        panel.add(label3);
+
+        instansieraNyButton = new JButton("Hämta info");
+        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.addActionListener(alienMellanDatum);
+        panel.add(instansieraNyButton);
+
+        frame.setVisible(true);
         success = new JLabel("");
-    	success.setBounds(10, 100, 300, 25);
-    	panel.add(success);
+        success.setBounds(10, 100, 300, 25);
+        panel.add(success);
 
         //AlienMellanDatumLabel.setText(“”);
-    	frame.setVisible(true);
-        
+        frame.setVisible(true);
 
-        }
-
+    }
 
     // Koden för Agent Menyn som öppnas efter inlogg som agent    
     public void GUIMeny() throws InfException {
@@ -1576,11 +1571,11 @@ public class MIB_Project {
         listPanel.add(buttonSet6);
 
         buttonSet7 = new JButton("Alien Registrerad mellan datum");
-    	buttonSet7.setFont(fontBread);
-    	buttonSet7.setFocusPainted(true);
-    	buttonSet7.addActionListener(alienMellanDatumWindow);
-    	buttonSet7.setActionCommand(" ");
-    	listPanel.add(buttonSet7);
+        buttonSet7.setFont(fontBread);
+        buttonSet7.setFocusPainted(true);
+        buttonSet7.addActionListener(alienMellanDatumWindow);
+        buttonSet7.setActionCommand(" ");
+        listPanel.add(buttonSet7);
 
         buttonSet8 = new JButton("Visa Alien info");
         buttonSet8.setFont(fontBread);
@@ -1634,13 +1629,13 @@ public class MIB_Project {
             buttonSet14.addActionListener(andraKontorschefWindow);
             //buttonSet14.setActionCommand(" ");
             listPanel.add(buttonSet14);
-            
+
             buttonSet15 = new JButton("Registrera Agent");
             buttonSet15.setFont(fontBread);
             buttonSet15.setFocusPainted(true);
             buttonSet15.addActionListener(registreraAgent);
             listPanel.add(buttonSet15);
-            
+
         }
 
         /**
@@ -1780,17 +1775,8 @@ public class MIB_Project {
                 registreringsdatumLabel.setText(getOmradeschefAnstallninsdatumByPlats());
                 ansvarigAgentLabel.setText(getOmradeschefAdminByPlats());
                 idLabel.setText(getOmradeschefIdByPlats());
-                
 
-                
-                
-                
-                
-                
-                
-                
-                
-            /*    String omrade = getAlienPlats();
+                /*    String omrade = getAlienPlats();
                 String fragaPlats = "SELECT Agent_ID FROM omradeschef WHERE Omrade in (SELECT Plats from Alien WHERE Alien_ID = " + omrade + ")";
                 String svarPlats = idb.fetchSingle(fragaPlats);
                 String enAgent = svarPlats;
@@ -2022,9 +2008,8 @@ public class MIB_Project {
         }
         return omradeschefInfo();
     }
-    
-    public void registreraAgentWindow()
-    {
+
+    public void registreraAgentWindow() {
         JPanel panel = new JPanel();
 
         JFrame frame = new JFrame();
@@ -2147,7 +2132,7 @@ public class MIB_Project {
         success.setBounds(10, 110, 300, 25);
         panel.add(success);
     }
-    
+
 //______________________________________________________________________________________________________
 // Koden för GUIn till inloggningsfönstret
     public void passwordWindow() {
@@ -2344,8 +2329,7 @@ public class MIB_Project {
 //closeWindow-metod       
 //}
     }
-    
-    
+
     public class RegistreraAlien implements ActionListener {
 
         @Override
@@ -2354,12 +2338,11 @@ public class MIB_Project {
             registreraAlienWindow();
         }
     }
-    
+
     public class RegistreraAgent implements ActionListener {
-        
+
         @Override
-        public void actionPerformed(ActionEvent esc)
-        {
+        public void actionPerformed(ActionEvent esc) {
             registreraAgentWindow();
         }
     }
@@ -2398,24 +2381,21 @@ public class MIB_Project {
             }
         }
     }
-    
-        public class DropAgent implements ActionListener {
-        
+
+    public class DropAgent implements ActionListener {
+
         @Override
-        public void actionPerformed(ActionEvent sss)
-        {
-                      
+        public void actionPerformed(ActionEvent sss) {
+
             try {
-                String agentID = text1.getText();               
+                String agentID = text1.getText();
                 int agentId = Integer.parseInt(agentID);
                 String ansvarigAgent = getAlienAnsvarigAgent();
-                
-                if(ansvarigAgent != null)
-                {
+
+                if (ansvarigAgent != null) {
                     changeAnsvarigAgentWindow();
-                }
-                else{
-                /*Class.forName("com.mysql.cj.jdbc.Driver");
+                } else {
+                    /*Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
                 PreparedStatement ps = conn.prepareStatement("DELETE FROM Agent, Alien WHERE Agent_ID = "+ "'"+ agentID +"'");
                 
@@ -2423,19 +2403,17 @@ public class MIB_Project {
                 JOptionPane.showMessageDialog(null, "Agent dropped");
                 
                 conn.close();*/
-                idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
-                JOptionPane.showMessageDialog(null, "Agent dropped");
+                    idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
+                    JOptionPane.showMessageDialog(null, "Agent dropped");
                 }
-                
-                
+
             } catch (Exception exa) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
-                JOptionPane.showMessageDialog(null, "Attempt to remove Agent from database failed"); 
-            
+                JOptionPane.showMessageDialog(null, "Attempt to remove Agent from database failed");
+
+            }
         }
     }
-}
-
 
     public class LetaAlienID implements ActionListener {
 
@@ -2444,11 +2422,11 @@ public class MIB_Project {
             try {
                 String valdAlien = text8.getText();
                 boolean existera = letaAlienIDs(valdAlien);
-                if (valdAlien != null) 
-                { if(existera) {
-                    ändraAlienWindow();
+                if (valdAlien != null) {
+                    if (existera) {
+                        ändraAlienWindow();
+                    }
                 }
-                } 
             } catch (Exception ex) {
                 System.out.println("Valt ID existerar inte");
             }
@@ -2629,10 +2607,9 @@ public class MIB_Project {
     }
 
     public class InstansieraNyAgent implements ActionListener {
-        
+
         @Override
-        public void actionPerformed(ActionEvent ecs)
-        {
+        public void actionPerformed(ActionEvent ecs) {
             try {
                 String agentID = text1.getText();
                 String namn = text2.getText();
@@ -2656,15 +2633,14 @@ public class MIB_Project {
 
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Agent added to MIB-database");
-            }
-            catch (Exception exy) {
+            } catch (Exception exy) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exy);
                 JOptionPane.showMessageDialog(null, "Attempt to add Agent to database failed");
 
             }
         }
     }
-    
+
     public class InstansieraNyAlien implements ActionListener {
 
         @Override
@@ -2719,129 +2695,112 @@ public class MIB_Project {
 
     }
 
-    public class Alien{
-               private int alien_ID;
-               private String registreringsDatum;
-               private String namn;
-              
-            
-            
-            
-            public Alien(int alien_ID, String regDatum, String namn)
-            {
-                this.alien_ID = alien_ID;
-                registreringsDatum = regDatum;
-                this.namn = namn;
-                
-            }
-   
-            public String toString()
-            {
-                return "ID: " + alien_ID + "\nRegDatum: " + registreringsDatum + "\nNamn: " + namn;
-            }
-           
-            public int getAlien_ID(){
-                
-                return alien_ID;
-            
-            }
-             public String getRegDatum(){
-                
-                return registreringsDatum;
-            
-            }
-             
-            public String getNamn()
-            {
-                return namn;
-            }
+    public class Alien {
 
-             
-        }
-           
-            
-           
-           public ArrayList<Alien> alienRegDatum(String startDatum, String slutDatum) throws InfException{
-               String fråga = "Select * from alien where registreringsdatum BETWEEN '" + startDatum + "' and '" + slutDatum + "';";
-               ArrayList<HashMap<String, String>> svar = new ArrayList();
-               ArrayList<Alien> lista = new ArrayList();
-               
-               try{
-                  
-               svar = idb.fetchRows(fråga);
-               for (HashMap<String, String> rad : svar)
-               {
-                   Alien temp = new Alien(Integer.parseInt(rad.get("Alien_ID")), rad.get("Registreringsdatum"), rad.get("Namn"));
-                   lista.add(temp);
-               }
-               
-               }
-               catch(InfException ex)
-               {
-                   System.out.println("FEL");
-               }
+        private int alien_ID;
+        private String registreringsDatum;
+        private String namn;
 
-               
-               System.out.println(lista);
+        public Alien(int alien_ID, String regDatum, String namn) {
+            this.alien_ID = alien_ID;
+            registreringsDatum = regDatum;
+            this.namn = namn;
 
-               return lista;
-           }
-           
-         public class AlienMellanDatumWindow implements ActionListener {
-
-   	 @Override
-   	 public void actionPerformed(ActionEvent w) {
-   		 alienMellanDatumWindow();
-            }
         }
 
-         public void visaAlien(ArrayList<Alien> lista)
-         {
-            JPanel panel = new JPanel();
+        public String toString() {
+            return "ID: " + alien_ID + "\nRegDatum: " + registreringsDatum + "\nNamn: " + namn;
+        }
 
-            JFrame frame = new JFrame();
-            frame.setSize(400, 400);
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.add(panel);
-            frame.setLocationRelativeTo(null);
-            panel.setLayout(null);
-            int counter = 1;
-             for (Alien a: lista)
-             {
-                JLabel tempLabel = new JLabel("ID: " + a.getAlien_ID());
-                tempLabel.setBounds(10, 20*counter, 120, 25);
-                panel.add(tempLabel);
-                
-                tempLabel = new JLabel("Namn: " + a.getNamn());
-                tempLabel.setBounds(10, 20*counter+20, 120, 25);
-                panel.add(tempLabel);
-                
-                tempLabel = new JLabel("Registreringsdatum: " + a.getRegDatum());
-                tempLabel.setBounds(10, 20*counter+40, 250, 25);
-                panel.add(tempLabel);
-                
-                counter+=4;
-             }
-             frame.setVisible(true);
-         }
-         
-        public class AlienMellanDatumHandler implements ActionListener{
-               
-            @Override
-            public void actionPerformed(ActionEvent s){
-                try 
-                {
-                    ArrayList<Alien> svar = new ArrayList();
-                    svar = alienRegDatum(text1.getText(), text2.getText());
-                    //namnLabel.setText(alienRegDatum);
-                    visaAlien(svar);
-                }
-                catch (Exception e)
-                {
-                    JOptionPane.showMessageDialog(null, "hihi du fick ett felmeddelande :)");
-                    
-                           
-                }
+        public int getAlien_ID() {
+
+            return alien_ID;
+
+        }
+
+        public String getRegDatum() {
+
+            return registreringsDatum;
+
+        }
+
+        public String getNamn() {
+            return namn;
+        }
+
+    }
+
+    public ArrayList<Alien> alienRegDatum(String startDatum, String slutDatum) throws InfException {
+        String fråga = "Select * from alien where registreringsdatum BETWEEN '" + startDatum + "' and '" + slutDatum + "';";
+        ArrayList<HashMap<String, String>> svar = new ArrayList();
+        ArrayList<Alien> lista = new ArrayList();
+
+        try {
+
+            svar = idb.fetchRows(fråga);
+            for (HashMap<String, String> rad : svar) {
+                Alien temp = new Alien(Integer.parseInt(rad.get("Alien_ID")), rad.get("Registreringsdatum"), rad.get("Namn"));
+                lista.add(temp);
+            }
+
+        } catch (InfException ex) {
+            System.out.println("FEL");
+        }
+
+        System.out.println(lista);
+
+        return lista;
+    }
+
+    public class AlienMellanDatumWindow implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent w) {
+            alienMellanDatumWindow();
+        }
+    }
+
+    public void visaAlien(ArrayList<Alien> lista) {
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+        int counter = 1;
+        for (Alien a : lista) {
+            JLabel tempLabel = new JLabel("ID: " + a.getAlien_ID());
+            tempLabel.setBounds(10, 20 * counter, 120, 25);
+            panel.add(tempLabel);
+
+            tempLabel = new JLabel("Namn: " + a.getNamn());
+            tempLabel.setBounds(10, 20 * counter + 20, 120, 25);
+            panel.add(tempLabel);
+
+            tempLabel = new JLabel("Registreringsdatum: " + a.getRegDatum());
+            tempLabel.setBounds(10, 20 * counter + 40, 250, 25);
+            panel.add(tempLabel);
+
+            counter += 4;
+        }
+        frame.setVisible(true);
+    }
+
+    public class AlienMellanDatumHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent s) {
+            try {
+                ArrayList<Alien> svar = new ArrayList();
+                svar = alienRegDatum(text1.getText(), text2.getText());
+                //namnLabel.setText(alienRegDatum);
+                visaAlien(svar);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "hihi du fick ett felmeddelande :)");
+
             }
         }
+    }
 }
