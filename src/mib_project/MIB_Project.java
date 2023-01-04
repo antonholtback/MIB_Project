@@ -34,7 +34,7 @@ import java.util.HashMap;
 //import java.sql.*; 
 //import java.util.Scanner;
 //import javax.swing.Timer;
-a
+
 /**
  *
  * @author anton
@@ -909,7 +909,8 @@ public class MIB_Project {
     }
 
     public String andraOmradeschef() throws InfException {
-
+        
+        String s = "error";
         try {
             String agent = text1.getText();
             String omrade = text2.getText();
@@ -921,9 +922,9 @@ public class MIB_Project {
         } catch (InfException p) {
 
             JOptionPane.showMessageDialog(null, "Agenten finns inte eller är redan områdeschef..");
-
+            return s;
         }
-        return andraOmradeschef();
+        
     }
 
     public void andraKontorschefWindow() {
