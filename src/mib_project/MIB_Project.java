@@ -565,7 +565,7 @@ public class MIB_Project {
         return svar;
     }
 
-    public boolean letaAlienID(String id) throws InfException {
+    public boolean letaAlienIDs(String id) throws InfException {
         String fråga = "Select Alien_ID from Alien where Alien_ID = " + id;
         String svar = idb.fetchSingle(fråga);
 
@@ -2429,9 +2429,12 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent t) {
             try {
                 String valdAlien = text8.getText();
-                if (valdAlien != null && letaAlienID.equals(valdAlien)) {
+                boolean existera = letaAlienIDs(valdAlien);
+                if (valdAlien != null) 
+                { if(existera) {
                     ändraAlienWindow();
                 }
+                } 
             } catch (Exception ex) {
                 System.out.println("Valt ID existerar inte");
             }
@@ -2622,7 +2625,7 @@ public class MIB_Project {
                 String telefon = text3.getText();
                 String anställd = text4.getText();
                 String admin = text5.getText();
-                String lösen = text6.getText();
+                String lösen = passwordText.getText();
                 String område = text7.getText();
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
