@@ -2891,6 +2891,16 @@ public class MIB_Project {
         @Override
         public void actionPerformed(ActionEvent ecs) {
             try {
+                
+                String ettNamn = text2.getText();
+                
+                String frågaAgentNamn = "Select namn from agent where namn =" + "'" + ettNamn + "'";
+                String svarAgentNamn = idb.fetchSingle(frågaAgentNamn);
+                String resultatAgentNamn = svarAgentNamn;
+                
+                if (resultatAgentNamn == null) {
+                
+                
                 String agentID = text1.getText();
                 String namn = text2.getText();
                 String telefon = text3.getText();
@@ -2914,7 +2924,10 @@ public class MIB_Project {
                 ps.setString(7, område);
 
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Agent added to MIB-database");
+                JOptionPane.showMessageDialog(null, "Agent added to MIB-database");}
+                else {
+                    JOptionPane.showMessageDialog(null, "Agentnamn upptaget");
+                }
             } catch (Exception exy) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exy);
                 JOptionPane.showMessageDialog(null, "Attempt to add Agent to database failed");
