@@ -2292,7 +2292,7 @@ public class MIB_Project {
         label6.setBounds(10, 170, 120, 25);
         panel.add(label6);
 
-        label7 = new JLabel("Aktiv inom område");
+        label7 = new JLabel("Aktiv inom område (ID)");
         label7.setBounds(10, 200, 120, 25);
         panel.add(label7);
 
@@ -2300,7 +2300,7 @@ public class MIB_Project {
         text1.setBounds(135, 20, 185, 25);
         panel.add(text1);
 
-        text2 = new JTextField(20);
+        text2 = new JTextField(20); 
         text2.setBounds(135, 50, 185, 25);
         panel.add(text2);
 
