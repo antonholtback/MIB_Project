@@ -2297,31 +2297,31 @@ public class MIB_Project {
         panel.add(label7);
 
         text1 = new JTextField(20);
-        text1.setBounds(125, 20, 185, 25);
+        text1.setBounds(135, 20, 185, 25);
         panel.add(text1);
 
         text2 = new JTextField(20);
-        text2.setBounds(125, 50, 185, 25);
+        text2.setBounds(135, 50, 185, 25);
         panel.add(text2);
 
         text3 = new JTextField(20);
-        text3.setBounds(125, 80, 185, 25);
+        text3.setBounds(135, 80, 185, 25);
         panel.add(text3);
 
         text4 = new JTextField(20);
-        text4.setBounds(125, 110, 185, 25);
+        text4.setBounds(135, 110, 185, 25);
         panel.add(text4);
 
         text5 = new JTextField(20);
-        text5.setBounds(125, 140, 185, 25);
+        text5.setBounds(135, 140, 185, 25);
         panel.add(text5);
 
         passwordText = new JPasswordField(20);
-        passwordText.setBounds(125, 170, 185, 25);
+        passwordText.setBounds(135, 170, 185, 25);
         panel.add(passwordText);
 
         text7 = new JTextField(20);
-        text7.setBounds(125, 200, 185, 25);
+        text7.setBounds(135, 200, 185, 25);
         panel.add(text7);
 
         instansieraNyButton = new JButton("Registrera Agent");
@@ -3146,8 +3146,8 @@ public class MIB_Project {
         public static boolean isValidPassword() {
             try {
                 String ettLosen = passwordText.getText();
-                int losen = Integer.parseInt(ettLosen);
-                if (losen > 6) {
+                //int losen = Integer.parseInt(ettLosen);
+                if (ettLosen.length() > 6) {
                     JOptionPane.showMessageDialog(null, "Lösenordet är för långt");
 
                 }
