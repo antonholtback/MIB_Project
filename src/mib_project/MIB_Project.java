@@ -786,46 +786,46 @@ public class MIB_Project {
         panel.add(label8);
 
         registreringsdatumLabel = new JLabel("");
-        registreringsdatumLabel.setBounds(130, 50, 120, 25);
+        registreringsdatumLabel.setBounds(140, 50, 120, 25);
         registreringsdatumLabel.setFont(fontBread);
         panel.add(registreringsdatumLabel);
 
         losenordsLabel = new JLabel("");
-        losenordsLabel.setBounds(70, 80, 120, 25);
+        losenordsLabel.setBounds(140, 80, 120, 25);
         losenordsLabel.setFont(fontBread);
         panel.add(losenordsLabel);
 
         idLabel = new JLabel("");
-        idLabel.setBounds(60, 110, 120, 25);
+        idLabel.setBounds(140, 110, 120, 25);
         idLabel.setFont(fontBread);
         panel.add(idLabel);
 
         telefonLabel = new JLabel("");
-        telefonLabel.setBounds(60, 140, 120, 25);
+        telefonLabel.setBounds(140, 140, 120, 25);
         telefonLabel.setFont(fontBread);
         panel.add(telefonLabel);
 
         platsLabel = new JLabel("");
-        platsLabel.setBounds(45, 170, 120, 25);
+        platsLabel.setBounds(140, 170, 120, 25);
         platsLabel.setFont(fontBread);
         panel.add(platsLabel);
 
         ansvarigAgentLabel = new JLabel("");
-        ansvarigAgentLabel.setBounds(100, 200, 120, 25);
+        ansvarigAgentLabel.setBounds(140, 200, 120, 25);
         ansvarigAgentLabel.setFont(fontBread);
         panel.add(ansvarigAgentLabel);
         
         rastillhörighetsLabel = new JLabel("");
-        rastillhörighetsLabel.setBounds(100,230,120,25);
+        rastillhörighetsLabel.setBounds(140,230,120,25);
         rastillhörighetsLabel.setFont(fontBread);
         panel.add(rastillhörighetsLabel);
 
         userText = new JTextField();
-        userText.setBounds(60, 20, 120, 25);
+        userText.setBounds(140, 20, 120, 25);
         panel.add(userText);
 
         instansieraNyButton = new JButton("Hämta info");
-        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.setBounds(10, 275, 185, 25);
         instansieraNyButton.addActionListener(hamtaAlienInfo);
         panel.add(instansieraNyButton);
 
