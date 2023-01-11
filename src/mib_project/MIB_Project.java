@@ -96,8 +96,8 @@ public class MIB_Project {
     private static JButton inloggButton, buttonSet15, dropAgentButton, changePassButton, exeNewPasswordButton, buttonSet1, buttonSet2, buttonSet3, buttonSet4, buttonSet5, buttonSet6, buttonSet7, buttonSet8, buttonSet9, buttonSet10, buttonSet11, buttonSet12, buttonSet13, buttonSet14, instansieraNyButton, instansieraNyButton2;
     private static JLabel success;
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread, fontBreadLiten;
-    private static JLabel label1, label2, label3, label4, label5, label6, label7;
-    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel;
+    private static JLabel label1, label2, label3, label4, label5, label6, label7, label8;
+    private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel, rastillhörighetsLabel;
     private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
 
     /**
@@ -710,6 +710,25 @@ public class MIB_Project {
         String svar = idb.fetchSingle(fråga);
         return svar;
     }
+    
+    public String getRasAlien() throws InfException {
+        String alienNamn = userText.getText();
+        String alienID = getIDAlien(alienNamn);
+        
+        if(letaRasB(alienID)) {
+            String svar = "Boglodite";
+            return svar;
+        }
+        if(letaRasS(alienID)) {
+            String svar = "Squid";
+            return svar;
+        }
+        if(letaRasW(alienID)) {
+            String svar = "Worm";
+            return svar;
+        }
+        return getRasAlien();
+    }
 
     public String getLosenAlienByID(String id) throws InfException {
         String fråga = "Select Losenord from Alien where id = " + id;
@@ -761,6 +780,10 @@ public class MIB_Project {
         label7 = new JLabel("Ansvarig agent: ");
         label7.setBounds(10, 200, 120, 25);
         panel.add(label7);
+        
+        label8 = new JLabel("Rastillhörighet");
+        label8.setBounds(10,230,120,25);
+        panel.add(label8);
 
         registreringsdatumLabel = new JLabel("");
         registreringsdatumLabel.setBounds(130, 50, 120, 25);
@@ -791,6 +814,11 @@ public class MIB_Project {
         ansvarigAgentLabel.setBounds(100, 200, 120, 25);
         ansvarigAgentLabel.setFont(fontBread);
         panel.add(ansvarigAgentLabel);
+        
+        rastillhörighetsLabel = new JLabel("");
+        rastillhörighetsLabel.setBounds(100,230,120,25);
+        rastillhörighetsLabel.setFont(fontBread);
+        panel.add(rastillhörighetsLabel);
 
         userText = new JTextField();
         userText.setBounds(60, 20, 120, 25);
@@ -813,6 +841,7 @@ public class MIB_Project {
             telefonLabel.setText(getAlienTelefon());
             platsLabel.setText(getAlienPlats());
             ansvarigAgentLabel.setText(getAlienAnsvarigAgent());
+            rastillhörighetsLabel.setText(getRasAlien());
 
         } catch (InfException p) {
 
