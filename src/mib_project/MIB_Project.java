@@ -260,6 +260,26 @@ public class MIB_Project {
 
     //______________________________________________________________________________________________________
     // Metod för att hämta en agents ID 
+    public String getAgentIdId() throws InfException {
+        try {
+            String id = userText.getText();
+            String frågaId = "SELECT agent_id FROM Agent WHERE Agent_Id =" + "'" + id + "'";
+            String svarId = idb.fetchSingle(frågaId);
+            String agentId = svarId;
+            
+
+            if (svarId == null) {
+                JOptionPane.showMessageDialog(null, "Namnet finns inte i databasen");
+        }
+            return agentId;
+    } catch (InfException ccc) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");        
+    }
+        return getAgentIdId();
+        
+    }
+    
+    
     public String getAgentId() throws InfException {
         try {
             String username = userText.getText();
@@ -1486,9 +1506,9 @@ public class MIB_Project {
         label7.setBounds(10, 200, 120, 25);
         panel.add(label7);
 
-        text1 = new JTextField(20);
-        text1.setBounds(125, 20, 185, 25);
-        panel.add(text1);
+        userText = new JTextField(20);
+        userText.setBounds(125, 20, 185, 25);
+        panel.add(userText);
 
         text2 = new JTextField(20);
         text2.setBounds(125, 50, 185, 25);
@@ -2667,16 +2687,17 @@ public class MIB_Project {
         public void actionPerformed(ActionEvent sss) {
 
             try {
-                String agentID = text1.getText();
+                String agentID = userText.getText();
                 int agentId = Integer.parseInt(agentID);
                 boolean existera = letaAnsvarigAgent(agentID);
                 boolean existera2 = letaAktivFaltagent(agentID);
-                String enAgent = getAgentIdById(agentId);
+                String enAgent = getAgentIdId();
                 //String ansvarigAgent = getAlienAnsvarigAgent();
 
-                if (agentID != null) {
+                if (agentID != null && !agentID.isBlank()) {
                     if (existera2) {
                         idb.delete("DELETE FROM faltagent WHERE Agent_ID = " + agentId);
+                        JOptionPane.showMessageDialog(null, "Agent är inte längre fältagent");
                     }
                     if (existera) {
                         changeAnsvarigAgentWindow();
