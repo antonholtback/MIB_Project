@@ -2811,27 +2811,27 @@ public class MIB_Project {
 
                 String statemens = (" WHERE Agent_ID = " + agentID);
 
-                if (namn != null) {
+                if (namn != null && !namn.isBlank()) {
                     idb.update(fråga + " Namn = " + "'" + namn + "'" + statemens);
                 }
 
-                if (telefon != null) {
+                if (telefon != null && !telefon.isBlank()) {
                     idb.update(fråga + " Telefon = " + "'" + telefon + "'" + statemens);
                 }
 
-                if (anställningsdatum != null) {
+                if (anställningsdatum != null && !anställningsdatum.isBlank()) {
                     idb.update(fråga + " Anstallningsdatum = " + "'" + anställningsdatum + "'" + statemens);
                 }
-                if (adminstatus != null) {
+                if (adminstatus != null && !adminstatus.isBlank()) {
                     idb.update(fråga + " Administrator = " + "'" + adminstatus + "'" + statemens);
                 }
-                if (lösenord != null) {
+                if (lösenord != null && !lösenord.equals("")) {
                     idb.update(fråga + " Losenord = " + "'" + lösenord + "'" + statemens);
                 }
-                if (område != null) {
+                if (område != null && !område.isEmpty()) {
                     idb.update(fråga + " Omrade = " + område + statemens);
                 }
-                if (agentID != null) {
+                if (agentID != null && !agentID.isEmpty()) {
                     idb.update(fråga + " Agent_ID = " + agentID + statemens);
                 }
 
