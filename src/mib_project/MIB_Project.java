@@ -2820,7 +2820,7 @@ public class MIB_Project {
                 }
 
                 if (anställningsdatum != null) {
-                    idb.update(fråga + " Anstallningsdatum = " + anställningsdatum + statemens);
+                    idb.update(fråga + " Anstallningsdatum = " + "'" + anställningsdatum + "'" + statemens);
                 }
                 if (adminstatus != null) {
                     idb.update(fråga + " Administrator = " + "'" + adminstatus + "'" + statemens);
