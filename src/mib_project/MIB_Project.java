@@ -2620,7 +2620,7 @@ public class MIB_Project {
                     }
                     if (alienID!=null) {
                         idb.delete("DELETE FROM Alien WHERE Alien_ID = " + alienID);
-                        JOptionPane.showMessageDialog(null, "Alien borttagen");
+                        JOptionPane.showMessageDialog(null, "Alien borttagen från databasen");
                     } else {
                         JOptionPane.showMessageDialog(null, "AlienID finns inte i databasen");
                     }
