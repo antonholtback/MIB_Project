@@ -106,7 +106,7 @@ public class MIB_Project {
      */
     //Koden för att logga in till databasen. Körs direkt per auto (riktiga mainen).
     public static void main(String[] args) throws InfException {
-        // TODO code application logic here
+        // TODO code application logic here 
 
         try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
