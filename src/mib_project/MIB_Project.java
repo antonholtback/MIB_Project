@@ -2425,7 +2425,7 @@ public class MIB_Project {
         instansieraNyButton = new JButton("Utför");
         instansieraNyButton.setBounds(10, 80, 80, 25);
         instansieraNyButton.addActionListener(uppdateraAnsvarigAgentHandledare);
-        //inloggButton.addActionListener(timerHandler);
+        //inloggButton.addActionListener(timerHandler); 
         //inloggButton.setActionCommand("Login");
         panel.add(instansieraNyButton);
 
