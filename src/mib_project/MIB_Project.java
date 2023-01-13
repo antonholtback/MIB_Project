@@ -479,10 +479,32 @@ public class MIB_Project {
 
 // Metod för att hämta en aliens ansvariga agent utan parameter    
     public boolean letaAnsvarigAgent(String id) throws InfException {
-        String fråga = "Select Ansvarig_Agent from Alien where Ansvarig_Agent = " + id;
+        String fråga = "Select Ansvarig_Agent from Alien where Ansvarig_Agent = " + "'" + id +"'";
         String svar = idb.fetchSingle(fråga);
 
         if (svar != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean letaAktivOmrade(String id) throws InfException {
+        String fråga = "SELECT Agent_ID FROM Omradeschef WHERE Agent_ID = " + "'" + id + "'";
+        String svar = idb.fetchSingle(fråga);
+        
+        if(svar != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean letaAktivKontor(String id) throws InfException {
+        String fråga = "SELECT Agent_ID FROM Kontorschef WHERE Agent_ID = " + "'" + id + "'";
+        String svar = idb.fetchSingle(fråga);
+        
+        if(svar != null) {
             return true;
         } else {
             return false;
@@ -2384,6 +2406,86 @@ public class MIB_Project {
 
         frame.setVisible(true);
     }
+    
+    public void changeAnsvarigOmrådeschefWindow() {
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 250);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        userLabel = new JLabel("Ny ansvarig Agent");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+
+        passwordLabel = new JLabel("Your Password");
+        passwordLabel.setBounds(10, 50, 80, 25);
+        panel.add(passwordLabel);
+
+        passwordText = new JPasswordField();
+        passwordText.setBounds(100, 50, 165, 25);
+        panel.add(passwordText);
+
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        panel.add(userText);
+
+        instansieraNyButton = new JButton("Utför");
+        instansieraNyButton.setBounds(10, 80, 80, 25);
+        //instansieraNyButton.addActionListener(uppdateraAnsvarigAgentHandledare);
+        //inloggButton.addActionListener(timerHandler);
+        //inloggButton.setActionCommand("Login");
+        panel.add(instansieraNyButton);
+
+        success = new JLabel("");
+        success.setBounds(10, 110, 300, 25);
+        panel.add(success);
+
+        frame.setVisible(true);
+    }
+    
+    public void changeAnsvarigKontorschefWindow() {
+        JPanel panel = new JPanel();
+
+        JFrame frame = new JFrame();
+        frame.setSize(400, 250);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        panel.setLayout(null);
+
+        userLabel = new JLabel("Ny ansvarig Agent");
+        userLabel.setBounds(10, 20, 80, 25);
+        panel.add(userLabel);
+
+        passwordLabel = new JLabel("Your Password");
+        passwordLabel.setBounds(10, 50, 80, 25);
+        panel.add(passwordLabel);
+
+        passwordText = new JPasswordField();
+        passwordText.setBounds(100, 50, 165, 25);
+        panel.add(passwordText);
+
+        userText = new JTextField(20);
+        userText.setBounds(100, 20, 165, 25);
+        panel.add(userText);
+
+        instansieraNyButton = new JButton("Utför");
+        instansieraNyButton.setBounds(10, 80, 80, 25);
+        //instansieraNyButton.addActionListener(uppdateraAnsvarigAgentHandledare);
+        //inloggButton.addActionListener(timerHandler);
+        //inloggButton.setActionCommand("Login");
+        panel.add(instansieraNyButton);
+
+        success = new JLabel("");
+        success.setBounds(10, 110, 300, 25);
+        panel.add(success);
+
+        frame.setVisible(true);
+    }
 
 //______________________________________________________________________________________________________
 // Koden för GUIn till inloggningsfönstret
@@ -2692,33 +2794,57 @@ public class MIB_Project {
                 int agentId = Integer.parseInt(agentID);
                 boolean existera = letaAnsvarigAgent(agentID);
                 boolean existera2 = letaAktivFaltagent(agentID);
+                boolean existera3 = letaAktivOmrade(agentID);
+                boolean existera4 = letaAktivKontor(agentID);
                 String enAgent = getAgentIdId();
+                
+                String fråga = "DELETE FROM ";
+                String statemens = ("WHERE Agent_ID = " + agentId);
+                
+                if(agentID != null && !agentID.isBlank()) {
+                    if(existera2) {
+                        idb.delete(fråga + "Faltagent " + statemens);
+                        JOptionPane.showMessageDialog(null, "existera2");
+                        JOptionPane.showMessageDialog(null, "agent borttagen från fältagent");
+                    }
+                    if(existera) {
+                        JOptionPane.showMessageDialog(null, "Du måste ändra ansvarig agent hos en eller flera aliens");
+                        changeAnsvarigAgentWindow();
+                    }
+                    if(existera3) {
+                        JOptionPane.showMessageDialog(null, "Du måste ändra ansvarig områdeschef");
+                        changeAnsvarigOmrådeschefWindow();
+                    }
+                    if(existera4) {
+                        JOptionPane.showMessageDialog(null, "Du måste ändra ansvarig kontorschef");
+                        changeAnsvarigKontorschefWindow();
+                    }
+                } 
+                else if(!existera && !existera2 && !existera3 && !existera4) {
+                    idb.delete(fråga + "Agent " + statemens);
+                    JOptionPane.showMessageDialog(null, "Agent borttagen från databasen. Inga andra handligar utförda");
+                }
+                
                 //String ansvarigAgent = getAlienAnsvarigAgent();
 
-                if (agentID != null && !agentID.isBlank()) {
+               /** if (agentID != null && !agentID.isBlank()) {
                     if (existera2) {
                         idb.delete("DELETE FROM faltagent WHERE Agent_ID = " + agentId);
                         JOptionPane.showMessageDialog(null, "Agent är inte längre fältagent");
                     }
                     if (existera) {
                         changeAnsvarigAgentWindow();
-                    } else if (!existera && enAgent != null) {
+                    } } else if (!existera && enAgent != null) {
                         idb.delete("DELETE FROM Agent WHERE Agent_ID = " + agentId);
                         JOptionPane.showMessageDialog(null, "Agent dropped");
+                    }
 
                         if (enAgent == null) {
                             JOptionPane.showMessageDialog(null, "Agent dropped2");
-                        }
-                    }
-                    /*Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
-                PreparedStatement ps = conn.prepareStatement("DELETE FROM Agent, Alien WHERE Agent_ID = "+ "'"+ agentID +"'");
+                        } */
+                    
+
                 
-                ps.execute();
-                JOptionPane.showMessageDialog(null, "Agent dropped");
-                
-                conn.close();*/
-                }
 
             } catch (Exception exa) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, exa);
