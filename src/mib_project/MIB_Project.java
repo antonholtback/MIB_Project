@@ -79,6 +79,7 @@ public class MIB_Project {
     DropAlienExe dropAlienExe = new DropAlienExe();
     UppdateraAnsvarigAgentHandledare uppdateraAnsvarigAgentHandledare = new UppdateraAnsvarigAgentHandledare();
     AddAlienKön alienKön = new AddAlienKön();
+    NyOmradeschef nyOmradeschef = new NyOmradeschef();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -2450,13 +2451,13 @@ public class MIB_Project {
         userLabel.setBounds(10, 20, 80, 25);
         panel.add(userLabel);
 
-        passwordLabel = new JLabel("Your Password");
-        passwordLabel.setBounds(10, 50, 80, 25);
-        panel.add(passwordLabel);
+        platsLabel = new JLabel("OmrådesID");
+        platsLabel.setBounds(10, 50, 80, 25);
+        panel.add(platsLabel);
 
-        passwordText = new JPasswordField();
-        passwordText.setBounds(100, 50, 165, 25);
-        panel.add(passwordText);
+        text1 = new JTextField(20);
+        text1.setBounds(100, 50, 165, 25);
+        panel.add(text1);
 
         userText = new JTextField(20);
         userText.setBounds(100, 20, 165, 25);
@@ -2464,7 +2465,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Utför");
         instansieraNyButton.setBounds(10, 80, 80, 25);
-        //instansieraNyButton.addActionListener(uppdateraAnsvarigAgentHandledare);
+        instansieraNyButton.addActionListener(nyOmradeschef);
         //inloggButton.addActionListener(timerHandler);
         //inloggButton.setActionCommand("Login");
         panel.add(instansieraNyButton);
@@ -2738,6 +2739,28 @@ public class MIB_Project {
             registreraUtrustningWindow();
         }
     }
+    
+    public class NyOmradeschef implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent asda) {
+            try {
+                String nyAgent = userText.getText();
+                int nyagent = Integer.parseInt(nyAgent);
+                String område = text1.getText();
+                
+                String agent = "Select Agent_id from omradeschef where omrade = " + 
+                String svarOmråde = idb.fetchSingle(agent);
+                String fråga = "UPDATE omradeschef  SET Agent_ID = " + nyagent + " WHERE omrade = '" + svarOmråde + "'"; 
+                String svarFråga = idb.fetchSingle(fråga);
+                
+                JOptionPane.showMessageDialog(null, "Agent är inte längre områdeschef, testa ta bort han igen");
+            }
+            catch (InfException ajsds) {
+                JOptionPane.showMessageDialog(null, "NyOmradeschef har damp");
+            }
+        }
+    }
 
     public class InstansieraNyUtrustning implements ActionListener {
 
@@ -2841,7 +2864,9 @@ public class MIB_Project {
                         changeAnsvarigAgentWindow();
                     }
                     if(existera3) {
-                        JOptionPane.showMessageDialog(null, "Du måste ändra ansvarig områdeschef");
+                        String frågan = "Select omrade from omradeschef where agent_id = " + agentId;
+                        String svarFrågan = idb.fetchSingle(frågan);
+                        JOptionPane.showMessageDialog(null, "Du måste ändra ansvarig områdeschef. Området agenten ansvarar på är: " + svarFrågan);
                         changeAnsvarigOmrådeschefWindow();
                     }
                     if(existera4) {
@@ -2985,6 +3010,7 @@ public class MIB_Project {
                 
                 if(ansvarigAgentID != null && !ansvarigAgentID.isBlank()) {
                     idb.update(fråga + "Ansvarig_Agent" + statemens);
+                    JOptionPane.showMessageDialog(null, "Agent  " + ansvarigAgentID + "är nu i ansvar för aliens");
                 }
                 else if(ansvarigAgentID.isBlank()) {
                 JOptionPane.showMessageDialog(null, "Du måste skriva in en ny ansvarig agent!");                    
