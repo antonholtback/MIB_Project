@@ -77,6 +77,7 @@ public class MIB_Project {
     InstansieraNyAgent instansieraNyAgent = new InstansieraNyAgent();
     DropAlien dropAlien = new DropAlien();
     DropAlienExe dropAlienExe = new DropAlienExe();
+    UppdateraAnsvarigAgentHandledare uppdateraAnsvarigAgentHandledare = new UppdateraAnsvarigAgentHandledare();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -2372,7 +2373,7 @@ public class MIB_Project {
 
         instansieraNyButton = new JButton("Utför");
         instansieraNyButton.setBounds(10, 80, 80, 25);
-        //instansieraNyButton.addActionListener();
+        instansieraNyButton.addActionListener(uppdateraAnsvarigAgentHandledare);
         //inloggButton.addActionListener(timerHandler);
         //inloggButton.setActionCommand("Login");
         panel.add(instansieraNyButton);
@@ -2810,6 +2811,36 @@ public class MIB_Project {
         @Override
         public void actionPerformed(ActionEvent o) {
             hanteraAgentWindow();
+        }
+    }
+    
+    public class UppdateraAnsvarigAgentHandledare implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent ssss) {
+            
+            try {
+                String fråga = "UPDATE Alien SET ";
+                
+                String ansvarigAgentID = userText.getText();
+                int ansvarigAgentIDint = Integer.parseInt(ansvarigAgentID);
+                String dittLösen = passwordText.getText();
+                
+                String statemens = (" WHERE Agent_ID = " +  ansvarigAgentIDint);
+                
+                if(ansvarigAgentID != null && !ansvarigAgentID.isBlank()) {
+                    idb.update(fråga + "Ansvarig_Agent" + statemens);
+                }
+                else if(ansvarigAgentID.isBlank()) {
+                JOptionPane.showMessageDialog(null, "Du måste skriva in en ny ansvarig agent!");                    
+                }
+                else {
+                JOptionPane.showMessageDialog(null, "Vi vet inte varför du inte kan lösa den här skiten faktiskt!");                    
+                }
+            }
+            catch (InfException skd) {
+                JOptionPane.showMessageDialog(null, "Toppelidopphopp, du fick en felkod!");                
+            }
         }
     }
 
