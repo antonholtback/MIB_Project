@@ -78,6 +78,7 @@ public class MIB_Project {
     DropAlien dropAlien = new DropAlien();
     DropAlienExe dropAlienExe = new DropAlienExe();
     UppdateraAnsvarigAgentHandledare uppdateraAnsvarigAgentHandledare = new UppdateraAnsvarigAgentHandledare();
+    AddAlienKön alienKön = new AddAlienKön();
 
     //TimerHandler timerHandler = new TimerHandler();
     //Timer timer;  
@@ -99,7 +100,7 @@ public class MIB_Project {
     private static Font fontHeadliner, fontHeadliner1, fontHeadliner2, fontBread, fontBreadLiten;
     private static JLabel label1, label2, label3, label4, label5, label6, label7, label8;
     private static JLabel idLabel, registreringsdatumLabel, losenordsLabel, platsLabel, ansvarigAgentLabel, telefonLabel, namnLabel, rastillhörighetsLabel;
-    private static JTextField text1, text2, text3, text4, text5, text6, text7, text8;
+    private static JTextField text1, text2, text3, text4, text5, text6, text7, text8, text9;
 
     /**
      * @param args the command line arguments
@@ -754,6 +755,22 @@ public class MIB_Project {
         return svar;
     }
     
+    public String getRasByID(String id) throws InfException {
+        if(letaRasB(id)) {
+            String svar = "Boglodite";
+            return svar;
+        }
+        if(letaRasS(id)) {
+            String svar = "Squid";
+            return svar;
+        }
+        if(letaRasW(id)) {
+            String svar = "Worm";
+            return svar;
+        }
+        return "";
+    }
+    
     public String getRasAlien() throws InfException {
         String alienNamn = userText.getText();
         String alienID = getIDAlien(alienNamn);
@@ -1302,6 +1319,10 @@ public class MIB_Project {
         label7 = new JLabel("Ansvarig agent");
         label7.setBounds(10, 200, 120, 25);
         panel.add(label7);
+        
+        label8 = new JLabel("Rastillhörighet");
+        label8.setBounds(10,230,120,25);
+        panel.add(label8);
 
         text1 = new JTextField(20);
         text1.setBounds(125, 20, 185, 25);
@@ -1330,9 +1351,13 @@ public class MIB_Project {
         text7 = new JTextField(20);
         text7.setBounds(125, 200, 185, 25);
         panel.add(text7);
+        
+        text8 = new JTextField(20);
+        text8.setBounds(125, 230,185,25);
+        panel.add(text8);
 
         instansieraNyButton = new JButton("Registrera Alien");
-        instansieraNyButton.setBounds(10, 240, 185, 25);
+        instansieraNyButton.setBounds(10, 270, 185, 25);
         instansieraNyButton.addActionListener(instansieraNyAlien);
         panel.add(instansieraNyButton);
         //Här ska vi koda in nya knappen som instansierar en ny alien. Uppbyggd på samma sätt men som refererar till en annan klass än exeNewPasswordHandeler, som inte ännu är skapad.
@@ -1470,6 +1495,10 @@ public class MIB_Project {
         text7 = new JTextField(20);
         text7.setBounds(125, 200, 185, 25);
         panel.add(text7);
+        
+        text9 = new JTextField(20);
+        text9.setBounds(125, 230, 185, 25);
+        panel.add(text9);
 
         instansieraNyButton = new JButton("Ändra Alien");
         instansieraNyButton.setBounds(10, 240, 185, 25);
@@ -3040,36 +3069,79 @@ public class MIB_Project {
                 String plats = text6.getText();
                 String ansvarigAgent = text7.getText();
                 String alienID = text8.getText();
+                String läggTill = text9.getText();
+                
+                boolean skickaFråga = false;
 
                 String statemens = (" WHERE Alien_ID = " + alienID);
 
-                if (registrering != null) {
+                if (!registrering.isEmpty()) {
                     idb.update(fråga + "Registreringsdatum = " + registrering + statemens);
+                    skickaFråga = true;
                 }
-                if (lösenord != null) {
+                if (!lösenord.isEmpty()) {
                     idb.update(fråga + "Losenord = " + "'" + lösenord + "'" + statemens);
+                    skickaFråga = true;
                 }
-                if (namn != null) {
+                if (!namn.isEmpty()) {
                     idb.update(fråga + " Namn = " + "'" + namn + "'" + statemens);
+                    skickaFråga = true;
                 }
-                if (telefon != null) {
+                if (!telefon.isEmpty()) {
                     idb.update(fråga + " Telefon = " + "'" + telefon + "'" + statemens);
+                    skickaFråga = true;
                 }
-                if (plats != null) {
+                if (!plats.isEmpty()) {
                     idb.update(fråga + " Plats = " + plats + statemens);
+                    skickaFråga = true;
                 }
-                if (ansvarigAgent != null) {
+                if (!ansvarigAgent.isEmpty()) {
                     idb.update(fråga + " Ansvarig_Agent = " + ansvarigAgent + statemens);
+                    skickaFråga = true;
                 }
-                if (alienIDNy != null) {
+                if (!alienID.isEmpty()) {
                     idb.update(fråga + "Alien_ID = " + alienIDNy + statemens);
+                    skickaFråga = true;
                 }
+                
+                if(!läggTill.isEmpty()) {
+                    ArrayList<HashMap<String, String>> svar = new ArrayList();
+                    
+                    if(!alienKön.rasExists(läggTill)) {
+                        JOptionPane.showMessageDialog(null, "Rasen existerar inte hahah");
+                    }
+                    else {
+                        svar = idb.fetchRows("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + läggTill + "';");
+                        if(svar.size() > 1) {
+                            alienKön.alienKönWindow(svar.get(1).get("COLUMN_NAME"));
+                        }
+                        else {
+                            if(!(getRasByID(alienID).isEmpty())) {
+                            alienKön.taBortRas(alienID, getRasByID(alienID));
+                            alienKön.läggTillRas(alienID, läggTill);
+                        }
+                        }
+                    }
+                    
+                    StringBuffer sb = new StringBuffer (fråga);
+                    sb.deleteCharAt (sb.length()-1 );
+                    fråga = sb.toString();
+                    fråga += statemens;
+                    System.out.println(fråga);
+                    
+                    if(skickaFråga) {
+                        System.out.println(fråga);
+                        idb.update(fråga);
+                        JOptionPane.showMessageDialog(null, "Alien Uppdaterad nununuu");
+                    }
+                }
+                
 
                 JOptionPane.showMessageDialog(null, "Alien uppdaterat");
-
+            
             } catch (Exception ex) {
                 Logger.getLogger(MIB_Project.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Det gick inte att uppdatera alien");
+                JOptionPane.showMessageDialog(null, "Det gick fan inte att uppdatera fanskapet");
             }
 
         }
@@ -3139,10 +3211,13 @@ public class MIB_Project {
                 String tele = text5.getText();
                 String plats = text6.getText();
                 String ansvarigAgent = text7.getText();
+                String rastillhör = text8.getText();
+                
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mibdb", "mibdba", "mibkey");
                 PreparedStatement ps = conn.prepareStatement("INSERT INTO ALIEN (Alien_ID, Registreringsdatum, Losenord, Namn, Telefon, Plats, Ansvarig_Agent) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement pss = conn.prepareStatement("INSERT INTO " + rastillhör + " (Alien_ID) VALUES (?)");
 
                 ps.setString(1, iD);
                 ps.setString(2, registreringsDatum);
@@ -3151,8 +3226,10 @@ public class MIB_Project {
                 ps.setString(5, tele);
                 ps.setString(6, plats);
                 ps.setString(7, ansvarigAgent);
+                pss.setString(1, iD);
 
                 ps.executeUpdate();
+                pss.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Alien tillagd");
 //String sql = "INSERT INTO Alien VALUES " + "'" + text1.getText() + "'" + "'" + text2.getText() + "'"+ "'" + text3.getText() + "'"+ "'" + text4.getText() + "'"+ "'" + text5.getText() + "'"+ "'" + text6.getText() + "'"+ "'" + text7.getText() + "'";
 
@@ -3176,6 +3253,99 @@ public class MIB_Project {
 
         }
 
+    }
+    
+    public class AddAlienKön implements ActionListener {
+        private JTextField field;
+        private JFrame frame;
+        
+        @Override
+        public void actionPerformed (ActionEvent eeee) {
+            
+            try {
+                String ras = getRasByID(text8.getText());
+                String nyRas = text9.getText();
+                String ID = text8.getText();
+                String antal = field.getText();
+                
+                if(rasExists(nyRas)) {
+                    if(nyRas.equals("Boglodite")) {
+                        taBortRas(ID, ras);
+                        läggTillB(ID, antal);
+                    }
+                    if(nyRas.equals("Squid")) {
+                        taBortRas(ID, ras);
+                        läggTillB(ID, antal);
+                    }
+                    if(nyRas.equals("Worm")) {
+                        taBortRas(ID, ras);
+                        läggTillW(ID);
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Rasen finns inte");
+                }
+                JOptionPane.showMessageDialog(null, "Alien Uppdaterad!");
+                frame.dispose();
+            }
+            catch (InfException eisdj) {
+                JOptionPane.showMessageDialog(null, "Det gick inte att ändra ras");
+            }
+        }
+    
+    
+    public void taBortRas (String alienID, String ras) throws InfException {
+        idb.delete("DELETE FROM " + ras + " WHERE Alien_ID = " + alienID + ";");
+    }
+    
+    public void läggTillB(String alienID, String antalBoogies) throws InfException {
+        idb.insert("INSERT INTO Boglodite (alien_id, antal_boogies) VALUES  (" + alienID + ", " + antalBoogies + ")");
+    }
+    
+    public void läggTillS(String alienID, String antalArmar) throws InfException {
+        idb.insert("INSERT INTO Squid VALUES (" + alienID + ", " + antalArmar + ");");
+    }
+    
+    public void läggTillW(String alienID) throws InfException {
+        idb.insert("insert into worm (alien_ID) values (" + alienID +");"); 
+
+    }
+    
+    public void läggTillRas(String alienID, String ras) throws InfException {
+        idb.insert("INSERT INTO " + ras + " VALUES (" + alienID + ");");
+    }
+    
+    public boolean rasExists(String ras) throws InfException {
+        ArrayList<HashMap<String, String>> svar = new ArrayList();
+        svar = idb.fetchRows("SHOW TABLES like '" + ras + "';");
+        
+        return !(svar.isEmpty());
+    }
+    
+    public void alienKönWindow(String idbSvar) {
+        JPanel panel = new JPanel();
+        
+        frame = new JFrame ();
+        frame.setSize(400,250);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.add(panel);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+        
+        field = new JTextField();
+        JLabel temp = new JLabel(idbSvar);
+        temp.setBounds(10, 20, 300, 25);
+        panel.add(temp);
+        
+        field.setBounds(100, 20, 100, 25);
+        panel.add(field);
+        JButton knappisen = new JButton("OK");
+        knappisen.setBounds(10, 20, 100, 25);
+        knappisen.addActionListener(alienKön);
+        panel.add(knappisen);
+        
+        frame.setVisible(true);
+    }
     }
 
     public class Alien {
